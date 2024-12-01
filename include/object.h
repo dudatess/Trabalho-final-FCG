@@ -21,7 +21,7 @@ private:
 
     void ComputeNormals();
     void BuildObject();
-    void PrinObjModelInfo();
+    void PrintObjModelInfo();
 
 public:
     Object(const char *filename, const char* basepath = NULL, bool triangulate = true);

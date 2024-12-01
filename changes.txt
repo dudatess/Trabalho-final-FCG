@@ -1,0 +1,4 @@
+nao consegui fazer muita coisa, só atualizei o makefile e corrigi uns errinhos pra conseguir compilar
+o codigo quando tenta instanciar um objeto da segmentation fault
+também fiz uma chinelagem no matrices.h, depois acho que é melhor passar todas as funções inline do header pra
+um matrices.cpp da vida.

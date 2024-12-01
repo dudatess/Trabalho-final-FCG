@@ -26,7 +26,7 @@
     glBindVertexArray(0);
 }*/
 
-Object::Object(const char *filename, const char* basepath = NULL, bool triangulate = true){
+Object::Object(const char *filename, const char* basepath, bool triangulate){
         
         printf("Carregando objetos do arquivo \"%s\"...\n", filename);
 
@@ -272,7 +272,7 @@ void Object::BuildObject()
 // Função para debugging: imprime no terminal todas informações de um modelo
 // geométrico carregado de um arquivo ".obj".
 // Veja: https://github.com/syoyo/tinyobjloader/blob/22883def8db9ef1f3ffb9b404318e7dd25fdbb51/loader_example.cc#L98
-void PrintObjModelInfo()
+void Object::PrintObjModelInfo()
 {
   const tinyobj::attrib_t                & attrib    = attrib;
   const std::vector<tinyobj::shape_t>    & shapes    = shapes;

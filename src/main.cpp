@@ -44,6 +44,7 @@
 // Headers locais, definidos na pasta "include/"
 #include "utils.h"
 #include "matrices.h"
+#include "object.h"
 
 
 // Declaração de funções utilizadas para pilha de matrizes de modelagem.
@@ -227,7 +228,11 @@ int main(int argc, char* argv[])
     LoadShadersFromFiles();
 
     // Construímos a representação de objetos geométricos através de malhas de triângulos
-    ObjModel spheremodel("../../data/sphere.obj");
+
+    
+    //Object spheremodel("../../data/sphere.obj");
+
+    /* ObjModel spheremodel("../../data/sphere.obj");
     ComputeNormals(&spheremodel);
     BuildTrianglesAndAddToVirtualScene(&spheremodel);
 
@@ -243,7 +248,7 @@ int main(int argc, char* argv[])
     {
         ObjModel model(argv[1]);
         BuildTrianglesAndAddToVirtualScene(&model);
-    }
+    } */
 
     // Inicializamos o código para renderização de texto.
     TextRendering_Init();
