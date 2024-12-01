@@ -1,31 +1,5 @@
 #include "object.h"
 
-// Função que desenha um objeto armazenado em g_VirtualScene. Veja definição
-// dos objetos na função BuildTrianglesAndAddToVirtualScene().
-/*void DrawVirtualObject(const char* object_name)
-{
-    // "Ligamos" o VAO. Informamos que queremos utilizar os atributos de
-    // vértices apontados pelo VAO criado pela função BuildTrianglesAndAddToVirtualScene(). Veja
-    // comentários detalhados dentro da definição de BuildTrianglesAndAddToVirtualScene().
-    glBindVertexArray(g_VirtualScene[object_name].vertex_array_object_id);
-
-    // Pedimos para a GPU rasterizar os vértices dos eixos XYZ
-    // apontados pelo VAO como linhas. Veja a definição de
-    // g_VirtualScene[""] dentro da função BuildTrianglesAndAddToVirtualScene(), e veja
-    // a documentação da função glDrawElements() em
-    // http://docs.gl/gl3/glDrawElements.
-    glDrawElements(
-        g_VirtualScene[object_name].rendering_mode,
-        g_VirtualScene[object_name].num_indices,
-        GL_UNSIGNED_INT,
-        (void*)(g_VirtualScene[object_name].first_index * sizeof(GLuint))
-    );
-
-    // "Desligamos" o VAO, evitando assim que operações posteriores venham a
-    // alterar o mesmo. Isso evita bugs.
-    glBindVertexArray(0);
-}*/
-
 Object::Object(const char *filename, const char* basepath, bool triangulate){
         
         printf("Carregando objetos do arquivo \"%s\"...\n", filename);
@@ -76,6 +50,47 @@ Object::Object(const char *filename, const char* basepath, bool triangulate){
     BuildObject();
     PrintObjModelInfo();
 }
+
+/*Object::Object(const char *filename)
+{
+    std::string fullpath(filename);
+    auto i = fullpath.find_last_of("/");
+    const char *basepath = NULL;
+    if (i != std::string::npos)
+    {
+        std::string dirname = fullpath.substr(0, i + 1);
+        basepath = dirname.c_str();
+    }
+
+    std::string warn;
+    std::string err;
+    bool ret = tinyobj::LoadObj(&this->attrib, &this->shapes, &this->materials, &warn, &err, filename, basepath, true);
+
+    if (!err.empty())
+    {
+        fprintf(stderr, "\n%s\n", err.c_str());
+        std::exit(EXIT_FAILURE);
+    }
+
+    if (!ret)
+    {
+        fprintf(stderr, "[ERROR] ObjEntity: can't load object at %s\n", filename);
+        std::exit(EXIT_FAILURE);
+    }
+
+    for (size_t shape = 0; shape < shapes.size(); ++shape)
+    {
+        if (shapes[shape].name.empty())
+        {
+            fprintf(stderr, "[ERROR] ObjEntity: object with no name in file %s\n", filename);
+            std::exit(EXIT_FAILURE);
+        }
+    }
+
+    ComputeNormals();
+    BuildObject();
+    PrintObjModelInfo();
+}*/
 
 // Função que computa as normais de um ObjModel, caso elas não tenham sido
 // especificadas dentro do arquivo ".obj"
