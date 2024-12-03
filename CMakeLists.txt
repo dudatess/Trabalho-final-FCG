@@ -3,18 +3,9 @@
 # com algumas modificações vindas do arquivo CMakeLists.txt criado
 # pelos alunos Luis Melo e Santiago Gonzaga em 2023/1.
 
-# Arquivos fonte C/C++. Inclua nesta lista todos os arquivos que devem
-# ser compilados.
-set(SOURCES
-  src/main.cpp
-  src/textrendering.cpp
-  src/tiny_obj_loader.cpp
-  src/glad.c
-  src/object.cpp
-  src/gpuFunctions.cpp
-)
-
 cmake_minimum_required(VERSION 3.5.0)
+
+cmake_policy(SET CMP0072 NEW)
 
 project(LAB_FCG VERSION 1.0.0)
 
@@ -44,16 +35,19 @@ message(STATUS
 
 set(EXECUTABLE_NAME main)
 
-# Verifica se todos os arquivos fonte estão presentes no diretório
-# atual. Se não estão, avisa sobre CMakeLists mal configurado.
-foreach(source_file IN LISTS SOURCES)
-  if(NOT EXISTS ${PROJECT_SOURCE_DIR}/${source_file})
+set(SOURCE_DIR "${PROJECT_SOURCE_DIR}/src")
+
+# Busca automática de todos os arquivos .cpp e .c no diretório especificado
+file(GLOB SOURCES "${SOURCE_DIR}/*.cpp" "${SOURCE_DIR}/*.c")
+
+# Verifica se existem arquivos encontrados, caso contrário, retorna erro
+if(NOT SOURCES)
     message(FATAL_ERROR "
-O arquivo ${PROJECT_SOURCE_DIR}/${source_file} não existe.
-Por favor, atualize a lista de arquivos fonte no arquivo CMakeLists.txt.")
-    break()
-  endif()
-endforeach()
+Nenhum arquivo-fonte encontrado no diretório ${SOURCE_DIR}.
+Por favor, verifique a estrutura do projeto.")
+endif()
+
+message(STATUS "Arquivos-fonte detectados: ${SOURCES}")
 
 add_executable(${EXECUTABLE_NAME} ${SOURCES})
 
@@ -63,7 +57,7 @@ if(WIN32)
 
   if(MINGW)
 
-    # Aqui tentamos descobrir qual libc do Widows está sendo usada
+    # Aqui tentamos descobrir qual libc do Windows está sendo usada
     # pelo compilador MinGW: msvcrt (antiga) ou ucrt (nova). Também
     # diferenciamos entre um compilador 32-bits (antigo) ou 64-bits.
     # Para isso, buscamos pela ocorrência de algumas strings
@@ -105,7 +99,7 @@ elseif(UNIX)
 
   target_compile_options(${EXECUTABLE_NAME} PRIVATE -Wall -Wno-unused-function)
 
-  # Add custom target for 'run'
+  # Adiciona um alvo personalizado para executar o programa com 'make run'
   add_custom_target(run
       COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_RUNTIME_OUTPUT_DIRECTORY} ./main
       DEPENDS main
