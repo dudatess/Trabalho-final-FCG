@@ -1,0 +1,12 @@
+# Ignore build directories
+build/
+dist/
+bin/
+
+# Ignore vscode directories
+.vscode/
+
+# Ignore compiled files
+*.o
+*.a
+*.so
