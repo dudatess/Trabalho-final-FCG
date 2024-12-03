@@ -21,13 +21,19 @@ private:
 
     void ComputeNormals();
     void BuildObject();
-    void PrintObjModelInfo();
 
 public:
     Object(const char *filename, const char* basepath = NULL, bool triangulate = true);
     GLuint vertex_array_object_id;
     size_t first_index;
     size_t num_indices;
+
+    void PrintObjModelInfo();
+    // getters
+    tinyobj::attrib_t GetAttrib();
+    std::vector<tinyobj::shape_t> GetShapes();
+    std::vector<tinyobj::material_t> GetMaterials();
+
     //glm::vec3 bbox_min;
     //glm::vec3 bbox_max;
 };

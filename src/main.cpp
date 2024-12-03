@@ -231,11 +231,11 @@ int main(int argc, char* argv[])
     // Carregamos os shaders de vértices e de fragmentos que serão utilizados
     // para renderização. Veja slides 180-200 do documento Aula_03_Rendering_Pipeline_Grafico.pdf.
     //
-    //LoadShadersFromFiles();
 
     // Construímos a representação de objetos geométricos através de malhas de triângulos
 
 
+    //LoadShadersFromFiles();
     GpuFunctions gpu_functions(g_GpuProgramID);
     
     Object sphere("../../data/sphere.obj");
@@ -349,8 +349,8 @@ int main(int argc, char* argv[])
         // Enviamos as matrizes "view" e "projection" para a placa de vídeo
         // (GPU). Veja o arquivo "shader_vertex.glsl", onde estas são
         // efetivamente aplicadas em todos os pontos.
-        //glUniformMatrix4fv(g_view_uniform       , 1 , GL_FALSE , glm::value_ptr(view));
-        //glUniformMatrix4fv(g_projection_uniform , 1 , GL_FALSE , glm::value_ptr(projection));
+        glUniformMatrix4fv(gpu_functions.GetViewUniform()      , 1 , GL_FALSE , glm::value_ptr(view));
+        glUniformMatrix4fv(gpu_functions.GetProjectionUniform() , 1 , GL_FALSE , glm::value_ptr(projection));
 
         #define SPHERE 0
         #define BUNNY  1

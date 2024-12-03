@@ -1,4 +1,5 @@
 #include "gpuFunctions.h"
+#include <iostream>
 
 GpuFunctions::GpuFunctions(GLuint g_GpuProgramID)
 {
