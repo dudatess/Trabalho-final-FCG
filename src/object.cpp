@@ -48,7 +48,7 @@ Object::Object(const char *filename, const char* basepath, bool triangulate){
 
     ComputeNormals();
     BuildObject();
-    PrintObjModelInfo();
+    //PrintObjModelInfo();
 }
 
 /*Object::Object(const char *filename)
@@ -289,10 +289,6 @@ void Object::BuildObject()
 // Veja: https://github.com/syoyo/tinyobjloader/blob/22883def8db9ef1f3ffb9b404318e7dd25fdbb51/loader_example.cc#L98
 void Object::PrintObjModelInfo()
 {
-  const tinyobj::attrib_t                & attrib    = attrib;
-  const std::vector<tinyobj::shape_t>    & shapes    = shapes;
-  const std::vector<tinyobj::material_t> & materials = materials;
-
   printf("# of vertices  : %d\n", (int)(attrib.vertices.size() / 3));
   printf("# of normals   : %d\n", (int)(attrib.normals.size() / 3));
   printf("# of texcoords : %d\n", (int)(attrib.texcoords.size() / 2));
@@ -451,4 +447,19 @@ void Object::PrintObjModelInfo()
     }
     printf("\n");
   }
+}
+
+tinyobj::attrib_t Object::GetAttrib()
+{
+    return attrib;
+}
+
+std::vector<tinyobj::shape_t> Object::GetShapes()
+{
+    return shapes;
+}
+
+std::vector<tinyobj::material_t> Object::GetMaterials()
+{
+    return materials;
 }
