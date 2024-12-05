@@ -133,7 +133,7 @@ void Object::ComputeNormals()
 
 
             // estão nos pontos "a", "b", e "c", definidos no sentido anti-horário.
-            const glm::vec4  n = crossproduct((b - a), (c - a));
+            const glm::vec4  n = Matrices::crossproduct((b - a), (c - a));
 
             for (size_t vertex = 0; vertex < 3; ++vertex)
             {
@@ -150,7 +150,7 @@ void Object::ComputeNormals()
     for (size_t i = 0; i < vertex_normals.size(); ++i)
     {
         glm::vec4 n = vertex_normals[i] / (float)num_triangles_per_vertex[i];
-        n /= norm(n);
+        n /= Matrices::norm(n);
         attrib.normals[3*i + 0] = n.x;
         attrib.normals[3*i + 1] = n.y;
         attrib.normals[3*i + 2] = n.z;

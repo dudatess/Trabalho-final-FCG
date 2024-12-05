@@ -313,7 +313,7 @@ int main(int argc, char* argv[])
 
         // Computamos a matriz "View" utilizando os parâmetros da câmera para
         // definir o sistema de coordenadas da câmera.  Veja slides 2-14, 184-190 e 236-242 do documento Aula_08_Sistemas_de_Coordenadas.pdf.
-        glm::mat4 view = Matrix_Camera_View(camera_position_c, camera_view_vector, camera_up_vector);
+        glm::mat4 view = Matrices::Matrix_Camera_View(camera_position_c, camera_view_vector, camera_up_vector);
 
         // Agora computamos a matriz de Projeção.
         glm::mat4 projection;
@@ -328,7 +328,7 @@ int main(int argc, char* argv[])
             // Projeção Perspectiva.
             // Para definição do field of view (FOV), veja slides 205-215 do documento Aula_09_Projecoes.pdf.
             float field_of_view = 3.141592 / 3.0f;
-            projection = Matrix_Perspective(field_of_view, g_ScreenRatio, nearplane, farplane);
+            projection = Matrices::Matrix_Perspective(field_of_view, g_ScreenRatio, nearplane, farplane);
         }
         else
         {
@@ -341,10 +341,10 @@ int main(int argc, char* argv[])
             float b = -t;
             float r = t*g_ScreenRatio;
             float l = -r;
-            projection = Matrix_Orthographic(l, r, b, t, nearplane, farplane);
+            projection = Matrices::Matrix_Orthographic(l, r, b, t, nearplane, farplane);
         }
 
-        glm::mat4 model = Matrix_Identity(); // Transformação identidade de modelagem
+        glm::mat4 model = Matrices::Matrix_Identity(); // Transformação identidade de modelagem
 
         // Enviamos as matrizes "view" e "projection" para a placa de vídeo
         // (GPU). Veja o arquivo "shader_vertex.glsl", onde estas são
@@ -356,22 +356,22 @@ int main(int argc, char* argv[])
         #define PLANE  2
 
         // Desenhamos o modelo da esfera
-        model = Matrix_Translate(-1.0f, 0.0f, 0.0f);
+        model = Matrices::Matrix_Translate(-1.0f, 0.0f, 0.0f);
         gpu_functions.gpuDraw(sphere.vertex_array_object_id, model, sphere.num_indices, sphere.first_index, 0);
         
         // Desenhar coelho
-        model = Matrix_Translate(1.0f, 0.0f, 0.0f)
-                * Matrix_Rotate_Z(g_AngleZ)
-                * Matrix_Rotate_Y(g_AngleY)
-                * Matrix_Rotate_X(g_AngleX);
+        model = Matrices::Matrix_Translate(1.0f, 0.0f, 0.0f)
+                * Matrices::Matrix_Rotate_Z(g_AngleZ)
+                * Matrices::Matrix_Rotate_Y(g_AngleY)
+                * Matrices::Matrix_Rotate_X(g_AngleX);
         gpu_functions.gpuDraw(bunny.vertex_array_object_id, model, bunny.num_indices, bunny.first_index, 1);
 
         // Desenhar chão
-        model = Matrix_Scale(2.0, 1.0, 2.0)
-                * Matrix_Translate(0.0f, -1.0f, 0.0f)
-                * Matrix_Rotate_Z(g_AngleZ)
-                * Matrix_Rotate_Y(g_AngleY)
-                * Matrix_Rotate_X(g_AngleX);
+        model = Matrices::Matrix_Scale(2.0, 1.0, 2.0)
+                * Matrices::Matrix_Translate(0.0f, -1.0f, 0.0f)
+                * Matrices::Matrix_Rotate_Z(g_AngleZ)
+                * Matrices::Matrix_Rotate_Y(g_AngleY)
+                * Matrices::Matrix_Rotate_X(g_AngleX);
         gpu_functions.gpuDraw(plane.vertex_array_object_id, model, plane.num_indices, plane.first_index, 2);
 
 
@@ -446,7 +446,7 @@ void PopMatrix(glm::mat4& M)
 {
     if ( g_MatrixStack.empty() )
     {
-        M = Matrix_Identity();
+        M = Matrices::Matrix_Identity();
     }
     else
     {
@@ -752,7 +752,7 @@ void TextRendering_ShowModelViewProjection(
     glm::vec2 p = glm::vec2( 0,  0);
     glm::vec2 q = glm::vec2(width, height);
 
-    glm::mat4 viewport_mapping = Matrix(
+    glm::mat4 viewport_mapping = Matrices::Matrix(
         (q.x - p.x)/(b.x-a.x), 0.0f, 0.0f, (b.x*p.x - a.x*q.x)/(b.x-a.x),
         0.0f, (q.y - p.y)/(b.y-a.y), 0.0f, (b.y*p.y - a.y*q.y)/(b.y-a.y),
         0.0f , 0.0f , 1.0f , 0.0f ,
