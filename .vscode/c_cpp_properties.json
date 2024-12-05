@@ -27,7 +27,8 @@
             "includePath": [
                 "${workspaceRoot}",
                 "/usr/include",
-                "/usr/local/include"
+                "/usr/local/include",
+                "${workspaceFolder}/**"
             ],
             "defines": [],
             "browse": {

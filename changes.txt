@@ -1,8 +1,11 @@
 JV:
-nao consegui fazer muita coisa, só atualizei o makefile e corrigi uns errinhos pra conseguir compilar
-o codigo quando tenta instanciar um objeto da segmentation fault
-também fiz uma chinelagem no matrices.h, depois acho que é melhor passar todas as funções inline do header pra
-um matrices.cpp da vida.
+nao aguento mais
+Agora temos uma classe Matrices e todas as operacoes de matrizes sao funcoes static dentro declaração
+Fiz uma nova funcao la pra gpu pra mandar as matrizes da camera
+Comecei a tentar juntar o lab2, TA MT PODRE MAS EH SO PRA TESTE, a camera consegue se mexer com wasd e o mouse tbm move ela
+nota: a camera comeca olhando pro nada, eh bom primeiro mexer com o mouse pra achar os objetos e so depois se mover
+
+
 
 --
 Eduarda:

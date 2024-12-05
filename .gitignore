@@ -3,9 +3,6 @@ build/
 dist/
 bin/
 
-# Ignore vscode directories
-.vscode/
-
 # Ignore compiled files
 *.o
 *.a
