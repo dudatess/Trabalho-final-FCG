@@ -29,3 +29,10 @@ void GpuFunctions::gpuDraw(GLuint VAO_id, glm::mat4 model, size_t num_indices, s
     // Desativa o VAO
     glBindVertexArray(0);
 }
+
+void GpuFunctions::updateCameraMatrices(glm::mat4 view_matrix, glm::mat4 projection_matrix)
+{
+    // Atualiza as matrizes de câmera e projeção na GPU
+    glUniformMatrix4fv(GetViewUniform(), 1, GL_FALSE, glm::value_ptr(view_matrix));
+    glUniformMatrix4fv(GetProjectionUniform(), 1, GL_FALSE, glm::value_ptr(projection_matrix));
+}

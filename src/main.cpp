@@ -184,7 +184,7 @@ int main(int argc, char* argv[])
     // Criamos uma janela do sistema operacional, com 800 colunas e 600 linhas
     // de pixels, e com título "INF01047 ...".
     GLFWwindow* window;
-    window = glfwCreateWindow(800, 600, "INF01047 - 00341793 - Diego Hommerding Amorim", NULL, NULL);
+    window = glfwCreateWindow(800, 600, "INF01047 - Grêmio", NULL, NULL);
     if (!window)
     {
         glfwTerminate();
@@ -349,8 +349,7 @@ int main(int argc, char* argv[])
         // Enviamos as matrizes "view" e "projection" para a placa de vídeo
         // (GPU). Veja o arquivo "shader_vertex.glsl", onde estas são
         // efetivamente aplicadas em todos os pontos.
-        glUniformMatrix4fv(gpu_functions.GetViewUniform()      , 1 , GL_FALSE , glm::value_ptr(view));
-        glUniformMatrix4fv(gpu_functions.GetProjectionUniform() , 1 , GL_FALSE , glm::value_ptr(projection));
+        gpu_functions.updateCameraMatrices(view, projection);
 
         #define SPHERE 0
         #define BUNNY  1

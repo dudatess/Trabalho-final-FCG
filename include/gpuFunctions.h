@@ -16,6 +16,7 @@ class GpuFunctions
     public:
         GpuFunctions(GLuint g_GpuProgramID);
         void gpuDraw(GLuint VAO_id, glm::mat4 model, size_t num_indices, size_t first_index, int object_number);
+        void updateCameraMatrices(glm::mat4 view_matrix, glm::mat4 projection_matrix);
 
         GLuint GetModelUniform() { return g_model_uniform; }
         GLuint GetViewUniform() { return g_view_uniform; }
