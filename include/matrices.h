@@ -33,8 +33,8 @@ class Matrices
         static glm::mat4 Matrix_Perspective(float field_of_view, float aspect, float n, float f);
         static void PrintMatrix(glm::mat4 M);
         static void PrintVector(glm::vec4 v);
-        static void PrintMatrixVectorProduct(GLFWwindow* window, glm::mat4 M, glm::vec4 v, float x, float y, float scale);
-        static void PrintMatrixVectorProductDivW(GLFWwindow* window, glm::mat4 M, glm::vec4 v, float x, float y, float scale);
+        static void PrintMatrixVectorProduct(glm::mat4 M, glm::vec4 v);
+        static void PrintMatrixVectorProductDivW(glm::mat4 M, glm::vec4 v);
 
 };
 

@@ -319,7 +319,7 @@ glm::mat4 Matrices::Matrix_Perspective(float field_of_view, float aspect, float 
 }
 
 // Função que imprime uma matriz M no terminal
-void PrintMatrix(glm::mat4 M)
+void Matrices::PrintMatrix(glm::mat4 M)
 {
     printf("\n");
     printf("[ %+0.2f  %+0.2f  %+0.2f  %+0.2f ]\n", M[0][0], M[1][0], M[2][0], M[3][0]);
@@ -329,7 +329,7 @@ void PrintMatrix(glm::mat4 M)
 }
 
 // Função que imprime um vetor v no terminal
-void PrintVector(glm::vec4 v)
+void Matrices::PrintVector(glm::vec4 v)
 {
     printf("\n");
     printf("[ %+0.2f ]\n", v[0]);
@@ -339,7 +339,7 @@ void PrintVector(glm::vec4 v)
 }
 
 // Função que imprime o produto de uma matriz por um vetor no terminal
-void PrintMatrixVectorProduct(glm::mat4 M, glm::vec4 v)
+void Matrices::PrintMatrixVectorProduct(glm::mat4 M, glm::vec4 v)
 {
     auto r = M*v;
     printf("\n");
@@ -351,7 +351,7 @@ void PrintMatrixVectorProduct(glm::mat4 M, glm::vec4 v)
 
 // Função que imprime o produto de uma matriz por um vetor, junto com divisão
 // por w, no terminal.
-void PrintMatrixVectorProductDivW(glm::mat4 M, glm::vec4 v)
+void Matrices::PrintMatrixVectorProductDivW(glm::mat4 M, glm::vec4 v)
 {
     auto r = M*v;
     auto w = r[3];
