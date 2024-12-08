@@ -255,11 +255,14 @@ int main(int argc, char* argv[])
      // Cria objetos de jogo e os adiciona à cena
     GameObject sphere_object(&gpu_functions, &sphere); 
     sphere_object.transform.SetPosition(-1.0f, 0.0f, 0.0f);
+    sphere_object.UpdateModel();
     GameObject bunny_object(&gpu_functions, &bunny);
     bunny_object.transform.SetPosition(1.0f, 0.0f, 0.0f);
+    bunny_object.UpdateModel();
     GameObject plane_object(&gpu_functions, &plane);
     plane_object.transform.SetPosition(0.0f, -1.0f, 0.0f);
     plane_object.transform.SetScale(2.0, 1.0, 2.0);
+    plane_object.UpdateModel();
 
     scene.AddGameObject(&sphere_object);
     scene.AddGameObject(&bunny_object);

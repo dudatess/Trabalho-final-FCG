@@ -1,6 +1,7 @@
 #include "gameObject.h"
 
 GameObject::GameObject(GpuFunctions *gpu_functions, Object *object)
+: model(glm::mat4(1.0f))
 {
     this->gpu_functions = gpu_functions;
     this->object = object;
