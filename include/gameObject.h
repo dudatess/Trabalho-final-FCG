@@ -31,10 +31,7 @@ public:
     virtual void Update(float deltaTime) = 0;
     virtual void Render() = 0;
 
-    void UpdateModel(){
-        transform.UpdateModelMatrix(model);
-        //Adicionar colision.UpdateColision(model);
-    }
+    void UpdateModel();
     
     virtual ~GameObject() = default;
 

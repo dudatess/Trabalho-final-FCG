@@ -16,10 +16,10 @@ public:
 
     void UpdateModelMatrix(glm::mat4& model);
 
-    void SetPosition(float x, float y, float z) { position = glm::vec3(x, y, z); }
-    void SetScale(float x, float y, float z) { scale = glm::vec3(x, y, z); }
-    void SetRotation(float x, float y, float z) { rotation = glm::vec3(x, y, z); }
-    void SetDeltaPosition(float x, float y, float z) { delta_position = glm::vec3(x, y, z); }
+    void SetPosition(float x, float y, float z);
+    void SetScale(float x, float y, float z);
+    void SetRotation(float x, float y, float z);
+    void SetDeltaPosition(float x, float y, float z);
 
 
 };
