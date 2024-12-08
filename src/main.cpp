@@ -252,6 +252,10 @@ int main(int argc, char* argv[])
     Object bunny("../../data/bunny.obj", 1);
     Object plane("../../data/plane.obj", 2);
 
+    double width = 15.0;//for floor, ceiling, front and back wall
+	double length = 12.0;//floor, ceiling, left anf rigth wall
+	double height = 10.0;//only for walls
+
      // Cria objetos de jogo e os adiciona à cena
     GameObject sphere_object(&gpu_functions, &sphere); 
     sphere_object.transform.SetPosition(-1.0f, 0.0f, 0.0f);
@@ -259,14 +263,63 @@ int main(int argc, char* argv[])
     GameObject bunny_object(&gpu_functions, &bunny);
     bunny_object.transform.SetPosition(1.0f, 0.0f, 0.0f);
     bunny_object.UpdateModel();
-    GameObject plane_object(&gpu_functions, &plane);
+   
+    /*GameObject plane_object(&gpu_functions, &plane);
     plane_object.transform.SetPosition(0.0f, -1.0f, 0.0f);
     plane_object.transform.SetScale(2.0, 1.0, 2.0);
-    plane_object.UpdateModel();
+    plane_object.UpdateModel();*/
+
+            // Cria objetos de jogo e os adiciona à cena
+    GameObject floor_object(&gpu_functions, &plane); 
+    floor_object.transform.SetPosition(0.0f, -1.0f, 0.0f);
+    floor_object.transform.SetScale(10.0, 1.0, 10.0); // Chão maior
+    floor_object.UpdateModel();
+
+    // Parede de trás
+    GameObject back_wall(&gpu_functions, &plane); 
+    back_wall.transform.SetPosition(0.0f, 4.0f, 10.0f); // Posição atrás
+    back_wall.transform.SetRotation(-3.141592 / 2, 0.0f, 0.0f); // Rotação para ficar em pé
+    back_wall.transform.SetScale(10.0, 5.0, 1.0); // Escala grande
+    back_wall.UpdateModel();
+
+    // Parede da direita
+    GameObject right_wall(&gpu_functions, &plane);
+    right_wall.transform.SetPosition(10.0f, 3.5f, 0.0f); // Meio da parede no eixo Y e à direita
+    right_wall.transform.SetRotation(90.0f, 0.0f, 90.0f); // Rotaciona em torno do Z
+    right_wall.transform.SetScale(10.0f, 1.0f, 7.0f);
+    right_wall.UpdateModel();
+
+    // Parede da esquerda
+    GameObject left_wall(&gpu_functions, &plane);
+    left_wall.transform.SetPosition(-10.0f, 3.5f, 0.0f); // Meio da parede no eixo Y e à esquerda
+    left_wall.transform.SetRotation(90.0f, 0.0f, -90.0f); // Rotaciona em torno do Z
+    left_wall.transform.SetScale(10.0f, 1.0f, 7.0f);
+    left_wall.UpdateModel();
+
+    // Parede da frente
+    GameObject front_wall(&gpu_functions, &plane);
+    front_wall.transform.SetPosition(0.0f, 3.5f, 10.0f); // Meio da parede no eixo Y e à frente
+    front_wall.transform.SetRotation(90.0f, 0.0f, 180.0f); // Rotaciona em torno do X
+    front_wall.transform.SetScale(10.0f, 1.0f, 7.0f);
+    front_wall.UpdateModel();
+
+    // (Opcional) Teto
+    GameObject ceiling_object(&gpu_functions, &plane);
+    ceiling_object.transform.SetPosition(0.0f, 7.0f, 0.0f); // Posicionado no topo
+    ceiling_object.transform.SetScale(10.0f, 1.0f, 10.0f); // Mesmo tamanho do chão
+    ceiling_object.UpdateModel();
+
 
     scene.AddGameObject(&sphere_object);
     scene.AddGameObject(&bunny_object);
-    scene.AddGameObject(&plane_object);
+    scene.AddGameObject(&floor_object);
+    scene.AddGameObject(&back_wall);
+    //scene.AddGameObject(&right_wall);
+    //scene.AddGameObject(&left_wall);
+    //scene.AddGameObject(&front_wall);
+    //scene.AddGameObject(&ceiling_object);
+    
+    
 
 
     /* ObjModel spheremodel("../../data/sphere.obj");
@@ -352,7 +405,7 @@ int main(int argc, char* argv[])
         // Note que, no sistema de coordenadas da câmera, os planos near e far
         // estão no sentido negativo! Veja slides 176-204 do documento Aula_09_Projecoes.pdf.
         float nearplane = -0.1f;  // Posição do "near plane"
-        float farplane  = -10.0f; // Posição do "far plane"
+        float farplane  = -100.0f; // Posição do "far plane"
 
         if (g_UsePerspectiveProjection)
         {
@@ -382,30 +435,6 @@ int main(int argc, char* argv[])
         // efetivamente aplicadas em todos os pontos.
         gpu_functions.updateCameraMatrices(view, projection);
 
-        #define SPHERE 0
-        #define BUNNY  1
-        #define PLANE  2
-
-        /*
-        // Desenhamos o modelo da esfera
-        model = Matrices::Matrix_Translate(-1.0f, 0.0f, 0.0f);
-        gpu_functions.gpuDraw(sphere.vertex_array_object_id, model, sphere.num_indices, sphere.first_index, 0);
-        
-        // Desenhar coelho
-        model = Matrices::Matrix_Translate(1.0f, 0.0f, 0.0f)
-                * Matrices::Matrix_Rotate_Z(g_AngleZ)
-                * Matrices::Matrix_Rotate_Y(g_AngleY)
-                * Matrices::Matrix_Rotate_X(g_AngleX);
-        gpu_functions.gpuDraw(bunny.vertex_array_object_id, model, bunny.num_indices, bunny.first_index, 1);
-
-        // Desenhar chão
-        model = Matrices::Matrix_Scale(2.0, 1.0, 2.0)
-                * Matrices::Matrix_Translate(0.0f, -1.0f, 0.0f)
-                * Matrices::Matrix_Rotate_Z(g_AngleZ)
-                * Matrices::Matrix_Rotate_Y(g_AngleY)
-                * Matrices::Matrix_Rotate_X(g_AngleX);
-        gpu_functions.gpuDraw(plane.vertex_array_object_id, model, plane.num_indices, plane.first_index, 2);
-    */
 
         scene.Render();
 
