@@ -1,3 +1,14 @@
+Eduarda:
+nao aguento mais 2
+implementei as classes GameObject, Transform e Scene. Tentei  usa-las na main e deu pau de novo.
+Pelo menos aparece a mensagem de que todos os objetos tão sendo carregados e o programa não quebra,
+só não aparece nada nítido (se tu da umas mexidas aparece umas cores ???). Vale destacar que eu criei
+GameObject como uma classe não abstrata por enquanto, porque teria que mudar muita coisa pra isso acontecer.
+mas talvez ela seja útil ela ser abstrata depois. Primeiro, tem que funcionar basicona.
+
+
+
+--
 JV:
 nao aguento mais
 Agora temos uma classe Matrices e todas as operacoes de matrizes sao funcoes static dentro declaração

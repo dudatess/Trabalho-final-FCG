@@ -253,9 +253,13 @@ int main(int argc, char* argv[])
     Object plane("../../data/plane.obj", 2);
 
      // Cria objetos de jogo e os adiciona à cena
-    GameObject sphere_object(&gpu_functions, &sphere); // Use uma subclasse de GameObject se necessário
+    GameObject sphere_object(&gpu_functions, &sphere); 
+    sphere_object.transform.SetPosition(-1.0f, 0.0f, 0.0f);
     GameObject bunny_object(&gpu_functions, &bunny);
+    bunny_object.transform.SetPosition(1.0f, 0.0f, 0.0f);
     GameObject plane_object(&gpu_functions, &plane);
+    plane_object.transform.SetPosition(0.0f, -1.0f, 0.0f);
+    plane_object.transform.SetScale(2.0, 1.0, 2.0);
 
     scene.AddGameObject(&sphere_object);
     scene.AddGameObject(&bunny_object);
