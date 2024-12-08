@@ -1,9 +1,10 @@
 #include "object.h"
 
-Object::Object(const char *filename, const char* basepath, bool triangulate){
+Object::Object(const char *filename, int object_number, const char* basepath, bool triangulate){
         
         printf("Carregando objetos do arquivo \"%s\"...\n", filename);
 
+        this->object_number = object_number;
         // Se basepath == NULL, então setamos basepath como o dirname do
         // filename, para que os arquivos MTL sejam corretamente carregados caso
         // estejam no mesmo diretório dos arquivos OBJ.

@@ -13,23 +13,20 @@ class GameObject
 {
 
 protected:
-    GpuFunctions *gpuController;
+    GpuFunctions *gpu_functions;
     //Adicionar LightInterpolationModel
     Object *object;
     glm::mat4 model;
 
-    GameObject(GpuFunctions *gpuController, Object *object)
-    {
-        this->gpuController = gpuController;
-        this->object = object;
-    }
-    
 public:
+
+    GameObject(GpuFunctions *gpuController, Object *object);
     Transform transform;
     //Adicionar Colision colision;
 
-    virtual void Update(float deltaTime) = 0;
-    virtual void Render() = 0;
+    //Esses métodos devem ser abstratos depois
+    //void Update(float deltaTime);
+    void Render();
 
     void UpdateModel();
     

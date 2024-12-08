@@ -23,10 +23,12 @@ private:
     void BuildObject();
 
 public:
-    Object(const char *filename, const char* basepath = NULL, bool triangulate = true);
+    Object(const char *filename, int object_number, const char* basepath = NULL, bool triangulate = true);
     GLuint vertex_array_object_id;
     size_t first_index;
     size_t num_indices;
+    //provisório, enquanto nao mudamos o shader_fragment
+    int object_number;
 
     void PrintObjModelInfo();
     // getters

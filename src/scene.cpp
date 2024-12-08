@@ -1,18 +1,23 @@
 #include "scene.h"
 
+
+Scene::Scene()
+{
+    this->game_objects = game_objects;
+}
 Scene::~Scene()
 {
     game_objects.clear();
 }
 
-void Scene::Update(float deltaTime)
+/*void Scene::Update(float deltaTime)
 {
 
     for (const auto &game_object : game_objects)
     {
         game_object->Update(deltaTime);
     }
-}
+}*/
 
 void Scene::AddGameObject(GameObject *game_object)
 {

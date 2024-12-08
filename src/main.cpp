@@ -49,6 +49,8 @@
 #include "load_shader.h"
 #include "gpuFunctions.h"
 #include "freeCamera.h"
+#include "scene.h"
+#include "gameObject.h"
 
 // Declaração de funções utilizadas para pilha de matrizes de modelagem.
 void PushMatrix(glm::mat4 M);
@@ -234,7 +236,7 @@ int main(int argc, char* argv[])
     //VARIÁVEIS 
 
     GLuint g_GpuProgramID = LoadShadersFromFiles();
-    
+    Scene scene;
 
     // Carregamos os shaders de vértices e de fragmentos que serão utilizados
     // para renderização. Veja slides 180-200 do documento Aula_03_Rendering_Pipeline_Grafico.pdf.
@@ -246,10 +248,19 @@ int main(int argc, char* argv[])
     //LoadShadersFromFiles();
     GpuFunctions gpu_functions(g_GpuProgramID);
     
-    Object sphere("../../data/sphere.obj");
-    Object bunny("../../data/bunny.obj");
-    Object plane("../../data/plane.obj");
-    
+    Object sphere("../../data/sphere.obj", 0);
+    Object bunny("../../data/bunny.obj", 1);
+    Object plane("../../data/plane.obj", 2);
+
+     // Cria objetos de jogo e os adiciona à cena
+    GameObject sphere_object(&gpu_functions, &sphere); // Use uma subclasse de GameObject se necessário
+    GameObject bunny_object(&gpu_functions, &bunny);
+    GameObject plane_object(&gpu_functions, &plane);
+
+    scene.AddGameObject(&sphere_object);
+    scene.AddGameObject(&bunny_object);
+    scene.AddGameObject(&plane_object);
+
 
     /* ObjModel spheremodel("../../data/sphere.obj");
     ComputeNormals(&spheremodel);
@@ -368,6 +379,7 @@ int main(int argc, char* argv[])
         #define BUNNY  1
         #define PLANE  2
 
+        /*
         // Desenhamos o modelo da esfera
         model = Matrices::Matrix_Translate(-1.0f, 0.0f, 0.0f);
         gpu_functions.gpuDraw(sphere.vertex_array_object_id, model, sphere.num_indices, sphere.first_index, 0);
@@ -386,6 +398,9 @@ int main(int argc, char* argv[])
                 * Matrices::Matrix_Rotate_Y(g_AngleY)
                 * Matrices::Matrix_Rotate_X(g_AngleX);
         gpu_functions.gpuDraw(plane.vertex_array_object_id, model, plane.num_indices, plane.first_index, 2);
+    */
+
+        scene.Render();
 
 
         // Imprimimos na tela os ângulos de Euler que controlam a rotação do
