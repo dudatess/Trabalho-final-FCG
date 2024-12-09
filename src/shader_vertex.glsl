@@ -6,6 +6,11 @@ layout (location = 0) in vec4 model_coefficients;
 layout (location = 1) in vec4 normal_coefficients;
 layout (location = 2) in vec2 texture_coefficients;
 
+#define LIGHT_TYPE_GOURAUD 0
+#define LIGHT_TYPE_PHONG   1
+uniform int light_type;
+out vec3 gouraud_term; 
+
 // Matrizes computadas no código C++ e enviadas para a GPU
 uniform mat4 model;
 uniform mat4 view;
@@ -55,5 +60,21 @@ void main()
     // Veja slides 123-151 do documento Aula_07_Transformacoes_Geometricas_3D.pdf.
     normal = inverse(transpose(model)) * normal_coefficients;
     normal.w = 0.0;
+
+    if(interpolation_type == LIGHT_TYPE_GOURAUD)
+    {
+        vec4 origin = vec4(0.0, 0.0, 0.0, 1.0);
+        vec3 Ks = vec3(0.8,0.8,0.8);
+        vec4 n = normalize(normal);
+        vec4 l = normalize(vec4(1.0,1.0,0.5,0.0));
+        vec4 p = position_world;
+        vec4 camera_position = inverse(view) * origin;
+        vec4 v = normalize(camera_position - p);
+        vec4 half_vector = normalize(v + l);
+        float q = 32.0;
+
+        gouraud_term =  Ks * pow(max(0, dot(n, half_vector)), q);
+    }
+
 }
 

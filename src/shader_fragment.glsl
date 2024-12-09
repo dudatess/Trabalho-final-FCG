@@ -18,6 +18,11 @@ uniform mat4 projection;
 #define PLANE  2
 uniform int object_id;
 
+#define LIGHT_TYPE_GOURAUD 0
+#define LIGHT_TYPE_PHONG   1
+#define LIGHT_TYPE_NO      2
+uniform int light_type;
+
 // O valor de saída ("out") de um Fragment Shader é a cor final do fragmento.
 out vec4 color;
 
