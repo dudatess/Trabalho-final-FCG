@@ -1,10 +1,9 @@
 #include "object.h"
 
-Object::Object(const char *filename, int object_number, const char* basepath, bool triangulate){
+Object::Object(const char *filename, const char* basepath, bool triangulate){
         
         printf("Carregando objetos do arquivo \"%s\"...\n", filename);
 
-        this->object_number = object_number;
         // Se basepath == NULL, então setamos basepath como o dirname do
         // filename, para que os arquivos MTL sejam corretamente carregados caso
         // estejam no mesmo diretório dos arquivos OBJ.
@@ -175,6 +174,11 @@ void Object::BuildObject()
     {
         size_t first_index = indices.size();
         size_t num_triangles = shapes[shape].mesh.num_face_vertices.size();
+        const float minval = std::numeric_limits<float>::min();
+        const float maxval = std::numeric_limits<float>::max();
+
+        glm::vec3 bbox_min = glm::vec3(maxval, maxval, maxval);
+        glm::vec3 bbox_max = glm::vec3(minval, minval, minval);
 
         for (size_t triangle = 0; triangle < num_triangles; ++triangle)
         {
@@ -194,6 +198,13 @@ void Object::BuildObject()
                 model_coefficients.push_back( vy ); // Y
                 model_coefficients.push_back( vz ); // Z
                 model_coefficients.push_back( 1.0f ); // W
+
+                bbox_min.x = std::min(bbox_min.x, vx);
+                bbox_min.y = std::min(bbox_min.y, vy);
+                bbox_min.z = std::min(bbox_min.z, vz);
+                bbox_max.x = std::max(bbox_max.x, vx);
+                bbox_max.y = std::max(bbox_max.y, vy);
+                bbox_max.z = std::max(bbox_max.z, vz);
 
                 // Inspecionando o código da tinyobjloader, o aluno Bernardo
                 // Sulzbach (2017/1) apontou que a maneira correta de testar se
@@ -229,6 +240,9 @@ void Object::BuildObject()
         this->vertex_array_object_id = vertex_array_object_id;
 
         //g_VirtualScene[shapes[shape].name] = theobject;
+
+        this->bbox_min = bbox_min;
+        this->bbox_max = bbox_max;
     }
 
     GLuint VBO_model_coefficients_id;

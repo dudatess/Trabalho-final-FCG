@@ -51,6 +51,8 @@
 #include "free_camera.h"
 #include "scene.h"
 #include "gameObject.h"
+#include "staticGameObject.h"
+#include "texture.h"
 #include "input_handler.h"
 
 // Declaração de funções utilizadas para pilha de matrizes de modelagem.
@@ -229,8 +231,6 @@ int main(int argc, char* argv[])
 
     printf("GPU: %s, %s, OpenGL %s, GLSL %s\n", vendor, renderer, glversion, glslversion);
 
-    //VARIÁVEIS 
-
     GLuint g_GpuProgramID = LoadShadersFromFiles();
     Scene scene;
 
@@ -243,55 +243,60 @@ int main(int argc, char* argv[])
 
     //LoadShadersFromFiles();
     GpuFunctions gpu_functions(g_GpuProgramID);
-    
-    Object sphere("../../data/sphere.obj", 0);
-    Object bunny("../../data/bunny.obj", 1);
-    Object plane("../../data/plane.obj", 2);
+    Texture texture;
+
+    texture.LoadTextureImage("../../data/concrete.jpg", "concrete");
+    TextRendering_Init();
+
+    Object sphere("../../data/sphere.obj");
+    Object bunny("../../data/bunny.obj");
+    Object plane("../../data/plane.obj");
 
      // Cria objetos de jogo e os adiciona à cena
-    GameObject sphere_object(&gpu_functions, &sphere); 
+    StaticGameObject sphere_object(&gpu_functions, &sphere, texture.GetTexture("concrete"), LightType::NO); 
     sphere_object.transform.SetPosition(0.0f, -1.0f, 0.0f);
     sphere_object.UpdateModel();
-    GameObject bunny_object(&gpu_functions, &bunny);
+
+    StaticGameObject bunny_object(&gpu_functions, &bunny, texture.GetTexture("concrete"), LightType::NO);
     bunny_object.transform.SetPosition(2.0f, -1.0f, 0.0f);
     bunny_object.UpdateModel();
    
     // Cria objetos de jogo e os adiciona à cena
-    GameObject floor_object(&gpu_functions, &plane); 
+    StaticGameObject floor_object(&gpu_functions, &plane, texture.GetTexture("concrete"), LightType::NO); 
     floor_object.transform.SetPosition(0.0f, -2.0f, 0.0f);
     floor_object.transform.SetScale(10.0, 1.0, 10.0); 
     floor_object.UpdateModel();
 
     // Parede de trás
-    GameObject back_wall(&gpu_functions, &plane); 
+    StaticGameObject back_wall(&gpu_functions, &plane, texture.GetTexture("concrete"), LightType::NO); 
     back_wall.transform.SetPosition(0.0f, 3.0f, 10.0f); 
     back_wall.transform.SetRotation(-3.141592 / 2, 0.0f, 0.0f); 
     back_wall.transform.SetScale(10.0, 5.0, 1.0); 
     back_wall.UpdateModel();
 
     // Parede da direita
-    GameObject right_wall(&gpu_functions, &plane);
+    StaticGameObject right_wall(&gpu_functions, &plane, texture.GetTexture("concrete"), LightType::NO);
     right_wall.transform.SetPosition(10.0f, 3.0f, 0.0f); 
     right_wall.transform.SetRotation(0.0f, 0.0f, 3.141592 / 2); 
     right_wall.transform.SetScale(10.0f, 5.0f, 10.0f);
     right_wall.UpdateModel();
 
     // Parede da esquerda
-    GameObject left_wall(&gpu_functions, &plane);
+    StaticGameObject left_wall(&gpu_functions, &plane, texture.GetTexture("concrete"), LightType::NO);
     left_wall.transform.SetPosition(-10.0f, 3.0f, 0.0f); 
     left_wall.transform.SetRotation(0.0f, 0.0f, -3.141592 / 2); 
     left_wall.transform.SetScale(10.0f, 5.0f, 10.0f);
     left_wall.UpdateModel();
 
     // Parede da frente
-    GameObject front_wall(&gpu_functions, &plane);
+    StaticGameObject front_wall(&gpu_functions, &plane, texture.GetTexture("concrete"), LightType::NO);
     front_wall.transform.SetPosition(0.0f, 3.0f, -10.0f); 
     front_wall.transform.SetRotation(3.141592 / 2, 0.0f, 0.0f); 
     front_wall.transform.SetScale(10.0, 5.0, 1.0);
     front_wall.UpdateModel();
 
     // (Opcional) Teto
-    GameObject ceiling_object(&gpu_functions, &plane);
+    StaticGameObject ceiling_object(&gpu_functions, &plane, texture.GetTexture("concrete"), LightType::NO);
     ceiling_object.transform.SetPosition(0.0f, 8.0f, 0.0f); 
     ceiling_object.transform.SetRotation(3.141592, 0.0f, 0.0f); 
     ceiling_object.transform.SetScale(10.0f, 1.0f, 10.0f); 
@@ -306,10 +311,6 @@ int main(int argc, char* argv[])
     scene.AddGameObject(&left_wall);
     scene.AddGameObject(&front_wall);
     scene.AddGameObject(&ceiling_object);
-    
-
-    // Inicializamos o código para renderização de texto.
-    TextRendering_Init();
 
     // Habilitamos o Z-buffer. Veja slides 104-116 do documento Aula_09_Projecoes.pdf.
     glEnable(GL_DEPTH_TEST);

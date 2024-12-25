@@ -8,25 +8,27 @@
 #include "gpuFunctions.h"
 #include "object.h"
 #include "transform.h"
+#include "lightType.h"
 
 class GameObject
 {
 
 protected:
     GpuFunctions *gpu_functions;
-    //Adicionar LightInterpolationModel
+    LightType light_type;
     Object *object;
     glm::mat4 model;
 
 public:
 
-    GameObject(GpuFunctions *gpuController, Object *object);
-    Transform transform;
-    //Adicionar Colision colision;
+    GameObject(GpuFunctions *gpuController, glm::mat4 model, Object *object, LightType light_type);
 
-    //Esses métodos devem ser abstratos depois
+    Transform transform;
+    //Adicionar colisão;
+
     //void Update(float deltaTime);
-    void Render();
+    virtual void Update(float deltaTime) = 0;
+    virtual void Render() = 0;
 
     void UpdateModel();
     

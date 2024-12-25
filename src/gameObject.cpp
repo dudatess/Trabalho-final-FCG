@@ -1,24 +1,15 @@
 #include "gameObject.h"
 
-GameObject::GameObject(GpuFunctions *gpu_functions, Object *object)
-: model(glm::mat4(1.0f))
+GameObject::GameObject(GpuFunctions *gpu_functions, glm::mat4 model, Object *object, LightType light_type)
 {
     this->gpu_functions = gpu_functions;
+    this->model = model;
     this->object = object;
+    this->light_type = light_type;
 }
 
 void GameObject::UpdateModel()
 {
     this->transform.UpdateModelMatrix(this->model);
-    //Adicionar colision.UpdateColision(model);
 }
 
-void GameObject::Render()
-{
-        gpu_functions->gpuDraw(
-        object->vertex_array_object_id,
-        model,
-        object->num_indices,
-        object->first_index,
-        object->object_number);
-}

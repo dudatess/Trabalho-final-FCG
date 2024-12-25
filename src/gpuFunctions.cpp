@@ -9,24 +9,26 @@ GpuFunctions::GpuFunctions(GLuint g_GpuProgramID)
     this->g_model_uniform      = glGetUniformLocation(g_GpuProgramID, "model"); // Variável da matriz "model"
     this->g_view_uniform       = glGetUniformLocation(g_GpuProgramID, "view"); // Variável da matriz "view" em shader_vertex.glsl
     this->g_projection_uniform = glGetUniformLocation(g_GpuProgramID, "projection"); // Variável da matriz "projection" em shader_vertex.glsl
-    this->g_object_id_uniform  = glGetUniformLocation(g_GpuProgramID, "object_id"); // Variável "object_id" em shader_fragment.glsl
-
+    this->g_texture_type       = glGetUniformLocation(g_GpuProgramID, "texture_type");
+    this->g_light_type         = glGetUniformLocation(g_GpuProgramID, "light_type");
+    this->g_texture_id         = glGetUniformLocation(g_GpuProgramID, "texture_id");
 }
 
-void GpuFunctions::gpuDraw(GLuint VAO_id, glm::mat4 model, size_t num_indices, size_t first_index, int object_number)
+void GpuFunctions::gpuDraw(GLuint VAO_id, glm::mat4 model, TextureType texture_type, LightType light_type, GLint texture_id, size_t num_indices, size_t first_index)
 {
-    glBindVertexArray(VAO_id); // Ativa o VAO do objeto a ser desenhado
+    glBindVertexArray(VAO_id);
 
     // Envia apenas a matriz de transformação do modelo
     glUniformMatrix4fv(g_model_uniform, 1, GL_FALSE, glm::value_ptr(model));
+    
+    // Define identificadores
+    glUniform1i(g_texture_type, texture_type);
+    glUniform1i(g_light_type, light_type);
+    glUniform1i(g_texture_id, texture_id);
 
-    // Define um identificador para o objeto (opcional, se necessário no shader)
-    glUniform1i(g_object_id_uniform, object_number);
-
-    // Desenha os elementos (usando triângulos neste exemplo)
+    // Desenha os elementos (usando triângulos)
     glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, (void *)(first_index * sizeof(GLuint)));
-
-    // Desativa o VAO
+   //Desativa o VAO
     glBindVertexArray(0);
 }
 
