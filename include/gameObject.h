@@ -21,12 +21,11 @@ protected:
 
 public:
 
-    GameObject(GpuFunctions *gpuController, Object *object, LightType light_type);
+    GameObject(GpuFunctions *gpuController, glm::mat4 model, Object *object, LightType light_type);
 
     Transform transform;
-    //Adicionar Colision colision;
+    //Adicionar colisão;
 
-    //Esses métodos devem ser abstratos depois
     //void Update(float deltaTime);
     virtual void Update(float deltaTime) = 0;
     virtual void Render() = 0;

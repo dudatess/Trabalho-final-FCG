@@ -1,8 +1,9 @@
 #include "gameObject.h"
 
-GameObject::GameObject(GpuFunctions *gpu_functions, Object *object, LightType light_type) : model(glm::mat4(1.0f))
+GameObject::GameObject(GpuFunctions *gpu_functions, glm::mat4 model, Object *object, LightType light_type)
 {
     this->gpu_functions = gpu_functions;
+    this->model = model;
     this->object = object;
     this->light_type = light_type;
 }
@@ -10,6 +11,5 @@ GameObject::GameObject(GpuFunctions *gpu_functions, Object *object, LightType li
 void GameObject::UpdateModel()
 {
     this->transform.UpdateModelMatrix(this->model);
-    //Adicionar colision.UpdateColision(model);
 }
 

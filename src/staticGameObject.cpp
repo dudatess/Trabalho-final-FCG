@@ -3,8 +3,6 @@
 #include "staticGameObject.h"
 #include "gpuFunctions.h"
 
-
-
 StaticGameObject::StaticGameObject(GpuFunctions *gpu_functions, Object *object, int texture_id, LightType light_type, glm::mat4 model)
     : GameObject(gpu_functions, model, object, light_type)
 {
