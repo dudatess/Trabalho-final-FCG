@@ -1,10 +1,11 @@
 #include "gameObject.h"
 
-GameObject::GameObject(GpuFunctions *gpu_functions, glm::mat4 model, Object *object, LightType light_type)
+GameObject::GameObject(GpuFunctions *gpu_functions, glm::mat4 model, Object *object,TextureType texture_type, LightType light_type)
 {
     this->gpu_functions = gpu_functions;
     this->model = model;
     this->object = object;
+    this-> texture_type = texture_type;
     this->light_type = light_type;
 }
 

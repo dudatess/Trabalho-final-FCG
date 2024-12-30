@@ -21,7 +21,7 @@ private:
     int texture_id;
 
 public:
-    StaticGameObject(GpuFunctions *gpu_controller, Object *object, int texture_id, LightType light_type, glm::mat4 model = Matrices::Matrix_Identity());
+    StaticGameObject(GpuFunctions *gpu_controller, Object *object, TextureType texture_type, int texture_id, LightType light_type, glm::mat4 model = Matrices::Matrix_Identity());
     void Update(float deltaTime) override;
     void Render() override;
 };

@@ -54,6 +54,7 @@
 #include "staticGameObject.h"
 #include "texture.h"
 #include "input_handler.h"
+#define M_PI 3.14159265358979323846
 
 // Declaração de funções utilizadas para pilha de matrizes de modelagem.
 void PushMatrix(glm::mat4 M);
@@ -245,72 +246,149 @@ int main(int argc, char* argv[])
     GpuFunctions gpu_functions(g_GpuProgramID);
     Texture texture;
 
-    texture.LoadTextureImage("../../data/concrete.jpg", "concrete");
+    texture.LoadTextureImage("../../data/wood.jpg", "wood");
+    texture.LoadTextureImage("../../data/green_floor.jpg", "green_floor");
+    texture.LoadTextureImage("../../data/bege_wall.jpg", "bege_wall");
+    texture.LoadTextureImage("../../data/white_board.jpg", "white_board");
     TextRendering_Init();
 
     Object sphere("../../data/sphere.obj");
     Object bunny("../../data/bunny.obj");
     Object plane("../../data/plane.obj");
+    Object chair("../../data/uploads_files_2101984_Skin_chair.obj");
+    Object cube("../../data/cube.obj");
+    Object window_object("../../data/uploads_files_3158526_Small_Square_Window-Final.obj");
+    Object white_board("../../data/uploads_files_3685891_whiteBoard.obj");
 
-     // Cria objetos de jogo e os adiciona à cena
-    StaticGameObject sphere_object(&gpu_functions, &sphere, texture.GetTexture("concrete"), LightType::NO); 
-    sphere_object.transform.SetPosition(0.0f, -1.0f, 0.0f);
-    sphere_object.UpdateModel();
 
-    StaticGameObject bunny_object(&gpu_functions, &bunny, texture.GetTexture("concrete"), LightType::NO);
-    bunny_object.transform.SetPosition(2.0f, -1.0f, 0.0f);
-    bunny_object.UpdateModel();
+    StaticGameObject white_board_object(&gpu_functions, &white_board, TextureType::OBJ_FILE, texture.GetTexture("white_board"), LightType::NO);
+    white_board_object.transform.SetPosition(0.0f, -1.0f, 0.0f);
+    white_board_object.transform.SetScale(10.0f, 10.0f, 10.0f);
+    white_board_object.UpdateModel();
+
+    StaticGameObject chair1(&gpu_functions, &chair, TextureType::OBJ_FILE ,texture.GetTexture("wood"), LightType::NO);
+    chair1.transform.SetPosition(2.0f, -10.0f, -10.0f);
+    chair1.transform.SetScale(0.1f, 0.1f, 0.1f);
+    chair1.UpdateModel();
+
+    StaticGameObject chair2(&gpu_functions, &chair, TextureType::OBJ_FILE ,texture.GetTexture("wood"), LightType::NO);
+    chair2.transform.SetPosition(12.0f, -10.0f, -10.0f);
+    chair2.transform.SetScale(0.1f, 0.1f, 0.1f);
+    chair2.UpdateModel();
    
+    StaticGameObject chair3(&gpu_functions, &chair, TextureType::OBJ_FILE ,texture.GetTexture("wood"), LightType::NO);
+    chair3.transform.SetPosition(22.0f, -10.0f, -10.0f);
+    chair3.transform.SetScale(0.1f, 0.1f, 0.1f);
+    chair3.UpdateModel();
+
+    StaticGameObject chair4(&gpu_functions, &chair, TextureType::OBJ_FILE ,texture.GetTexture("wood"), LightType::NO);
+    chair4.transform.SetPosition(-8.0f, -10.0f, -10.0f);
+    chair4.transform.SetScale(0.1f, 0.1f, 0.1f);
+    chair4.UpdateModel();
+
+    StaticGameObject chair5(&gpu_functions, &chair, TextureType::OBJ_FILE ,texture.GetTexture("wood"), LightType::NO);
+    chair5.transform.SetPosition(-18.0f, -10.0f, -10.0f);
+    chair5.transform.SetScale(0.1f, 0.1f, 0.1f);
+    chair5.UpdateModel();
+
+    StaticGameObject chair6(&gpu_functions, &chair, TextureType::OBJ_FILE ,texture.GetTexture("wood"), LightType::NO);
+    chair6.transform.SetPosition(-28.0f, -10.0f, -10.0f);
+    chair6.transform.SetScale(0.1f, 0.1f, 0.1f);
+    chair6.UpdateModel();
+
+     StaticGameObject chair7(&gpu_functions, &chair, TextureType::OBJ_FILE ,texture.GetTexture("wood"), LightType::NO);
+    chair7.transform.SetPosition(2.0f, -10.0f, -20.0f);
+    chair7.transform.SetScale(0.1f, 0.1f, 0.1f);
+    chair7.UpdateModel();
+
+    StaticGameObject chair8(&gpu_functions, &chair, TextureType::OBJ_FILE ,texture.GetTexture("wood"), LightType::NO);
+    chair8.transform.SetPosition(12.0f, -10.0f, -20.0f);
+    chair8.transform.SetScale(0.1f, 0.1f, 0.1f);
+    chair8.UpdateModel();
+   
+    StaticGameObject chair9(&gpu_functions, &chair, TextureType::OBJ_FILE ,texture.GetTexture("wood"), LightType::NO);
+    chair9.transform.SetPosition(22.0f, -10.0f, -20.0f);
+    chair9.transform.SetScale(0.1f, 0.1f, 0.1f);
+    chair9.UpdateModel();
+
+    StaticGameObject chair10(&gpu_functions, &chair, TextureType::OBJ_FILE ,texture.GetTexture("wood"), LightType::NO);
+    chair10.transform.SetPosition(-8.0f, -10.0f, -20.0f);
+    chair10.transform.SetScale(0.1f, 0.1f, 0.1f);
+    chair10.UpdateModel();
+
+    StaticGameObject chair11(&gpu_functions, &chair, TextureType::OBJ_FILE ,texture.GetTexture("wood"), LightType::NO);
+    chair11.transform.SetPosition(-18.0f, -10.0f, -20.0f);
+    chair11.transform.SetScale(0.1f, 0.1f, 0.1f);
+    chair11.UpdateModel();
+
+    StaticGameObject chair12(&gpu_functions, &chair, TextureType::OBJ_FILE ,texture.GetTexture("wood"), LightType::NO);
+    chair12.transform.SetPosition(-28.0f, -10.0f, -20.0f);
+    chair12.transform.SetScale(0.1f, 0.1f, 0.1f);
+    chair12.UpdateModel();
+
+
     // Cria objetos de jogo e os adiciona à cena
-    StaticGameObject floor_object(&gpu_functions, &plane, texture.GetTexture("concrete"), LightType::NO); 
-    floor_object.transform.SetPosition(0.0f, -2.0f, 0.0f);
-    floor_object.transform.SetScale(10.0, 1.0, 10.0); 
+    StaticGameObject floor_object(&gpu_functions, &plane, TextureType::PLANE, texture.GetTexture("green_floor"), LightType::NO); 
+    floor_object.transform.SetPosition(0.0f, -10.0f, 0.0f);
+    floor_object.transform.SetScale(40.0, 1.0, 40.0); 
     floor_object.UpdateModel();
 
     // Parede de trás
-    StaticGameObject back_wall(&gpu_functions, &plane, texture.GetTexture("concrete"), LightType::NO); 
-    back_wall.transform.SetPosition(0.0f, 3.0f, 10.0f); 
-    back_wall.transform.SetRotation(-3.141592 / 2, 0.0f, 0.0f); 
-    back_wall.transform.SetScale(10.0, 5.0, 1.0); 
+    StaticGameObject back_wall(&gpu_functions, &cube, TextureType::OBJ_FILE ,texture.GetTexture("bege_wall"), LightType::NO); 
+    back_wall.transform.SetPosition(0.0f, 0.0f, 40.0f); 
+    back_wall.transform.SetScale(40.0f, 20.0f, 1.0f); 
     back_wall.UpdateModel();
 
     // Parede da direita
-    StaticGameObject right_wall(&gpu_functions, &plane, texture.GetTexture("concrete"), LightType::NO);
-    right_wall.transform.SetPosition(10.0f, 3.0f, 0.0f); 
-    right_wall.transform.SetRotation(0.0f, 0.0f, 3.141592 / 2); 
-    right_wall.transform.SetScale(10.0f, 5.0f, 10.0f);
+    StaticGameObject right_wall(&gpu_functions, &cube, TextureType::OBJ_FILE, texture.GetTexture("bege_wall"), LightType::NO);
+    right_wall.transform.SetPosition(40.0f, 0.0f, 0.0f); 
+    right_wall.transform.SetScale(1.0f, 20.0f, 40.0f);
     right_wall.UpdateModel();
 
     // Parede da esquerda
-    StaticGameObject left_wall(&gpu_functions, &plane, texture.GetTexture("concrete"), LightType::NO);
-    left_wall.transform.SetPosition(-10.0f, 3.0f, 0.0f); 
-    left_wall.transform.SetRotation(0.0f, 0.0f, -3.141592 / 2); 
-    left_wall.transform.SetScale(10.0f, 5.0f, 10.0f);
+    StaticGameObject left_wall(&gpu_functions, &cube,  TextureType::OBJ_FILE,  texture.GetTexture("bege_wall"), LightType::NO);
+    left_wall.transform.SetPosition(-40.0f, 0.0f, 0.0f); 
+    left_wall.transform.SetScale(1.0f, 20.0f, 40.0f);
     left_wall.UpdateModel();
 
     // Parede da frente
-    StaticGameObject front_wall(&gpu_functions, &plane, texture.GetTexture("concrete"), LightType::NO);
-    front_wall.transform.SetPosition(0.0f, 3.0f, -10.0f); 
-    front_wall.transform.SetRotation(3.141592 / 2, 0.0f, 0.0f); 
-    front_wall.transform.SetScale(10.0, 5.0, 1.0);
+    StaticGameObject front_wall(&gpu_functions, &cube,  TextureType::OBJ_FILE, texture.GetTexture("bege_wall"), LightType::NO);
+    front_wall.transform.SetPosition(0.0f, 0.0f, -40.0f); 
+    front_wall.transform.SetScale(40.0f, 20.0f, 1.0f);
     front_wall.UpdateModel();
 
     // (Opcional) Teto
-    StaticGameObject ceiling_object(&gpu_functions, &plane, texture.GetTexture("concrete"), LightType::NO);
-    ceiling_object.transform.SetPosition(0.0f, 8.0f, 0.0f); 
-    ceiling_object.transform.SetRotation(3.141592, 0.0f, 0.0f); 
-    ceiling_object.transform.SetScale(10.0f, 1.0f, 10.0f); 
+    StaticGameObject ceiling_object(&gpu_functions, &cube, TextureType::OBJ_FILE,  texture.GetTexture("bege_wall"), LightType::NO);
+    ceiling_object.transform.SetPosition(0.0f, 20.0f, 0.0f); 
+    ceiling_object.transform.SetScale(40.0f, 1.0f, 40.0f); 
     ceiling_object.UpdateModel();
 
 
-    scene.AddGameObject(&sphere_object);
-    scene.AddGameObject(&bunny_object);
+
+    //scene.AddGameObject(&sphere_object);
+    //scene.AddGameObject(&bunny_object);
     scene.AddGameObject(&floor_object);
     scene.AddGameObject(&back_wall);
     scene.AddGameObject(&right_wall);
     scene.AddGameObject(&left_wall);
     scene.AddGameObject(&front_wall);
     scene.AddGameObject(&ceiling_object);
+
+    scene.AddGameObject(&chair1);
+    scene.AddGameObject(&chair2);
+    scene.AddGameObject(&chair3);
+    scene.AddGameObject(&chair4);
+    scene.AddGameObject(&chair5);
+    scene.AddGameObject(&chair6);
+    scene.AddGameObject(&chair7);
+    scene.AddGameObject(&chair8);
+    scene.AddGameObject(&chair9);
+    scene.AddGameObject(&chair10);
+    scene.AddGameObject(&chair11);
+    scene.AddGameObject(&chair12);
+    //scene.AddGameObject(&window1);
+    scene.AddGameObject(&white_board_object);
+
 
     // Habilitamos o Z-buffer. Veja slides 104-116 do documento Aula_09_Projecoes.pdf.
     glEnable(GL_DEPTH_TEST);

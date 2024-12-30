@@ -9,19 +9,21 @@
 #include "object.h"
 #include "transform.h"
 #include "lightType.h"
+#include "texture.h"
 
 class GameObject
 {
 
 protected:
     GpuFunctions *gpu_functions;
+    TextureType texture_type;
     LightType light_type;
     Object *object;
     glm::mat4 model;
 
 public:
 
-    GameObject(GpuFunctions *gpuController, glm::mat4 model, Object *object, LightType light_type);
+    GameObject(GpuFunctions *gpuController, glm::mat4 model, Object *object, TextureType texture_type, LightType light_type);
 
     Transform transform;
     //Adicionar colisão;
