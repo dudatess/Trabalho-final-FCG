@@ -28,9 +28,9 @@ class FreeCamera
         glm::vec4 getCameraViewVector() { return camera_view_vector; }
         glm::vec4 getCameraUpVector() { return camera_up_vector; }
 
-        void update(InputState state, float delta_time);
-        void updatePosition(InputState state, float delta_time);
-        void updateRotation(InputState state, float delta_time);
+        void updateCameraPosition(glm::vec4 position);
+        void updateCameraRotation(InputState state, float delta_time);
+        void setPosition(glm::vec4 position) { camera_position = position; }
 };
 
 #endif //_FREECAMERA_H

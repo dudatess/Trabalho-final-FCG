@@ -20,52 +20,12 @@ FreeCamera::FreeCamera()
     this->camera_up_vector = glm::vec4(0.0f, 1.0f, 0.0f, 0.0f);
 }
 
-void FreeCamera::update(InputState state, float delta_time)
+void FreeCamera::updateCameraPosition(glm::vec4 position)
 {
-    updatePosition(state, delta_time);
-    updateRotation(state, delta_time);
+    this->camera_position = position;
 }
 
-void FreeCamera::updatePosition(InputState state, float delta_time)
-{
-    float speed = 5.0f;
-
-    if (state.is_running)
-    {
-        speed = 20.0f;
-    }
-
-    if (state.move_forward)
-    {
-        glm::vec4 vec = camera_view_vector;
-        vec.y = 0.0f;
-        vec = vec / Matrices::norm(vec);
-        this->camera_position += vec * speed * delta_time;
-    }
-    if (state.move_backward)
-    {
-        glm::vec4 vec = -camera_view_vector;
-        vec.y = 0.0f;
-        vec = vec / Matrices::norm(vec);
-        this->camera_position += vec * speed * delta_time;
-    }
-    if (state.move_left)
-    {
-        glm::vec4 vec = Matrices::crossproduct(camera_up_vector, camera_view_vector);
-        vec.y = 0.0f;
-        vec = vec / Matrices::norm(vec);
-        this->camera_position += vec * speed * delta_time;
-    }
-    if (state.move_right)
-    {
-        glm::vec4 vec = Matrices::crossproduct(camera_up_vector, -camera_view_vector);
-        vec.y = 0.0f;
-        vec = vec / Matrices::norm(vec);
-        this->camera_position += vec * speed * delta_time;
-    }
-}
-
-void FreeCamera::updateRotation(InputState state, float delta_time)
+void FreeCamera::updateCameraRotation(InputState state, float delta_time)
 {
     float speed = 0.15f;
     float mouse_delta_x = state.mouse_x - old_mouse_x;

@@ -54,6 +54,7 @@
 #include "staticGameObject.h"
 #include "texture.h"
 #include "input_handler.h"
+#include "player.h"
 #define M_PI 3.14159265358979323846
 
 // Declaração de funções utilizadas para pilha de matrizes de modelagem.
@@ -402,7 +403,9 @@ int main(int argc, char* argv[])
     float old_time = glfwGetTime();
     float current_time = 0;
     float delta_time = 0;
-    FreeCamera camera_test;
+    //FreeCamera camera_test;
+
+    Player player;
 
     // Ficamos em um loop infinito, renderizando, até que o usuário feche a janela
     while (!glfwWindowShouldClose(window))
@@ -431,9 +434,11 @@ int main(int argc, char* argv[])
         old_time = current_time;
 
         InputState current_state = input_handler.getInputState();
-        camera_test.update(current_state, delta_time);
 
-        glm::mat4 view = Matrices::Matrix_Camera_View(camera_test.getCameraPosition(), camera_test.getCameraViewVector(), camera_test.getCameraUpVector());
+        player.update(current_state, delta_time);
+        //camera_test.update(current_state, delta_time);
+
+        glm::mat4 view = Matrices::Matrix_Camera_View(player.getCamera().getCameraPosition(), player.getCamera().getCameraViewVector(), player.getCamera().getCameraUpVector());
         glm::mat4 projection;
 
         float nearplane = -0.1f;  // Posição do "near plane"
