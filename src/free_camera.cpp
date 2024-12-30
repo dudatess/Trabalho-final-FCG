@@ -87,5 +87,4 @@ void FreeCamera::updateRotation(InputState state, float delta_time)
     float x = -r * cos(this->g_CameraPhi) * sin(this->g_CameraTheta);
 
     this->camera_view_vector = glm::vec4(x, y, z, 0.0f);
-    std::cout << "angle x: " << g_CameraTheta << " angle y: " << g_CameraPhi << std::endl;
 }
