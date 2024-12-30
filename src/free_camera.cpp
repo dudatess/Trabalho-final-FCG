@@ -30,6 +30,11 @@ void FreeCamera::updatePosition(InputState state, float delta_time)
 {
     float speed = 5.0f;
 
+    if (state.is_running)
+    {
+        speed = 20.0f;
+    }
+
     if (state.move_forward)
     {
         glm::vec4 vec = camera_view_vector;

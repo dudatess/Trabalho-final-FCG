@@ -8,6 +8,7 @@ struct InputState {
     bool move_backward = false;
     bool move_left = false;
     bool move_right = false;
+    bool is_running = false;
 
     bool left_click = false;
     bool right_click = false;

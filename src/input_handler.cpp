@@ -28,6 +28,10 @@ void InputHandler::keyCallback(GLFWwindow *window, int key, int scancode, int ac
     {
         input_handler->state.move_right = action;
     }
+    else if (key == GLFW_KEY_LEFT_SHIFT)
+    {
+        input_handler->state.is_running = action;
+    }
 }
 
 void InputHandler::cursorPosCallback(GLFWwindow *window, double x_pos, double y_pos)
