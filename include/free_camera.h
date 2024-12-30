@@ -20,6 +20,10 @@ class FreeCamera
         double old_mouse_x = 0.0;
         double old_mouse_y = 0.0;
 
+        float near_plane = -0.1f;  // Posição do "near plane"
+        float far_plane  = -100.0f; // Posição do "far plane"
+        float field_of_view = 3.141592 / 3.0f;
+        
     public:
 
         FreeCamera();
@@ -27,6 +31,9 @@ class FreeCamera
         glm::vec4 getCameraLookAt() { return camera_lookat; }
         glm::vec4 getCameraViewVector() { return camera_view_vector; }
         glm::vec4 getCameraUpVector() { return camera_up_vector; }
+
+        glm::mat4 getViewMatrix();
+        glm::mat4 getProjectionMatrix();
 
         void updateCameraPosition(glm::vec4 position);
         void updateCameraRotation(InputState state, float delta_time);

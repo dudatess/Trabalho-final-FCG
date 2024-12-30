@@ -53,3 +53,14 @@ void FreeCamera::updateCameraRotation(InputState state, float delta_time)
 
     this->camera_view_vector = glm::vec4(x, y, z, 0.0f);
 }
+
+glm::mat4 FreeCamera::getViewMatrix()
+{
+    return Matrices::Matrix_Camera_View(this->camera_position, this->camera_view_vector, this->camera_up_vector);
+}
+
+glm::mat4 FreeCamera::getProjectionMatrix()
+{
+    //TODO: Nao sei se o 1.0f ali sempre da certo, no codigo do sor tava g_ScreenRatio (que era width / height da janela)
+    return Matrices::Matrix_Perspective(field_of_view, 1.0f, near_plane, far_plane);
+}

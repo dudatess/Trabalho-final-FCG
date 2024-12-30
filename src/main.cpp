@@ -436,28 +436,7 @@ int main(int argc, char* argv[])
         InputState current_state = input_handler.getInputState();
 
         player.update(current_state, delta_time);
-        //camera_test.update(current_state, delta_time);
-
-        glm::mat4 view = Matrices::Matrix_Camera_View(player.getCamera().getCameraPosition(), player.getCamera().getCameraViewVector(), player.getCamera().getCameraUpVector());
-        glm::mat4 projection;
-
-        float nearplane = -0.1f;  // Posição do "near plane"
-        float farplane  = -100.0f; // Posição do "far plane"
-
-        
-        
-        // Projeção Perspectiva.
-        // Para definição do field of view (FOV), veja slides 205-215 do documento Aula_09_Projecoes.pdf.
-        float field_of_view = 3.141592 / 3.0f;
-        projection = Matrices::Matrix_Perspective(field_of_view, g_ScreenRatio, nearplane, farplane);
-        
-
-        glm::mat4 model = Matrices::Matrix_Identity(); // Transformação identidade de modelagem
-
-        // Enviamos as matrizes "view" e "projection" para a placa de vídeo
-        // (GPU). Veja o arquivo "shader_vertex.glsl", onde estas são
-        // efetivamente aplicadas em todos os pontos.
-        gpu_functions.updateCameraMatrices(view, projection);
+        gpu_functions.updateCameraMatrices(player.getCamera());
 
 
         scene.Render();
