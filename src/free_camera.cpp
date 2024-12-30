@@ -69,6 +69,15 @@ void FreeCamera::updateRotation(InputState state, float delta_time)
     this->g_CameraTheta += mouse_delta_x * speed * delta_time;
     this->g_CameraPhi += -mouse_delta_y * speed * delta_time;
 
+    if (this->g_CameraPhi > 3.1415f / 2.0f)
+    {
+        this->g_CameraPhi = 3.1415f / 2.0f;
+    }
+    else if (this->g_CameraPhi < -3.1415f / 2.0f)
+    {
+        this->g_CameraPhi = -3.1415f / 2.0f;
+    }
+
     old_mouse_x = state.mouse_x;
     old_mouse_y = state.mouse_y;
 
@@ -78,4 +87,5 @@ void FreeCamera::updateRotation(InputState state, float delta_time)
     float x = -r * cos(this->g_CameraPhi) * sin(this->g_CameraTheta);
 
     this->camera_view_vector = glm::vec4(x, y, z, 0.0f);
+    std::cout << "angle x: " << g_CameraTheta << " angle y: " << g_CameraPhi << std::endl;
 }
