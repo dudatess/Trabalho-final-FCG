@@ -25,3 +25,8 @@ void StaticGameObject::Render()
         object->num_indices,
         object->first_index);
 }
+
+void StaticGameObject::setHitbox(glm::vec4 min_point, glm::vec4 max_point)
+{
+    this->hitbox = HitBox(min_point, max_point);
+}

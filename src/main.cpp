@@ -55,6 +55,7 @@
 #include "texture.h"
 #include "input_handler.h"
 #include "player.h"
+#include "collisions.h"
 #define M_PI 3.14159265358979323846
 
 // Declaração de funções utilizadas para pilha de matrizes de modelagem.
@@ -186,6 +187,8 @@ int main(int argc, char* argv[])
         std::exit(EXIT_FAILURE);
     }
     InputHandler input_handler;
+    Collisions collisions;
+    Player player;
 
     // Definimos a função de callback que será chamada sempre que o usuário
     // pressionar alguma tecla do teclado ...
@@ -335,28 +338,34 @@ int main(int argc, char* argv[])
     floor_object.UpdateModel();
 
     // Parede de trás
-    StaticGameObject back_wall(&gpu_functions, &cube, TextureType::OBJ_FILE ,texture.GetTexture("bege_wall"), LightType::NO); 
+    StaticGameObject back_wall(&gpu_functions, &cube, TextureType::OBJ_FILE ,texture.GetTexture("white_board"), LightType::NO); 
     back_wall.transform.SetPosition(0.0f, 0.0f, 40.0f); 
     back_wall.transform.SetScale(40.0f, 20.0f, 1.0f); 
     back_wall.UpdateModel();
+    back_wall.setHitbox(glm::vec4(-20.0f, 0.0f, 39.0f, 1.0f), glm::vec4(20.0f, 20.0f, 41.0f, 1.0f));
+    collisions.addHitbox(back_wall);
 
     // Parede da direita
     StaticGameObject right_wall(&gpu_functions, &cube, TextureType::OBJ_FILE, texture.GetTexture("bege_wall"), LightType::NO);
     right_wall.transform.SetPosition(40.0f, 0.0f, 0.0f); 
     right_wall.transform.SetScale(1.0f, 20.0f, 40.0f);
     right_wall.UpdateModel();
+    collisions.addHitbox(right_wall);
 
     // Parede da esquerda
-    StaticGameObject left_wall(&gpu_functions, &cube,  TextureType::OBJ_FILE,  texture.GetTexture("bege_wall"), LightType::NO);
+    StaticGameObject left_wall(&gpu_functions, &cube,  TextureType::OBJ_FILE,  texture.GetTexture("wood"), LightType::NO);
     left_wall.transform.SetPosition(-40.0f, 0.0f, 0.0f); 
     left_wall.transform.SetScale(1.0f, 20.0f, 40.0f);
     left_wall.UpdateModel();
+    collisions.addHitbox(left_wall);
 
     // Parede da frente
-    StaticGameObject front_wall(&gpu_functions, &cube,  TextureType::OBJ_FILE, texture.GetTexture("bege_wall"), LightType::NO);
+    StaticGameObject front_wall(&gpu_functions, &cube,  TextureType::OBJ_FILE, texture.GetTexture("green_floor"), LightType::NO);
     front_wall.transform.SetPosition(0.0f, 0.0f, -40.0f); 
     front_wall.transform.SetScale(40.0f, 20.0f, 1.0f);
     front_wall.UpdateModel();
+    front_wall.setHitbox(glm::vec4(-40.0f, 0.0f, -40.0f, 1.0f), glm::vec4(40.0f, 0.0f, -40.0f, 1.0f));
+    collisions.addHitbox(front_wall);
 
     // (Opcional) Teto
     StaticGameObject ceiling_object(&gpu_functions, &cube, TextureType::OBJ_FILE,  texture.GetTexture("bege_wall"), LightType::NO);
@@ -403,9 +412,6 @@ int main(int argc, char* argv[])
     float old_time = glfwGetTime();
     float current_time = 0;
     float delta_time = 0;
-    //FreeCamera camera_test;
-
-    Player player;
 
     // Ficamos em um loop infinito, renderizando, até que o usuário feche a janela
     while (!glfwWindowShouldClose(window))
@@ -435,7 +441,14 @@ int main(int argc, char* argv[])
 
         InputState current_state = input_handler.getInputState();
 
+        glm::vec4 old_player_position = player.getPosition();
         player.update(current_state, delta_time);
+        std::cout << "Player position: " << player.getPosition().x << " " << player.getPosition().y << " " << player.getPosition().z << std::endl;
+        if (collisions.checkPlayerCollision(player))
+        {
+            std::cout << "Collision detected" << std::endl;
+            player.setPosition(old_player_position);
+        }
         gpu_functions.updateCameraMatrices(player.getCamera());
 
 

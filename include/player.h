@@ -14,6 +14,8 @@ public:
     
     void update(InputState state, float delta_time);
     void updatePosition(InputState state, float delta_time);
+    void setPosition(glm::vec4 position);
+    glm::vec4 getPosition();
     FreeCamera getCamera();
 
     Player();

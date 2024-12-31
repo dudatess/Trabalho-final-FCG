@@ -14,3 +14,8 @@ void GameObject::UpdateModel()
     this->transform.UpdateModelMatrix(this->model);
 }
 
+HitBox GameObject::getHitbox() const
+{
+    return hitbox;
+}
+

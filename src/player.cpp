@@ -60,3 +60,14 @@ FreeCamera Player::getCamera()
 {
     return this->camera;
 }
+
+glm::vec4 Player::getPosition()
+{
+    return this->position;
+}
+
+void Player::setPosition(glm::vec4 position)
+{
+    this->position = position;
+    this->camera.updateCameraPosition(this->position);
+}
