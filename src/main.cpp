@@ -338,33 +338,35 @@ int main(int argc, char* argv[])
     floor_object.UpdateModel();
 
     // Parede de trás
-    StaticGameObject back_wall(&gpu_functions, &cube, TextureType::OBJ_FILE ,texture.GetTexture("white_board"), LightType::NO); 
-    back_wall.transform.SetPosition(0.0f, 0.0f, 40.0f); 
+    StaticGameObject back_wall(&gpu_functions, &cube, TextureType::OBJ_FILE ,texture.GetTexture("bege_wall"), LightType::NO); 
+    back_wall.transform.SetPosition(0.0f, 0.0f, -40.0f); 
     back_wall.transform.SetScale(40.0f, 20.0f, 1.0f); 
     back_wall.UpdateModel();
-    back_wall.setHitbox(glm::vec4(-20.0f, 0.0f, 39.0f, 1.0f), glm::vec4(20.0f, 20.0f, 41.0f, 1.0f));
+    back_wall.setHitbox(glm::vec4(-40.0f, 0.0f, -42.0f, 1.0f), glm::vec4(40.0f, 20.0f, -38.0f, 1.0f));
     collisions.addHitbox(back_wall);
 
     // Parede da direita
     StaticGameObject right_wall(&gpu_functions, &cube, TextureType::OBJ_FILE, texture.GetTexture("bege_wall"), LightType::NO);
-    right_wall.transform.SetPosition(40.0f, 0.0f, 0.0f); 
+    right_wall.transform.SetPosition(-40.0f, 0.0f, 0.0f); 
     right_wall.transform.SetScale(1.0f, 20.0f, 40.0f);
     right_wall.UpdateModel();
+    right_wall.setHitbox(glm::vec4(-42.0f, 0.0f, -40.0f, 1.0f), glm::vec4(-38.0f, 20.0f, 40.0f, 1.0f));
     collisions.addHitbox(right_wall);
 
     // Parede da esquerda
-    StaticGameObject left_wall(&gpu_functions, &cube,  TextureType::OBJ_FILE,  texture.GetTexture("wood"), LightType::NO);
-    left_wall.transform.SetPosition(-40.0f, 0.0f, 0.0f); 
+    StaticGameObject left_wall(&gpu_functions, &cube,  TextureType::OBJ_FILE,  texture.GetTexture("bege_wall"), LightType::NO);
+    left_wall.transform.SetPosition(40.0f, 0.0f, 0.0f); 
     left_wall.transform.SetScale(1.0f, 20.0f, 40.0f);
     left_wall.UpdateModel();
+    left_wall.setHitbox(glm::vec4(38.0f, 0.0f, -40.0f, 1.0f), glm::vec4(42.0f, 20.0f, 40.0f, 1.0f));
     collisions.addHitbox(left_wall);
 
     // Parede da frente
-    StaticGameObject front_wall(&gpu_functions, &cube,  TextureType::OBJ_FILE, texture.GetTexture("green_floor"), LightType::NO);
-    front_wall.transform.SetPosition(0.0f, 0.0f, -40.0f); 
+    StaticGameObject front_wall(&gpu_functions, &cube,  TextureType::OBJ_FILE, texture.GetTexture("bege_wall"), LightType::NO);
+    front_wall.transform.SetPosition(0.0f, 0.0f, 40.0f);
     front_wall.transform.SetScale(40.0f, 20.0f, 1.0f);
     front_wall.UpdateModel();
-    front_wall.setHitbox(glm::vec4(-40.0f, 0.0f, -40.0f, 1.0f), glm::vec4(40.0f, 0.0f, -40.0f, 1.0f));
+    front_wall.setHitbox(glm::vec4(-40.0f, 0.0f, 38.0f, 1.0f), glm::vec4(40.0f, 0.0f, 42.0f, 1.0f));
     collisions.addHitbox(front_wall);
 
     // (Opcional) Teto

@@ -6,7 +6,6 @@
 #include "hitbox.h"
 #include "player.h"
 
-
 class Collisions {
 private:
     // std::unordered_map<GameObject, HitBox> hitboxes;
