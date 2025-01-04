@@ -466,8 +466,15 @@ int main(int argc, char* argv[])
         //     std::cout << "Collision detected" << std::endl;
         //     player.setPosition(old_player_position);
         // }
-        gpu_functions.updateCameraMatrices(player.getCamera());
 
+        player.camera_type = CameraType::LOOK_AT_CAMERA;
+
+        if(player.camera_type == CameraType::FREE_CAMERA) {
+            gpu_functions.updateFreeCameraMatrices(player.getFreeCamera());
+        }
+        else {
+            gpu_functions.updateLookAtCameraMatrices(player.getLookAtCamera());
+        }
 
         scene.Render();
 
