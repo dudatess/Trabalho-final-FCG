@@ -441,16 +441,31 @@ int main(int argc, char* argv[])
         delta_time = current_time - old_time;
         old_time = current_time;
 
+        // Movimento que o usuário deseja fazer
         InputState current_state = input_handler.getInputState();
+        player.updateVelocity(current_state, delta_time);
 
-        glm::vec4 old_player_position = player.getPosition();
+        // Verificamos se o player colidiu com algum objeto e atualizamos a velocidade
+        glm::vec4 new_player_velocity = collisions.checkPlayerCollision(player);
+        player.setVelocity(new_player_velocity);
+
+        // Atualizamos a posição do player
         player.update(current_state, delta_time);
-        std::cout << "Player position: " << player.getPosition().x << " " << player.getPosition().y << " " << player.getPosition().z << std::endl;
-        if (collisions.checkPlayerCollision(player))
-        {
-            std::cout << "Collision detected" << std::endl;
-            player.setPosition(old_player_position);
-        }
+
+        
+        // player.update(current_state, delta_time);
+        // std::cout << "Player position: " << player.getPosition().x << " " << player.getPosition().y << " " << player.getPosition().z << std::endl;
+        
+        
+        
+
+
+
+        // if (collisions.checkPlayerCollision(player))
+        // {
+        //     std::cout << "Collision detected" << std::endl;
+        //     player.setPosition(old_player_position);
+        // }
         gpu_functions.updateCameraMatrices(player.getCamera());
 
 
