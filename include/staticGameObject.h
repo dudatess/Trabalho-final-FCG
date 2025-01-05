@@ -25,6 +25,7 @@ public:
     void Update(float deltaTime) override;
     void Render() override;
     void setHitbox(glm::vec4 min_point, glm::vec4 max_point);
+    void setHitsphere(glm::vec4 center, float radius);
 };
 
 #endif 

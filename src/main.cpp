@@ -375,6 +375,16 @@ int main(int argc, char* argv[])
     ceiling_object.transform.SetScale(40.0f, 1.0f, 40.0f); 
     ceiling_object.UpdateModel();
 
+    StaticGameObject sphere_object(&gpu_functions, &sphere, TextureType::OBJ_FILE, texture.GetTexture("wood"), LightType::NO);
+    glm::vec4 sphere_position = glm::vec4(10.0f, -4.0f, 10.0f, 1.0f);
+    float sphere_radius = 5.0f;
+    sphere_object.transform.SetPosition(sphere_position.x, sphere_position.y, sphere_position.z);
+    sphere_object.transform.SetScale(sphere_radius, sphere_radius, sphere_radius);
+    sphere_object.UpdateModel();
+    sphere_object.setHitsphere(sphere_position, sphere_radius+2);
+    collisions.addHitsphere(sphere_object);
+
+
 
 
     //scene.AddGameObject(&sphere_object);
@@ -400,6 +410,7 @@ int main(int argc, char* argv[])
     scene.AddGameObject(&chair12);
     //scene.AddGameObject(&window1);
     scene.AddGameObject(&white_board_object);
+    scene.AddGameObject(&sphere_object);
 
 
     // Habilitamos o Z-buffer. Veja slides 104-116 do documento Aula_09_Projecoes.pdf.

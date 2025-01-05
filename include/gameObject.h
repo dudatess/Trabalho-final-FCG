@@ -11,6 +11,7 @@
 #include "lightType.h"
 #include "texture.h"
 #include "hitbox.h"
+#include "hitsphere.h"
 
 class GameObject
 {
@@ -23,7 +24,9 @@ protected:
     Object *object;
     glm::mat4 model;
     //Adicionar colisão;
+    
     HitBox hitbox;
+    HitSphere hitsphere;
 
 public:
 
@@ -40,6 +43,7 @@ public:
     virtual ~GameObject() = default;
 
     HitBox getHitbox() const;
+    HitSphere getHitsphere() const;
 };
 
 

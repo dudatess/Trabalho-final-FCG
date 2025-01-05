@@ -1,6 +1,7 @@
 #include "collisions.h"
 #include "gameObject.h"
 #include "hitbox.h"
+#include "vector_operations.h"
 
 void Collisions::addHitbox(const GameObject& object)
 {
@@ -9,6 +10,17 @@ void Collisions::addHitbox(const GameObject& object)
 }
 
 void Collisions::removeHitbox(const GameObject& object)
+{
+
+}
+
+void Collisions::addHitsphere(const GameObject& object)
+{
+    HitSphere hitsphere = object.getHitsphere();
+    hitSpheres.push_back(hitsphere);
+}
+
+void Collisions::removeHitsphere(const GameObject& object)
 {
 
 }
@@ -52,6 +64,23 @@ glm::vec4 Collisions::checkPlayerCollision(Player& player)
             new_player_velocity.z = 0;
         }
     }
+
+    for (HitSphere& hitsphere : hitSpheres)
+    {
+        glm::vec4 sphere_center = hitsphere.getCenter();
+        float sphere_radius = hitsphere.getRadius();
+
+        bool isColliding = checkPointSphereCollision(future_player_position, sphere_center, sphere_radius);
+
+        if (isColliding)
+        {
+            glm::vec4 collision_normal = VectorOperations::normalize(future_player_position - sphere_center);
+            new_player_velocity = VectorOperations::reflect(player_velocity, collision_normal);
+            new_player_velocity.y = 0;
+        }
+    }
+
+
     return new_player_velocity;
 }
 
@@ -60,4 +89,9 @@ bool Collisions::checkPointAABBCollision(glm::vec4 point, glm::vec4 min, glm::ve
     return point.x >= min.x && point.x <= max.x &&
            point.y >= min.y && point.y <= max.y &&
            point.z >= min.z && point.z <= max.z;
+}
+
+bool Collisions::checkPointSphereCollision(glm::vec4 point, glm::vec4 sphere_center, float sphere_radius)
+{
+    return glm::distance(point, sphere_center) <= sphere_radius;
 }
