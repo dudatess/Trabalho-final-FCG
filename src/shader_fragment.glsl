@@ -107,7 +107,7 @@ void main()
     {
         definitive_texture = PlaneProjection(bbox_min, bbox_max, position_model);
     }
-    else if(texture_type == TEXTURE_OBJ_FILE)
+    else if(texture_type == TEXTURE_SPHERE)
     {
         definitive_texture = SphereProjection(bbox_min, bbox_max, position_model);
     }

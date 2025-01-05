@@ -11,8 +11,8 @@ Player::Player()
     this->velocity = glm::vec4(0.0f, 0.0f, 0.0f, 0.0f);
       
     glm::vec4 p1 = position; 
-    glm::vec4 p2 = p1 + glm::vec4(0.0f, 5.0f, 10.0f, 0.0f); // Ponto de controle 1
-    glm::vec4 p3 = p1 + glm::vec4(0.0f, 5.0f, 20.0f, 0.0f); // Ponto de controle 2
+    glm::vec4 p2 = p1 + glm::vec4(0.0f, 20.0f, 10.0f, 0.0f); // Ponto de controle 1
+    glm::vec4 p3 = p1 + glm::vec4(0.0f, 20.0f, 20.0f, 0.0f); // Ponto de controle 2
     glm::vec4 p4 = p1 + glm::vec4(0.0f, 0.0f, 30.0f, 0.0f); // Ponto final
     this->bezier_curve = new BezierCurve(5.0f, p1, p2, p3, p4);
 

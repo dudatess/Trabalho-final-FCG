@@ -254,6 +254,7 @@ int main(int argc, char* argv[])
     texture.LoadTextureImage("../../data/green_floor.jpg", "green_floor");
     texture.LoadTextureImage("../../data/bege_wall.jpg", "bege_wall");
     texture.LoadTextureImage("../../data/white_board.jpg", "white_board");
+    texture.LoadTextureImage("../../data/bezier_board.jpg", "bezier_board");
     TextRendering_Init();
 
     Object sphere("../../data/sphere.obj");
@@ -369,10 +370,18 @@ int main(int argc, char* argv[])
     front_wall.setHitbox(glm::vec4(-40.0f, 0.0f, 38.0f, 1.0f), glm::vec4(40.0f, 0.0f, 42.0f, 1.0f));
     collisions.addHitbox(front_wall);
 
-    StaticGameObject board(&gpu_functions, &cube, TextureType::OBJ_FILE, texture.GetTexture("green_floor"), LightType::NO);
-    board.transform.SetPosition(0.0f, 0.0f, 38.0f);
-    board.transform.SetScale(10.0f, 5.0f, 0.3f);
+    StaticGameObject board(&gpu_functions, &plane, TextureType::PLANE, texture.GetTexture("bezier_board"), LightType::NO);
+    board.transform.SetPosition(0.0f, -5.0f, 0.0f);
+    board.transform.SetRotation(3.14/2, 0.0f, 0.0f);
+    board.transform.SetScale(15.0f, 15.0f, 15.0f);
     board.UpdateModel();
+
+    /*StaticGameObject board(&gpu_functions, &cube, TextureType::OBJ_FILE ,texture.GetTexture("bege_wall"), LightType::NO); 
+    board.transform.SetPosition(0.0f, 0.0f, -40.0f); 
+    board.transform.SetScale(10.0f, 7.0f, 0.3f); 
+    board.UpdateModel();
+    board.setHitbox(glm::vec4(-40.0f, 0.0f, -42.0f, 1.0f), glm::vec4(40.0f, 20.0f, -38.0f, 1.0f));
+    collisions.addHitbox(back_wall);*/
 
 
     // (Opcional) Teto
