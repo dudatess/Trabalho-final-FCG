@@ -367,13 +367,13 @@ int main(int argc, char* argv[])
     front_wall.transform.SetPosition(0.0f, 0.0f, 40.0f);
     front_wall.transform.SetScale(40.0f, 20.0f, 1.0f);
     front_wall.UpdateModel();
-    front_wall.setHitbox(glm::vec4(-40.0f, 0.0f, 38.0f, 1.0f), glm::vec4(40.0f, 0.0f, 42.0f, 1.0f));
+    front_wall.setHitbox(glm::vec4(-40.0f, -10.0f, 38.0f, 1.0f), glm::vec4(40.0f, 10.0f, 42.0f, 1.0f));
     collisions.addHitbox(front_wall);
 
     StaticGameObject board(&gpu_functions, &plane, TextureType::PLANE, texture.GetTexture("bezier_board"), LightType::NO);
-    board.transform.SetPosition(0.0f, -5.0f, 0.0f);
-    board.transform.SetRotation(3.14/2, 0.0f, 0.0f);
-    board.transform.SetScale(15.0f, 15.0f, 15.0f);
+    board.transform.SetPosition(0.0f, 5.0f, 38.5f);
+    board.transform.SetRotation(-3.14/2, 0.0f, 0.0f);
+    board.transform.SetScale(15.0f, 10.0f, 10.0f);
     board.UpdateModel();
 
     /*StaticGameObject board(&gpu_functions, &cube, TextureType::OBJ_FILE ,texture.GetTexture("bege_wall"), LightType::NO); 
@@ -385,7 +385,7 @@ int main(int argc, char* argv[])
 
 
     // (Opcional) Teto
-    StaticGameObject ceiling_object(&gpu_functions, &cube, TextureType::OBJ_FILE,  texture.GetTexture("bege_wall"), LightType::NO);
+    StaticGameObject ceiling_object(&gpu_functions, &cube, TextureType::PLANE,  texture.GetTexture("bege_wall"), LightType::NO);
     ceiling_object.transform.SetPosition(0.0f, 20.0f, 0.0f); 
     ceiling_object.transform.SetScale(40.0f, 1.0f, 40.0f); 
     ceiling_object.UpdateModel();
@@ -476,7 +476,7 @@ int main(int argc, char* argv[])
 
         
         // player.update(current_state, delta_time);
-        // std::cout << "Player position: " << player.getPosition().x << " " << player.getPosition().y << " " << player.getPosition().z << std::endl;
+        std::cout << "Player position: " << player.getPosition().x << " " << player.getPosition().y << " " << player.getPosition().z << std::endl;
         
         
         
