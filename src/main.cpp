@@ -384,6 +384,15 @@ int main(int argc, char* argv[])
     sphere_object.setHitsphere(sphere_position, sphere_radius+2);
     collisions.addHitsphere(sphere_object);
 
+    StaticGameObject special_cube(&gpu_functions, &cube, TextureType::OBJ_FILE, texture.GetTexture("white_board"), LightType::NO);
+    special_cube.transform.SetPosition(-30.0f,-5.0f,20.0f);
+    special_cube.transform.SetScale(2.0f, 2.0f, 2.0f);
+    special_cube.UpdateModel();
+    special_cube.setHitbox(glm::vec4(-33.0f, -100.0f, 16.0f, 1.0f), glm::vec4(-27.0f, 0.0f, 23.0f, 1.0f));
+    collisions.addHitbox(special_cube);
+    collisions.addClickableHitbox(special_cube);
+
+
 
 
 
@@ -411,6 +420,7 @@ int main(int argc, char* argv[])
     //scene.AddGameObject(&window1);
     scene.AddGameObject(&white_board_object);
     scene.AddGameObject(&sphere_object);
+    scene.AddGameObject(&special_cube);
 
 
     // Habilitamos o Z-buffer. Veja slides 104-116 do documento Aula_09_Projecoes.pdf.
@@ -468,7 +478,7 @@ int main(int argc, char* argv[])
         // std::cout << "Player position: " << player.getPosition().x << " " << player.getPosition().y << " " << player.getPosition().z << std::endl;
         
         
-        
+        collisions.checkClickableCollision(player);
 
 
 
@@ -479,7 +489,7 @@ int main(int argc, char* argv[])
         // }
         gpu_functions.updateCameraMatrices(player.getCamera());
 
-
+        //player.printPlayerPosition();
         scene.Render();
 
         // Imprimimos na tela informação sobre o número de quadros renderizados
