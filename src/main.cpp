@@ -415,6 +415,8 @@ int main(int argc, char* argv[])
     float current_time = 0;
     float delta_time = 0;
 
+    bool isOpening = true; //Flag para controlar abertura do jogo
+
     // Ficamos em um loop infinito, renderizando, até que o usuário feche a janela
     while (!glfwWindowShouldClose(window))
     {
@@ -441,8 +443,28 @@ int main(int argc, char* argv[])
         delta_time = current_time - old_time;
         old_time = current_time;
 
+
+
         // Movimento que o usuário deseja fazer
         InputState current_state = input_handler.getInputState();
+        player.update(current_state, delta_time);
+
+        static float alpha = 1.0f;  // Começa com o fundo claro
+        float speed = 0.1f;  // Velocidade de escurecimento
+        alpha -= speed * delta_time;
+        if (alpha < 0.0f) alpha = 0.0f;
+
+        glClearColor(1.0f, 1.0f, 1.0f, alpha);  // Ajuste a opacidade (A = alpha)
+
+
+        player.updateCamera(isOpening);
+
+         // Se o movimento de abertura estiver completo, libere a câmera para controle livre
+        if (!player.isMoving && isOpening) {
+            isOpening = false;
+            player.resetPosition(); // Reposiciona o jogador
+        }
+
         player.updateVelocity(current_state, delta_time);
 
         // Verificamos se o player colidiu com algum objeto e atualizamos a velocidade
