@@ -1,8 +1,6 @@
 #include "transform.h"
 #include "matrices.h"
 
-#include <glad/glad.h>
-#include <glm/mat4x4.hpp>
 
 void Transform::UpdateModelMatrix(glm::mat4& model)
 {

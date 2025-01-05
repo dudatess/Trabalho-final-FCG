@@ -21,7 +21,7 @@ class FreeCamera
         double old_mouse_y = 0.0;
 
         float near_plane = -0.1f;  // Posição do "near plane"
-        float far_plane  = -100.0f; // Posição do "far plane"
+        float far_plane  = -150.0f; // Posição do "far plane"
         float field_of_view = 3.141592 / 3.0f;
         
     public:

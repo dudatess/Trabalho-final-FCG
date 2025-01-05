@@ -2,6 +2,7 @@
 #define INPUT_HANDLER_H
 
 #include <GLFW/glfw3.h>
+#include <iostream>
 
 struct InputState {
     bool move_forward = false;
@@ -9,6 +10,8 @@ struct InputState {
     bool move_left = false;
     bool move_right = false;
     bool is_running = false;
+
+    bool is_interacting = false;
 
     bool left_click = false;
     bool right_click = false;

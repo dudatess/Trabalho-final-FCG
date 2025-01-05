@@ -1,6 +1,5 @@
 #include "input_handler.h"
-#include <GLFW/glfw3.h>
-#include <iostream>
+
 
 void InputHandler::keyCallback(GLFWwindow *window, int key, int scancode, int action, int mod)
 {
@@ -27,6 +26,10 @@ void InputHandler::keyCallback(GLFWwindow *window, int key, int scancode, int ac
     if (key == GLFW_KEY_D)
     {
         input_handler->state.move_right = action;
+    }
+    if (key == GLFW_KEY_E)
+    {
+        input_handler->state.is_interacting = action;
     }
     else if (key == GLFW_KEY_LEFT_SHIFT)
     {

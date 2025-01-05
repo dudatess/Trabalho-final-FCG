@@ -24,3 +24,8 @@ HitSphere GameObject::getHitsphere() const
     return this->hitsphere;
 }
 
+std::string GameObject::getObjectId() const
+{
+    return this->object_id;
+}
+

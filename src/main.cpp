@@ -56,6 +56,7 @@
 #include "input_handler.h"
 #include "player.h"
 #include "collisions.h"
+#include "game_logic.h"
 #define M_PI 3.14159265358979323846
 
 // Declaração de funções utilizadas para pilha de matrizes de modelagem.
@@ -186,6 +187,7 @@ int main(int argc, char* argv[])
         fprintf(stderr, "ERROR: glfwCreateWindow() failed.\n");
         std::exit(EXIT_FAILURE);
     }
+    GameLogic game_logic;
     InputHandler input_handler;
     Collisions collisions;
     Player player;
@@ -478,7 +480,9 @@ int main(int argc, char* argv[])
         // std::cout << "Player position: " << player.getPosition().x << " " << player.getPosition().y << " " << player.getPosition().z << std::endl;
         
         
-        collisions.checkClickableCollision(player);
+        auto clickable_objects_collision = collisions.checkClickableCollision(player);
+        game_logic.checkInteraction(clickable_objects_collision, current_state.is_interacting);
+
 
 
 
@@ -489,7 +493,7 @@ int main(int argc, char* argv[])
         // }
         gpu_functions.updateCameraMatrices(player.getCamera());
 
-        //player.printPlayerPosition();
+        player.printPlayerPosition();
         scene.Render();
 
         // Imprimimos na tela informação sobre o número de quadros renderizados

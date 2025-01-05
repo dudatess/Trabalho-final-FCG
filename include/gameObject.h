@@ -1,7 +1,6 @@
 #ifndef _GAMEOBJECT_H
 #define _GAMEOBJECT_H
 
-#include <string>
 #include <glad/glad.h>
 #include <glm/mat4x4.hpp>
 
@@ -12,6 +11,7 @@
 #include "texture.h"
 #include "hitbox.h"
 #include "hitsphere.h"
+#include <string>
 
 class GameObject
 {
@@ -27,6 +27,7 @@ protected:
     
     HitBox hitbox;
     HitSphere hitsphere;
+    std::string object_id;
 
 public:
 
@@ -44,6 +45,7 @@ public:
 
     HitBox getHitbox() const;
     HitSphere getHitsphere() const;
+    std::string getObjectId() const;
 };
 
 

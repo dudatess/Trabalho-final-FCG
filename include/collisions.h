@@ -18,7 +18,9 @@ private:
     // std::unordered_map<GameObject, HitBox> hitboxes;
     std::vector<HitBox> hitboxes;
     std::vector<HitSphere> hitSpheres;
-    std::vector<HitBox> clickableHitboxes;
+    //std::vector<HitBox> clickableHitboxes;
+
+    std::unordered_map<std::string, HitBox> clickableHitboxes;
     
 public:
     void addHitbox(const GameObject& object);
@@ -31,7 +33,7 @@ public:
     void removeClickableHitbox(const GameObject& object);
 
     glm::vec4 checkPlayerCollision(Player& player);
-    bool checkClickableCollision(Player& player);
+    std::unordered_map<std::string, bool> checkClickableCollision(Player& player);
     void clearHitboxes();
 
     bool checkPointAABBCollision(glm::vec4 point, glm::vec4 min, glm::vec4 max);

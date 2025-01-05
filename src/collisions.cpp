@@ -2,6 +2,9 @@
 #include "gameObject.h"
 #include "hitbox.h"
 #include "vector_operations.h"
+#include "game_logic.h"
+
+#include <iostream>
 
 void Collisions::addHitbox(const GameObject& object)
 {
@@ -28,7 +31,7 @@ void Collisions::removeHitsphere(const GameObject& object)
 void Collisions::addClickableHitbox(const GameObject& object)
 {
     HitBox hitbox = object.getHitbox();
-    clickableHitboxes.push_back(hitbox);
+    this->clickableHitboxes[object.getObjectId()] = hitbox;
 }
 
 void Collisions::removeClickableHitbox(const GameObject& object)
@@ -104,17 +107,26 @@ glm::vec4 Collisions::checkPlayerCollision(Player& player)
     return new_player_velocity;
 }
 
-bool Collisions::checkClickableCollision(Player &player)
+std::unordered_map<std::string, bool> Collisions::checkClickableCollision(Player &player)
 {
-    bool isColliding = false;
+    std::unordered_map<std::string, bool> clickable_objects_collision;
+    
     glm::vec4 player_position = player.getPosition();
     glm::vec4 player_view_vector = player.getCamera().getCameraViewVector();
 
-    isColliding = checkRayToAABBCollision(player_position, player_view_vector, clickableHitboxes[0].getMinPoint(), clickableHitboxes[0].getMaxPoint());
+    for (auto object : this->clickableHitboxes)
+    {
+        bool isColliding = false;
+        isColliding = checkRayToAABBCollision(player_position, player_view_vector, clickableHitboxes[object.first].getMinPoint(), clickableHitboxes[object.first].getMaxPoint());
+        clickable_objects_collision[object.first] = isColliding;
+        // std::cout << "Is clickacble colliding: " << isColliding << std::endl;
+    }
 
-    std::cout << "Is clickacble colliding: " << isColliding << std::endl;
+    // isColliding = checkRayToAABBCollision(player_position, player_view_vector, clickableHitboxes[0].getMinPoint(), clickableHitboxes[0].getMaxPoint());
 
-    return isColliding;
+     
+
+    return clickable_objects_collision;
 }
 
 bool Collisions::checkPointAABBCollision(glm::vec4 point, glm::vec4 min, glm::vec4 max)
@@ -143,8 +155,8 @@ bool Collisions::checkPointSphereCollision(glm::vec4 point, glm::vec4 sphere_cen
     float tMin = 0.0f;
     float tMax = 3.0f;
 
-    std::cout << "Ray origin: " << ray_origin.x << " " << ray_origin.y << " " << ray_origin.z << std::endl;
-    std::cout << "Ray direction: " << ray_direction.x << " " << ray_direction.y << " " << ray_direction.z << std::endl;
+    // std::cout << "Ray origin: " << ray_origin.x << " " << ray_origin.y << " " << ray_origin.z << std::endl;
+    // std::cout << "Ray direction: " << ray_direction.x << " " << ray_direction.y << " " << ray_direction.z << std::endl;
 
     for (int i = 0; i < 3; i++) {
         if (fabs(ray_direction[i]) < 1e-8f) {
