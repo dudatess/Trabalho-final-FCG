@@ -48,6 +48,7 @@ public:
 
     void printPlayerPosition();
     void updateCamera(bool isOpening);
+    void updateBezier(float delta_time);
 
     Player();
 };

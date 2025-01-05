@@ -369,6 +369,12 @@ int main(int argc, char* argv[])
     front_wall.setHitbox(glm::vec4(-40.0f, 0.0f, 38.0f, 1.0f), glm::vec4(40.0f, 0.0f, 42.0f, 1.0f));
     collisions.addHitbox(front_wall);
 
+    StaticGameObject board(&gpu_functions, &cube, TextureType::OBJ_FILE, texture.GetTexture("green_floor"), LightType::NO);
+    board.transform.SetPosition(0.0f, 0.0f, 38.0f);
+    board.transform.SetScale(10.0f, 5.0f, 0.3f);
+    board.UpdateModel();
+
+
     // (Opcional) Teto
     StaticGameObject ceiling_object(&gpu_functions, &cube, TextureType::OBJ_FILE,  texture.GetTexture("bege_wall"), LightType::NO);
     ceiling_object.transform.SetPosition(0.0f, 20.0f, 0.0f); 
@@ -398,6 +404,7 @@ int main(int argc, char* argv[])
     scene.AddGameObject(&chair10);
     scene.AddGameObject(&chair11);
     scene.AddGameObject(&chair12);
+    scene.AddGameObject(&board);
     //scene.AddGameObject(&window1);
     scene.AddGameObject(&white_board_object);
 
@@ -416,11 +423,12 @@ int main(int argc, char* argv[])
     float delta_time = 0;
 
     bool isOpening = true; //Flag para controlar abertura do jogo
+    bool isFading = false;        // Flag para controle do escurecimento
+    bool isFreeExploration = false; // Flag para movimentação livre
 
     // Ficamos em um loop infinito, renderizando, até que o usuário feche a janela
     while (!glfwWindowShouldClose(window))
-    {
-        // Aqui executamos as operações de renderização
+    { // Aqui executamos as operações de renderização
 
         // Definimos a cor do "fundo" do framebuffer como branco.  Tal cor é
         // definida como coeficientes RGBA: Red, Green, Blue, Alpha; isto é:
@@ -443,28 +451,11 @@ int main(int argc, char* argv[])
         delta_time = current_time - old_time;
         old_time = current_time;
 
-
+    
+        player.updateBezier(delta_time);
 
         // Movimento que o usuário deseja fazer
         InputState current_state = input_handler.getInputState();
-        player.update(current_state, delta_time);
-
-        static float alpha = 1.0f;  // Começa com o fundo claro
-        float speed = 0.1f;  // Velocidade de escurecimento
-        alpha -= speed * delta_time;
-        if (alpha < 0.0f) alpha = 0.0f;
-
-        glClearColor(1.0f, 1.0f, 1.0f, alpha);  // Ajuste a opacidade (A = alpha)
-
-
-        player.updateCamera(isOpening);
-
-         // Se o movimento de abertura estiver completo, libere a câmera para controle livre
-        if (!player.isMoving && isOpening) {
-            isOpening = false;
-            player.resetPosition(); // Reposiciona o jogador
-        }
-
         player.updateVelocity(current_state, delta_time);
 
         // Verificamos se o player colidiu com algum objeto e atualizamos a velocidade
@@ -488,15 +479,8 @@ int main(int argc, char* argv[])
         //     std::cout << "Collision detected" << std::endl;
         //     player.setPosition(old_player_position);
         // }
+        gpu_functions.updateFreeCameraMatrices(player.getFreeCamera());
 
-        player.camera_type = CameraType::LOOK_AT_CAMERA;
-
-        if(player.camera_type == CameraType::FREE_CAMERA) {
-            gpu_functions.updateFreeCameraMatrices(player.getFreeCamera());
-        }
-        else {
-            gpu_functions.updateLookAtCameraMatrices(player.getLookAtCamera());
-        }
 
         scene.Render();
 

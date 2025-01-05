@@ -79,9 +79,6 @@ void LookAtCamera::updateCameraPosition(glm::vec4 position)
 {
     this->camera_position = position;
 
-    //NEW
-    this->camera_position = position;
-
     // Define o look_at como fixo no centro do mundo
     this->camera_lookat = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
 

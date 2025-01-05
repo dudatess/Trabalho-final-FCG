@@ -1,4 +1,5 @@
 #include "bezier_curve.h"
+#include <iostream>
 
 
 BezierCurve::BezierCurve(float totalDuration, glm::vec4 p1, glm::vec4 p2, glm::vec4 p3, glm::vec4 p4)
@@ -14,15 +15,16 @@ BezierCurve::BezierCurve(float totalDuration, glm::vec4 p1, glm::vec4 p2, glm::v
 }
 
 void BezierCurve::Update(float deltaTime) {
-    if (timer + deltaTime < totalDuration && isIncreasing) {
+
+    if (timer + deltaTime < totalDuration) {
         timer += deltaTime;
-    } else if (timer - deltaTime < 0) {
-        timer += deltaTime;
-        isIncreasing = true;
-    } else {
-        timer -= deltaTime;
+
+    } 
+    else
+    {
         isIncreasing = false;
     }
+    
 }
 
 glm::vec4 BezierCurve::GetPoint() {
@@ -40,5 +42,11 @@ void BezierCurve::ResetCurve() {
 }
 
 bool BezierCurve::HasFinished(){
-    return !isIncreasing && timer <= 0;
+
+    if(isIncreasing == false) {
+        return true;
+    }
+    else {
+        return false;
+    }
 }
