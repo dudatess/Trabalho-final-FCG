@@ -9,6 +9,11 @@ class LookAtCamera
 {
 private:
 
+    bool is_static_camera;
+    glm::vec4 static_position; // Posição fixa da câmera
+    glm::vec4 static_lookat;   // Ponto fixo para onde a câmera olha
+
+
     glm::vec4 camera_position; // Ponto "c", centro da câmera
     glm::vec4 camera_lookat;// Ponto "l", para onde a câmera (look-at) estará sempre olhando
     glm::vec4 camera_view_vector; // Vetor "view", sentido para onde a câmera está virada
@@ -30,6 +35,9 @@ private:
 public:
 
         LookAtCamera();
+        void setStaticCamera(glm::vec4 position, glm::vec4 lookat);
+        void disableStaticCamera();
+
         glm::vec4 getCameraPosition() { return camera_position; }
         glm::vec4 getCameraLookAt() { return camera_lookat; }
         glm::vec4 getCameraViewVector() { return camera_view_vector; }
@@ -41,6 +49,8 @@ public:
         void updateCameraPosition(glm::vec4 position);
         void updateCameraRotation(InputState state, float delta_time);
         void setPosition(glm::vec4 position) { camera_position = position; }
+
+
 };
 
 #endif // _LOOKATCAMERA_H

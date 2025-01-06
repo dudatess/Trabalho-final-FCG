@@ -25,9 +25,13 @@ LookAtCamera::LookAtCamera()
 
 glm::mat4 LookAtCamera::getViewMatrix()
 {
+
+    glm::vec4 static_view_vector = static_lookat - static_position;
+    return Matrices::Matrix_Camera_View(static_position, static_view_vector, this->camera_up_vector);
+
     // Computamos a matriz "View" utilizando os parâmetros da câmera para
         // definir o sistema de coordenadas da câmera.  Veja slides 2-14, 184-190 e 236-242 do documento Aula_08_Sistemas_de_Coordenadas.pdf.
-    return Matrices::Matrix_Camera_View(this->camera_position, this->camera_view_vector, this->camera_up_vector);
+    //return Matrices::Matrix_Camera_View(this->camera_position, this->camera_view_vector, this->camera_up_vector);
 }
 
 glm::mat4 LookAtCamera::getProjectionMatrix()
@@ -38,39 +42,6 @@ glm::mat4 LookAtCamera::getProjectionMatrix()
 
 void LookAtCamera::updateCameraRotation(InputState state, float delta_time)
 {
-    /*
-    float speed = 0.15f;
-    float mouse_delta_x = state.mouse_x - old_mouse_x;
-    float mouse_delta_y = state.mouse_y - old_mouse_y;
-
-    this->g_CameraTheta += mouse_delta_x * speed * delta_time;
-    this->g_CameraPhi += -mouse_delta_y * speed * delta_time;
-
-    if (this->g_CameraPhi > 3.1415f / 2.0f)
-    {
-        this->g_CameraPhi = 3.1415f / 2.0f;
-    }
-    else if (this->g_CameraPhi < -3.1415f / 2.0f)
-    {
-        this->g_CameraPhi = -3.1415f / 2.0f;
-    }
-
-    old_mouse_x = state.mouse_x;
-    old_mouse_y = state.mouse_y;
-
-    float r = this->g_CameraDistance;
-    float y = r * sin(this->g_CameraPhi);
-    float z = r * cos(this->g_CameraPhi) * cos(this->g_CameraTheta);
-    float x = -r * cos(this->g_CameraPhi) * sin(this->g_CameraTheta);
-
-    //this->camera_view_vector = glm::vec4(x, y, z, 0.0f);
-
-    //NEW
-    this->camera_lookat = this->camera_position + glm::vec4(x, y, z, 0.0f);
-    this->camera_view_vector = glm::normalize(this->camera_lookat - this->camera_position);*/
-
-    // Se o look_at for fixo, não atualizamos rotação baseada no mouse.
-    // Apenas recalculamos view_vector caso tenha sido modificado externamente.
     this->camera_view_vector = glm::normalize(this->camera_lookat - this->camera_position);
 }
 
@@ -85,3 +56,14 @@ void LookAtCamera::updateCameraPosition(glm::vec4 position)
     // Atualiza o vetor de visão
     this->camera_view_vector = glm::normalize(this->camera_lookat - this->camera_position);
 }
+
+void LookAtCamera::setStaticCamera(glm::vec4 position, glm::vec4 lookat) {
+    this->is_static_camera = true;       // Ativa o modo estático
+    this->static_position = position;   // Define a posição fixa
+    this->static_lookat = lookat;       // Define o ponto fixo para onde olhar
+}
+
+void LookAtCamera::disableStaticCamera() {
+    this->is_static_camera = false;
+}
+

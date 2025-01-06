@@ -434,6 +434,7 @@ int main(int argc, char* argv[])
     bool isOpening = true; //Flag para controlar abertura do jogo
     bool isFading = false;        // Flag para controle do escurecimento
     bool isFreeExploration = false; // Flag para movimentação livre
+    bool testingLookAt = true;
 
     // Ficamos em um loop infinito, renderizando, até que o usuário feche a janela
     while (!glfwWindowShouldClose(window))
@@ -455,6 +456,22 @@ int main(int argc, char* argv[])
         // os shaders de vértice e fragmentos).
         glUseProgram(g_GpuProgramID);
 
+
+        //Teste do look at camera
+            /*LookAtCamera camera;
+
+            // Define uma câmera fixa ao fundo
+            camera.setStaticCamera(
+                glm::vec4(37.0f, 0.0f, -37.0f, 1.0f), // Posição fixa
+                glm::vec4(0.0f, 0.0f, 0.0f, 1.0f)    // Olhando para o centro da sala
+            );
+
+            gpu_functions.updateLookAtCameraMatrices(camera);
+
+            // Alterna de volta para o comportamento dinâmico, se necessário
+            //camera.disableStaticCamera();*/
+        
+    
         
         current_time = (float)glfwGetTime();
         delta_time = current_time - old_time;
@@ -476,7 +493,7 @@ int main(int argc, char* argv[])
 
         
         // player.update(current_state, delta_time);
-        std::cout << "Player position: " << player.getPosition().x << " " << player.getPosition().y << " " << player.getPosition().z << std::endl;
+        //std::cout << "Player position: " << player.getPosition().x << " " << player.getPosition().y << " " << player.getPosition().z << std::endl;
         
         
         
