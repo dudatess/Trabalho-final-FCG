@@ -267,80 +267,110 @@ int main(int argc, char* argv[])
     Object white_board("../../data/uploads_files_3685891_whiteBoard.obj");
 
 
-    StaticGameObject white_board_object(&gpu_functions, &white_board, TextureType::OBJ_FILE, texture.GetTexture("white_board"), LightType::NO);
+    StaticGameObject white_board_object(
+        &gpu_functions, &white_board, TextureType::OBJ_FILE, texture.GetTexture("white_board"), 
+        LightType::NO, "WHITE_BOARD_OBJECT");
     white_board_object.transform.SetPosition(0.0f, -1.0f, 0.0f);
     white_board_object.transform.SetScale(10.0f, 10.0f, 10.0f);
     white_board_object.UpdateModel();
 
-    StaticGameObject chair1(&gpu_functions, &chair, TextureType::OBJ_FILE ,texture.GetTexture("wood"), LightType::NO);
+    StaticGameObject chair1(
+        &gpu_functions, &chair, TextureType::OBJ_FILE ,texture.GetTexture("wood"), 
+        LightType::NO, "CHAIR1");
     chair1.transform.SetPosition(2.0f, -10.0f, -10.0f);
     chair1.transform.SetScale(0.1f, 0.1f, 0.1f);
     chair1.UpdateModel();
 
-    StaticGameObject chair2(&gpu_functions, &chair, TextureType::OBJ_FILE ,texture.GetTexture("wood"), LightType::NO);
+    StaticGameObject chair2(
+        &gpu_functions, &chair, TextureType::OBJ_FILE ,texture.GetTexture("wood"), 
+        LightType::NO, "CHAIR2");
     chair2.transform.SetPosition(12.0f, -10.0f, -10.0f);
     chair2.transform.SetScale(0.1f, 0.1f, 0.1f);
     chair2.UpdateModel();
    
-    StaticGameObject chair3(&gpu_functions, &chair, TextureType::OBJ_FILE ,texture.GetTexture("wood"), LightType::NO);
+    StaticGameObject chair3(
+        &gpu_functions, &chair, TextureType::OBJ_FILE ,texture.GetTexture("wood"), 
+        LightType::NO, "CHAIR3");
     chair3.transform.SetPosition(22.0f, -10.0f, -10.0f);
     chair3.transform.SetScale(0.1f, 0.1f, 0.1f);
     chair3.UpdateModel();
 
-    StaticGameObject chair4(&gpu_functions, &chair, TextureType::OBJ_FILE ,texture.GetTexture("wood"), LightType::NO);
+    StaticGameObject chair4(
+        &gpu_functions, &chair, TextureType::OBJ_FILE ,texture.GetTexture("wood"), 
+        LightType::NO, "CHAIR4");
     chair4.transform.SetPosition(-8.0f, -10.0f, -10.0f);
     chair4.transform.SetScale(0.1f, 0.1f, 0.1f);
     chair4.UpdateModel();
 
-    StaticGameObject chair5(&gpu_functions, &chair, TextureType::OBJ_FILE ,texture.GetTexture("wood"), LightType::NO);
+    StaticGameObject chair5(
+        &gpu_functions, &chair, TextureType::OBJ_FILE ,texture.GetTexture("wood"), 
+        LightType::NO, "CHAIR5");
     chair5.transform.SetPosition(-18.0f, -10.0f, -10.0f);
     chair5.transform.SetScale(0.1f, 0.1f, 0.1f);
     chair5.UpdateModel();
 
-    StaticGameObject chair6(&gpu_functions, &chair, TextureType::OBJ_FILE ,texture.GetTexture("wood"), LightType::NO);
+    StaticGameObject chair6(
+        &gpu_functions, &chair, TextureType::OBJ_FILE ,texture.GetTexture("wood"), 
+        LightType::NO, "CHAIR6");
     chair6.transform.SetPosition(-28.0f, -10.0f, -10.0f);
     chair6.transform.SetScale(0.1f, 0.1f, 0.1f);
     chair6.UpdateModel();
 
-     StaticGameObject chair7(&gpu_functions, &chair, TextureType::OBJ_FILE ,texture.GetTexture("wood"), LightType::NO);
+     StaticGameObject chair7(
+        &gpu_functions, &chair, TextureType::OBJ_FILE ,texture.GetTexture("wood"), 
+        LightType::NO, "CHAIR7");
     chair7.transform.SetPosition(2.0f, -10.0f, -20.0f);
     chair7.transform.SetScale(0.1f, 0.1f, 0.1f);
     chair7.UpdateModel();
 
-    StaticGameObject chair8(&gpu_functions, &chair, TextureType::OBJ_FILE ,texture.GetTexture("wood"), LightType::NO);
+    StaticGameObject chair8(
+        &gpu_functions, &chair, TextureType::OBJ_FILE ,texture.GetTexture("wood"), 
+        LightType::NO, "CHAIR8");
     chair8.transform.SetPosition(12.0f, -10.0f, -20.0f);
     chair8.transform.SetScale(0.1f, 0.1f, 0.1f);
     chair8.UpdateModel();
    
-    StaticGameObject chair9(&gpu_functions, &chair, TextureType::OBJ_FILE ,texture.GetTexture("wood"), LightType::NO);
+    StaticGameObject chair9(
+        &gpu_functions, &chair, TextureType::OBJ_FILE ,texture.GetTexture("wood"), 
+        LightType::NO, "CHAIR9");
     chair9.transform.SetPosition(22.0f, -10.0f, -20.0f);
     chair9.transform.SetScale(0.1f, 0.1f, 0.1f);
     chair9.UpdateModel();
 
-    StaticGameObject chair10(&gpu_functions, &chair, TextureType::OBJ_FILE ,texture.GetTexture("wood"), LightType::NO);
+    StaticGameObject chair10(
+        &gpu_functions, &chair, TextureType::OBJ_FILE ,texture.GetTexture("wood"), 
+        LightType::NO, "CHAIR10");
     chair10.transform.SetPosition(-8.0f, -10.0f, -20.0f);
     chair10.transform.SetScale(0.1f, 0.1f, 0.1f);
     chair10.UpdateModel();
 
-    StaticGameObject chair11(&gpu_functions, &chair, TextureType::OBJ_FILE ,texture.GetTexture("wood"), LightType::NO);
+    StaticGameObject chair11(
+        &gpu_functions, &chair, TextureType::OBJ_FILE ,texture.GetTexture("wood"), 
+        LightType::NO, "CHAIR11");
     chair11.transform.SetPosition(-18.0f, -10.0f, -20.0f);
     chair11.transform.SetScale(0.1f, 0.1f, 0.1f);
     chair11.UpdateModel();
 
-    StaticGameObject chair12(&gpu_functions, &chair, TextureType::OBJ_FILE ,texture.GetTexture("wood"), LightType::NO);
+    StaticGameObject chair12(
+        &gpu_functions, &chair, TextureType::OBJ_FILE ,texture.GetTexture("wood"), 
+        LightType::NO, "CHAIR12");
     chair12.transform.SetPosition(-28.0f, -10.0f, -20.0f);
     chair12.transform.SetScale(0.1f, 0.1f, 0.1f);
     chair12.UpdateModel();
 
 
     // Cria objetos de jogo e os adiciona à cena
-    StaticGameObject floor_object(&gpu_functions, &plane, TextureType::PLANE, texture.GetTexture("green_floor"), LightType::NO); 
+    StaticGameObject floor_object(
+        &gpu_functions, &plane, TextureType::PLANE, texture.GetTexture("green_floor"), 
+        LightType::NO, "FLOOR_OBJECT"); 
     floor_object.transform.SetPosition(0.0f, -10.0f, 0.0f);
     floor_object.transform.SetScale(40.0, 1.0, 40.0); 
     floor_object.UpdateModel();
 
     // Parede de trás
-    StaticGameObject back_wall(&gpu_functions, &cube, TextureType::OBJ_FILE ,texture.GetTexture("bege_wall"), LightType::NO); 
+    StaticGameObject back_wall(
+        &gpu_functions, &cube, TextureType::OBJ_FILE ,texture.GetTexture("bege_wall"), 
+        LightType::NO, "BACK_WALL"); 
     back_wall.transform.SetPosition(0.0f, 0.0f, -40.0f); 
     back_wall.transform.SetScale(40.0f, 20.0f, 1.0f); 
     back_wall.UpdateModel();
@@ -348,7 +378,9 @@ int main(int argc, char* argv[])
     collisions.addHitbox(back_wall);
 
     // Parede da direita
-    StaticGameObject right_wall(&gpu_functions, &cube, TextureType::OBJ_FILE, texture.GetTexture("bege_wall"), LightType::NO);
+    StaticGameObject right_wall(
+        &gpu_functions, &cube, TextureType::OBJ_FILE, texture.GetTexture("bege_wall"), 
+        LightType::NO, "RIGHT_WALL");
     right_wall.transform.SetPosition(-40.0f, 0.0f, 0.0f); 
     right_wall.transform.SetScale(1.0f, 20.0f, 40.0f);
     right_wall.UpdateModel();
@@ -356,7 +388,9 @@ int main(int argc, char* argv[])
     collisions.addHitbox(right_wall);
 
     // Parede da esquerda
-    StaticGameObject left_wall(&gpu_functions, &cube,  TextureType::OBJ_FILE,  texture.GetTexture("bege_wall"), LightType::NO);
+    StaticGameObject left_wall(
+        &gpu_functions, &cube,  TextureType::OBJ_FILE,  texture.GetTexture("bege_wall"), 
+        LightType::NO, "LEFT_WALL");
     left_wall.transform.SetPosition(40.0f, 0.0f, 0.0f); 
     left_wall.transform.SetScale(1.0f, 20.0f, 40.0f);
     left_wall.UpdateModel();
@@ -364,7 +398,9 @@ int main(int argc, char* argv[])
     collisions.addHitbox(left_wall);
 
     // Parede da frente
-    StaticGameObject front_wall(&gpu_functions, &cube,  TextureType::OBJ_FILE, texture.GetTexture("bege_wall"), LightType::NO);
+    StaticGameObject front_wall(
+        &gpu_functions, &cube,  TextureType::OBJ_FILE, texture.GetTexture("bege_wall"), 
+        LightType::NO, "FRONT_WALL");
     front_wall.transform.SetPosition(0.0f, 0.0f, 40.0f);
     front_wall.transform.SetScale(40.0f, 20.0f, 1.0f);
     front_wall.UpdateModel();
@@ -372,12 +408,16 @@ int main(int argc, char* argv[])
     collisions.addHitbox(front_wall);
 
     // (Opcional) Teto
-    StaticGameObject ceiling_object(&gpu_functions, &cube, TextureType::OBJ_FILE,  texture.GetTexture("bege_wall"), LightType::NO);
+    StaticGameObject ceiling_object(
+        &gpu_functions, &cube, TextureType::OBJ_FILE,  texture.GetTexture("bege_wall"), 
+        LightType::NO, "CEILING_OBJECT");
     ceiling_object.transform.SetPosition(0.0f, 20.0f, 0.0f); 
     ceiling_object.transform.SetScale(40.0f, 1.0f, 40.0f); 
     ceiling_object.UpdateModel();
 
-    StaticGameObject sphere_object(&gpu_functions, &sphere, TextureType::OBJ_FILE, texture.GetTexture("wood"), LightType::NO);
+    StaticGameObject sphere_object(
+        &gpu_functions, &sphere, TextureType::OBJ_FILE, texture.GetTexture("wood"), 
+        LightType::NO, "SPHERE_OBJECT");
     glm::vec4 sphere_position = glm::vec4(10.0f, -4.0f, 10.0f, 1.0f);
     float sphere_radius = 5.0f;
     sphere_object.transform.SetPosition(sphere_position.x, sphere_position.y, sphere_position.z);
@@ -386,13 +426,27 @@ int main(int argc, char* argv[])
     sphere_object.setHitsphere(sphere_position, sphere_radius+2);
     collisions.addHitsphere(sphere_object);
 
-    StaticGameObject special_cube(&gpu_functions, &cube, TextureType::OBJ_FILE, texture.GetTexture("white_board"), LightType::NO);
-    special_cube.transform.SetPosition(-30.0f,-5.0f,20.0f);
-    special_cube.transform.SetScale(2.0f, 2.0f, 2.0f);
-    special_cube.UpdateModel();
-    special_cube.setHitbox(glm::vec4(-33.0f, -100.0f, 16.0f, 1.0f), glm::vec4(-27.0f, 0.0f, 23.0f, 1.0f));
-    collisions.addHitbox(special_cube);
-    collisions.addClickableHitbox(special_cube);
+    // Cubo que o jogador deve interagir para inserir a senha
+    StaticGameObject password_cube(
+        &gpu_functions, &cube, TextureType::OBJ_FILE, texture.GetTexture("white_board"), 
+        LightType::NO, "PASSWORD_CUBE");
+    password_cube.transform.SetPosition(-30.0f,-5.0f,20.0f);
+    password_cube.transform.SetScale(2.0f, 2.0f, 2.0f);
+    password_cube.UpdateModel();
+    password_cube.setHitbox(glm::vec4(-33.0f, -100.0f, 16.0f, 1.0f), glm::vec4(-27.0f, 0.0f, 23.0f, 1.0f));
+    collisions.addHitbox(password_cube);
+    collisions.addClickableHitbox(password_cube);
+
+    // Cubo que o jogador deve interagir para checkar a senha
+    StaticGameObject check_cube(
+        &gpu_functions, &cube, TextureType::OBJ_FILE, texture.GetTexture("wood"), 
+        LightType::NO, "CHECK_CUBE");
+    check_cube.transform.SetPosition(-30.0f,-5.0f,30.0f);
+    check_cube.transform.SetScale(2.0f, 2.0f, 2.0f);
+    check_cube.UpdateModel();
+    check_cube.setHitbox(glm::vec4(-33.0f, -100.0f, 26.0f, 1.0f), glm::vec4(-27.0f, 0.0f, 33.0f, 1.0f));
+    collisions.addHitbox(check_cube);
+    collisions.addClickableHitbox(check_cube);
 
 
 
@@ -422,7 +476,8 @@ int main(int argc, char* argv[])
     //scene.AddGameObject(&window1);
     scene.AddGameObject(&white_board_object);
     scene.AddGameObject(&sphere_object);
-    scene.AddGameObject(&special_cube);
+    scene.AddGameObject(&password_cube);
+    scene.AddGameObject(&check_cube);
 
 
     // Habilitamos o Z-buffer. Veja slides 104-116 do documento Aula_09_Projecoes.pdf.
@@ -482,6 +537,7 @@ int main(int argc, char* argv[])
         
         auto clickable_objects_collision = collisions.checkClickableCollision(player);
         game_logic.checkInteraction(clickable_objects_collision, current_state.is_interacting);
+        game_logic.updateLastInteraction(delta_time);
 
 
 
@@ -493,7 +549,7 @@ int main(int argc, char* argv[])
         // }
         gpu_functions.updateCameraMatrices(player.getCamera());
 
-        player.printPlayerPosition();
+        // player.printPlayerPosition();
         scene.Render();
 
         // Imprimimos na tela informação sobre o número de quadros renderizados

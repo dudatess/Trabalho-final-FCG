@@ -31,7 +31,9 @@ protected:
 
 public:
 
-    GameObject(GpuFunctions *gpuController, glm::mat4 model, Object *object, TextureType texture_type, LightType light_type);
+    GameObject(
+        GpuFunctions *gpuController, glm::mat4 model, Object *object, TextureType texture_type, 
+        LightType light_type, std::string object_id);
 
     Transform transform;
 
