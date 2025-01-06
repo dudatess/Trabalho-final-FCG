@@ -57,6 +57,7 @@
 #include "player.h"
 #include "collisions.h"
 #include "game_logic.h"
+#include "door.h"
 #define M_PI 3.14159265358979323846
 
 // Declaração de funções utilizadas para pilha de matrizes de modelagem.
@@ -448,6 +449,17 @@ int main(int argc, char* argv[])
     collisions.addHitbox(check_cube);
     collisions.addClickableHitbox(check_cube);
 
+    // Door
+    Door door(
+        &gpu_functions, &cube, TextureType::OBJ_FILE, texture.GetTexture("wood"), 
+        LightType::NO, "DOOR");
+    door.transform.SetPosition(-3.0f, 0.0f, 35.0f);
+    door.transform.SetScale(5.0f, 10.0f, 1.0f);
+    door.UpdateModel();
+    //door.setHitbox(glm::vec4(38.0f, 0.0f, -40.0f, 1.0f), glm::vec4(42.0f, 20.0f, 40.0f, 1.0f));
+    //collisions.addHitbox(door);
+
+
 
 
 
@@ -478,6 +490,8 @@ int main(int argc, char* argv[])
     scene.AddGameObject(&sphere_object);
     scene.AddGameObject(&password_cube);
     scene.AddGameObject(&check_cube);
+
+    scene.AddGameObject(&door);
 
 
     // Habilitamos o Z-buffer. Veja slides 104-116 do documento Aula_09_Projecoes.pdf.
@@ -540,16 +554,19 @@ int main(int argc, char* argv[])
         game_logic.updateLastInteraction(delta_time);
 
 
-
-
-        // if (collisions.checkPlayerCollision(player))
-        // {
-        //     std::cout << "Collision detected" << std::endl;
-        //     player.setPosition(old_player_position);
-        // }
         gpu_functions.updateCameraMatrices(player.getCamera());
 
         // player.printPlayerPosition();
+
+
+        if (game_logic.isPasswordCorrect())
+        {
+            std::cout << "muda porta pf" << std::endl;
+            door.OpeningDoor(delta_time);
+            door.UpdateModel();
+        }
+
+
         scene.Render();
 
         // Imprimimos na tela informação sobre o número de quadros renderizados

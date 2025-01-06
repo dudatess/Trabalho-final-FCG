@@ -10,7 +10,7 @@ class GameLogic
     //std::unordered_map<std::string, GameObject> clickable_objects;
     int password = 5;
     int password_input = 0;
-    bool isPasswordCorrect = false;
+    bool is_password_ok = false;
 
     float cooldown = 0.5f;
     float last_interaction = 0.0f;
@@ -25,6 +25,8 @@ class GameLogic
     void setPasswordInput(int password_input);
     void incPasswordInput();
     void checkPassword();
+
+    bool isPasswordCorrect();
 };
 
 #endif

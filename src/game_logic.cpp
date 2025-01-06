@@ -62,6 +62,12 @@ void GameLogic::checkPassword()
     if (this->password == this->password_input)
     {
         std::cout << "Password correct!" << std::endl;
+        this->is_password_ok = true;
         this->password_input = 0;
     }
+}
+
+bool GameLogic::isPasswordCorrect()
+{
+    return is_password_ok;
 }
