@@ -57,6 +57,7 @@
 #include "player.h"
 #include "collisions.h"
 #include "game_logic.h"
+#include "door.h"
 #define M_PI 3.14159265358979323846
 
 // Declaração de funções utilizadas para pilha de matrizes de modelagem.
@@ -257,6 +258,7 @@ int main(int argc, char* argv[])
     texture.LoadTextureImage("../../data/bege_wall.jpg", "bege_wall");
     texture.LoadTextureImage("../../data/white_board.jpg", "white_board");
     texture.LoadTextureImage("../../data/bezier_board.jpg", "bezier_board");
+    texture.LoadTextureImage("../../data/10057_wooden_door_v1_diffuse.jpg", "door");
     TextRendering_Init();
 
     Object sphere("../../data/sphere.obj");
@@ -266,8 +268,24 @@ int main(int argc, char* argv[])
     Object cube("../../data/cube.obj");
     Object window_object("../../data/uploads_files_3158526_Small_Square_Window-Final.obj");
     Object white_board("../../data/uploads_files_3685891_whiteBoard.obj");
+    Object door("../../data/10057_wooden_door_v3_iterations-2.obj");
 
 
+    //Para teste de iluminação
+    /*StaticGameObject bunny_object(&gpu_functions, &bunny, TextureType::OBJ_FILE, texture.GetTexture("wood"), LightType::GOURAUD);
+    bunny_object.transform.SetPosition(0.0f, 0.0f, 0.0f);
+    bunny_object.transform.SetScale(5.0f, 5.0f, 5.0f);
+    bunny_object.UpdateModel();*/
+
+    Door doormodel1(&gpu_functions, &door, &player, &collisions, texture.GetTexture("door"));
+    doormodel1.transform.SetScale(0.08f, 0.08f, 0.08f);
+    doormodel1.transform.SetPosition(-12.0f, -10.0f, 40.0f);
+    doormodel1.transform.SetRotation(-3.14/2, 0.0f, 0.0f);
+    doormodel1.setHitbox(glm::vec4(-40.0f, 0.0f, -42.0f, 1.0f), glm::vec4(40.0f, 20.0f, -38.0f, 1.0f));
+    collisions.addHitbox(doormodel1);
+    doormodel1.UpdateModel();
+
+    
     StaticGameObject white_board_object(&gpu_functions, &white_board, TextureType::OBJ_FILE, texture.GetTexture("white_board"), LightType::NO);
     white_board_object.transform.SetPosition(0.0f, -1.0f, 0.0f);
     white_board_object.transform.SetScale(10.0f, 10.0f, 10.0f);
@@ -340,6 +358,7 @@ int main(int argc, char* argv[])
     floor_object.transform.SetScale(40.0, 1.0, 40.0); 
     floor_object.UpdateModel();
 
+    
     // Parede de trás
     StaticGameObject back_wall(&gpu_functions, &cube, TextureType::OBJ_FILE ,texture.GetTexture("bege_wall"), LightType::NO); 
     back_wall.transform.SetPosition(0.0f, 0.0f, -40.0f); 
@@ -439,6 +458,8 @@ int main(int argc, char* argv[])
     scene.AddGameObject(&white_board_object);
     scene.AddGameObject(&sphere_object);
     scene.AddGameObject(&special_cube);
+    //scene.AddGameObject(&bunny_object);
+    scene.AddGameObject(&doormodel1);
 
 
     // Habilitamos o Z-buffer. Veja slides 104-116 do documento Aula_09_Projecoes.pdf.

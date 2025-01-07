@@ -112,7 +112,7 @@ std::unordered_map<std::string, bool> Collisions::checkClickableCollision(Player
     std::unordered_map<std::string, bool> clickable_objects_collision;
     
     glm::vec4 player_position = player.getPosition();
-    glm::vec4 player_view_vector = player.getCamera().getCameraViewVector();
+    glm::vec4 player_view_vector = player.getFreeCamera().getCameraViewVector();
 
     for (auto object : this->clickableHitboxes)
     {
