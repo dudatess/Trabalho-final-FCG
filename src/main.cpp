@@ -493,7 +493,7 @@ int main(int argc, char* argv[])
 
         
         // player.update(current_state, delta_time);
-        //std::cout << "Player position: " << player.getPosition().x << " " << player.getPosition().y << " " << player.getPosition().z << std::endl;
+        std::cout << "Player position: " << player.getPosition().x << " " << player.getPosition().y << " " << player.getPosition().z << std::endl;
         
         
         

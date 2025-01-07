@@ -30,6 +30,7 @@ void Player::updateBezier(float delta_time)
 
         if (this->bezier_curve->HasFinished()) {
             this->isMoving = false; // Para a movimentação quando a curva terminar
+            resetPosition();
             //this->camera_type = CameraType::FREE_CAMERA;
             //std::cout << "Fim da curva de Bezier" << std::endl;
         }
@@ -163,7 +164,7 @@ void Player::setPosition(glm::vec4 position)
 }
 
 void Player::resetPosition() {
-    this->position = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f); // Define a posição inicial
+    this->position.y = 0.0f; 
 }
 
 void Player::printPlayerPosition()
