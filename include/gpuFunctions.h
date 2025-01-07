@@ -7,6 +7,7 @@
 #include "texture.h"
 #include "lightType.h"
 #include "free_camera.h"
+#include "lookat_camera.h"  
 
 class GpuFunctions
 {
@@ -22,7 +23,8 @@ class GpuFunctions
     public:
         GpuFunctions(GLuint g_GpuProgramID);
         void gpuDraw(GLuint VAO_id, glm::mat4 model, TextureType texture_type, LightType light_type, GLint texture_id, size_t num_indices, size_t first_index);
-        void updateCameraMatrices(FreeCamera camera);
+        void updateFreeCameraMatrices(FreeCamera camera);
+        void updateLookAtCameraMatrices(LookAtCamera camera);
 
         GLuint GetModelUniform() { return g_model_uniform; }
         GLuint GetViewUniform() { return g_view_uniform; }

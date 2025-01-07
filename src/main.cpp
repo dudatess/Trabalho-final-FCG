@@ -257,6 +257,7 @@ int main(int argc, char* argv[])
     texture.LoadTextureImage("../../data/green_floor.jpg", "green_floor");
     texture.LoadTextureImage("../../data/bege_wall.jpg", "bege_wall");
     texture.LoadTextureImage("../../data/white_board.jpg", "white_board");
+    texture.LoadTextureImage("../../data/bezier_board.jpg", "bezier_board");
     TextRendering_Init();
 
     Object sphere("../../data/sphere.obj");
@@ -405,8 +406,22 @@ int main(int argc, char* argv[])
     front_wall.transform.SetPosition(0.0f, 0.0f, 40.0f);
     front_wall.transform.SetScale(40.0f, 20.0f, 1.0f);
     front_wall.UpdateModel();
-    front_wall.setHitbox(glm::vec4(-40.0f, 0.0f, 38.0f, 1.0f), glm::vec4(40.0f, 0.0f, 42.0f, 1.0f));
+    front_wall.setHitbox(glm::vec4(-40.0f, -10.0f, 38.0f, 1.0f), glm::vec4(40.0f, 10.0f, 42.0f, 1.0f));
     collisions.addHitbox(front_wall);
+
+    StaticGameObject board(&gpu_functions, &plane, TextureType::PLANE, texture.GetTexture("bezier_board"), LightType::NO);
+    board.transform.SetPosition(0.0f, 5.0f, 38.5f);
+    board.transform.SetRotation(-3.14/2, 0.0f, 0.0f);
+    board.transform.SetScale(15.0f, 10.0f, 10.0f);
+    board.UpdateModel();
+
+    /*StaticGameObject board(&gpu_functions, &cube, TextureType::OBJ_FILE ,texture.GetTexture("bege_wall"), LightType::NO); 
+    board.transform.SetPosition(0.0f, 0.0f, -40.0f); 
+    board.transform.SetScale(10.0f, 7.0f, 0.3f); 
+    board.UpdateModel();
+    board.setHitbox(glm::vec4(-40.0f, 0.0f, -42.0f, 1.0f), glm::vec4(40.0f, 20.0f, -38.0f, 1.0f));
+    collisions.addHitbox(back_wall);*/
+
 
     // (Opcional) Teto
     StaticGameObject ceiling_object(
@@ -485,6 +500,7 @@ int main(int argc, char* argv[])
     scene.AddGameObject(&chair10);
     scene.AddGameObject(&chair11);
     scene.AddGameObject(&chair12);
+    scene.AddGameObject(&board);
     //scene.AddGameObject(&window1);
     scene.AddGameObject(&white_board_object);
     scene.AddGameObject(&sphere_object);
@@ -507,10 +523,14 @@ int main(int argc, char* argv[])
     float current_time = 0;
     float delta_time = 0;
 
+    bool isOpening = true; //Flag para controlar abertura do jogo
+    bool isFading = false;        // Flag para controle do escurecimento
+    bool isFreeExploration = false; // Flag para movimentação livre
+    bool testingLookAt = true;
+
     // Ficamos em um loop infinito, renderizando, até que o usuário feche a janela
     while (!glfwWindowShouldClose(window))
-    {
-        // Aqui executamos as operações de renderização
+    { // Aqui executamos as operações de renderização
 
         // Definimos a cor do "fundo" do framebuffer como branco.  Tal cor é
         // definida como coeficientes RGBA: Red, Green, Blue, Alpha; isto é:
@@ -528,10 +548,29 @@ int main(int argc, char* argv[])
         // os shaders de vértice e fragmentos).
         glUseProgram(g_GpuProgramID);
 
+
+        //Teste do look at camera
+            /*LookAtCamera camera;
+
+            // Define uma câmera fixa ao fundo
+            camera.setStaticCamera(
+                glm::vec4(37.0f, 0.0f, -37.0f, 1.0f), // Posição fixa
+                glm::vec4(0.0f, 0.0f, 0.0f, 1.0f)    // Olhando para o centro da sala
+            );
+
+            gpu_functions.updateLookAtCameraMatrices(camera);
+
+            // Alterna de volta para o comportamento dinâmico, se necessário
+            //camera.disableStaticCamera();*/
+        
+    
         
         current_time = (float)glfwGetTime();
         delta_time = current_time - old_time;
         old_time = current_time;
+
+    
+        player.updateBezier(delta_time);
 
         // Movimento que o usuário deseja fazer
         InputState current_state = input_handler.getInputState();
@@ -546,7 +585,7 @@ int main(int argc, char* argv[])
 
         
         // player.update(current_state, delta_time);
-        // std::cout << "Player position: " << player.getPosition().x << " " << player.getPosition().y << " " << player.getPosition().z << std::endl;
+        std::cout << "Player position: " << player.getPosition().x << " " << player.getPosition().y << " " << player.getPosition().z << std::endl;
         
         
         auto clickable_objects_collision = collisions.checkClickableCollision(player);

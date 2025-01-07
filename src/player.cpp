@@ -1,19 +1,60 @@
 #include "player.h"
+#include <iostream>
 #include "matrices.h"
+#include "bezier_curve.h"
 
 Player::Player()
 {
-    this->camera = FreeCamera();
-    this->position = glm::vec4(1.0f, 0.0f, 1.0f, 1.0f);
+    this->camera_type = CameraType::FREE_CAMERA; 
+    this->free_camera = FreeCamera();
+    this->look_at_camera = LookAtCamera();
+    this->position = glm::vec4(1.0f, 0.0f, -20.0f, 1.0f);
     this->velocity = glm::vec4(0.0f, 0.0f, 0.0f, 0.0f);
+    this->isMoving = true;
+      
+    glm::vec4 p1 = position; 
+    glm::vec4 p2 = p1 + glm::vec4(0.0f, 20.0f, 10.0f, 0.0f); // Ponto de controle 1
+    glm::vec4 p3 = p1 + glm::vec4(0.0f, 20.0f, 20.0f, 0.0f); // Ponto de controle 2
+    glm::vec4 p4 = p1 + glm::vec4(0.0f, 0.0f, 20.0f, 0.0f); // Ponto final
+    this->bezier_curve = new BezierCurve(5.0f, p1, p2, p3, p4);
+
+}
+
+void Player::updateBezier(float delta_time)
+{
+    if (isMoving) 
+    {
+        //this->camera_type = CameraType::LOOK_AT_CAMERA; 
+        this->bezier_curve->Update(delta_time); // Atualiza a posição com a curva de Bezier
+        position = this->bezier_curve->GetPoint(); // Atualiza a posição do jogador
+
+        if (this->bezier_curve->HasFinished()) {
+            this->isMoving = false; // Para a movimentação quando a curva terminar
+            resetPosition();
+            //this->camera_type = CameraType::FREE_CAMERA;
+            //std::cout << "Fim da curva de Bezier" << std::endl;
+        }
+    }
 }
 
 void Player::update(InputState state, float delta_time)
 {
     updatePosition();
-    this->camera.updateCameraPosition(this->position);
-    this->camera.updateCameraRotation(state, delta_time);
+    if(camera_type == CameraType::FREE_CAMERA)
+    {
+        this->free_camera.updateCameraPosition(this->position);
+        this->free_camera.updateCameraRotation(state, delta_time);
+        //std::cout << "player na free" << std::endl;
+    }
+    else
+    {
+        this->look_at_camera.updateCameraPosition(this->position);
+        std::cout << "player na look" << std::endl;
+        //this->look_at_camera.updateCameraRotation(state, delta_time);
+    }
 }
+
+
 
 void Player::updatePosition()
 {
@@ -22,8 +63,20 @@ void Player::updatePosition()
 
 void Player::updateVelocity(InputState state, float delta_time)
 {
-    glm::vec4 camera_view_vector = this->camera.getCameraViewVector();
-    glm::vec4 camera_up_vector = this->camera.getCameraUpVector();
+    glm::vec4 camera_view_vector;
+    glm::vec4 camera_up_vector;
+
+    if(camera_type == CameraType::FREE_CAMERA)
+    {
+        camera_view_vector = this->free_camera.getCameraViewVector();
+        camera_up_vector = this->free_camera.getCameraUpVector();
+    }
+    else
+    {
+        camera_view_vector = this->look_at_camera.getCameraViewVector();
+        camera_up_vector = this->look_at_camera.getCameraUpVector();
+    }
+    
 
     float speed = 5.0f;
 
@@ -34,39 +87,63 @@ void Player::updateVelocity(InputState state, float delta_time)
 
     this->velocity = glm::vec4(0.0f, 0.0f, 0.0f, 0.0f);
 
-    if (state.move_forward)
+    if(camera_type == CameraType::FREE_CAMERA)
     {
-        glm::vec4 vec = camera_view_vector;
-        vec.y = 0.0f;
-        vec = vec / Matrices::norm(vec);
-        this->velocity += vec * speed * delta_time;
+        if (state.move_forward)
+        {
+            glm::vec4 vec = camera_view_vector;
+            vec.y = 0.0f;
+            vec = vec / Matrices::norm(vec);
+            this->velocity += vec * speed * delta_time;
+        }
+        if (state.move_backward)
+        {
+            glm::vec4 vec = -camera_view_vector;
+            vec.y = 0.0f;
+            vec = vec / Matrices::norm(vec);
+            this->velocity += vec * speed * delta_time;
+        }
+        if (state.move_left)
+        {
+            glm::vec4 vec = Matrices::crossproduct(camera_up_vector, camera_view_vector);
+            vec.y = 0.0f;
+            vec = vec / Matrices::norm(vec);
+            this->velocity += vec * speed * delta_time;
+        }
+        if (state.move_right)
+        {
+            glm::vec4 vec = Matrices::crossproduct(camera_up_vector, -camera_view_vector);
+            vec.y = 0.0f;
+            vec = vec / Matrices::norm(vec);
+            this->velocity += vec * speed * delta_time;
+        }
+
     }
-    if (state.move_backward)
-    {
-        glm::vec4 vec = -camera_view_vector;
-        vec.y = 0.0f;
-        vec = vec / Matrices::norm(vec);
-        this->velocity += vec * speed * delta_time;
+    else{
+
+        if (state.move_forward)
+        {
+            glm::vec4 vec = glm::normalize(glm::vec4(camera_view_vector.x, 0.0f, camera_view_vector.z, 0.0f));
+            this->velocity += vec * speed * delta_time;
+        }
+        if (state.move_backward)
+        {
+            glm::vec4 vec = glm::normalize(glm::vec4(-camera_view_vector.x, 0.0f, -camera_view_vector.z, 0.0f));
+            this->velocity += vec * speed * delta_time;
+        }
+
     }
-    if (state.move_left)
-    {
-        glm::vec4 vec = Matrices::crossproduct(camera_up_vector, camera_view_vector);
-        vec.y = 0.0f;
-        vec = vec / Matrices::norm(vec);
-        this->velocity += vec * speed * delta_time;
-    }
-    if (state.move_right)
-    {
-        glm::vec4 vec = Matrices::crossproduct(camera_up_vector, -camera_view_vector);
-        vec.y = 0.0f;
-        vec = vec / Matrices::norm(vec);
-        this->velocity += vec * speed * delta_time;
-    }
+
 }
 
-FreeCamera Player::getCamera()
+FreeCamera Player::getFreeCamera()
 {
-    return this->camera;
+    return this->free_camera;
+}
+
+LookAtCamera Player::getLookAtCamera()
+{
+    return this->look_at_camera;
 }
 
 glm::vec4 Player::getPosition()
@@ -77,7 +154,17 @@ glm::vec4 Player::getPosition()
 void Player::setPosition(glm::vec4 position)
 {
     this->position = position;
-    this->camera.updateCameraPosition(this->position);
+
+    if(camera_type == CameraType::FREE_CAMERA) {
+        this->free_camera.updateCameraPosition(this->position);
+    }
+    else {
+        this->look_at_camera.updateCameraPosition(this->position);
+    }
+}
+
+void Player::resetPosition() {
+    this->position.y = 0.0f; 
 }
 
 void Player::printPlayerPosition()
@@ -85,3 +172,10 @@ void Player::printPlayerPosition()
     std::cout << "Player position: " << this->position.x << " " << this->position.y << " " << this->position.z << std::endl;
 }
 
+void Player::updateCamera(bool isOpening) {
+    if (isOpening) {
+        this->camera_type = CameraType::LOOK_AT_CAMERA; // Define a câmera como look-at
+    } else {
+        this->camera_type = CameraType::FREE_CAMERA; // Define a câmera como free
+    }
+}

@@ -8,6 +8,10 @@ in vec4 position_world;
 in vec4 normal;
 
 in vec4 position_model;
+float px = position_model.x;
+float py = position_model.y;
+float pz = position_model.z;
+
 in vec2 texture_coords;
 in vec3 gouraud_shading_term;
 
@@ -58,17 +62,12 @@ vec2 SphereProjection(vec4 bbox_min, vec4 bbox_max, vec4 position_model)
 
 vec2 PlaneProjection(vec4 bbox_min, vec4 bbox_max, vec4 position_model)
 {
-    float minx = bbox_min.x;
-    float maxx = bbox_max.x;
+    
+    float u = 0.0;
+    float v = 0.0;
 
-    float miny = bbox_min.y;
-    float maxy = bbox_max.y;
-
-    float minz = bbox_min.z;
-    float maxz = bbox_max.z;
-
-    float u = (position_model.x - minx)/(maxx - minx);
-    float v = (position_model.y - miny)/(maxy - miny);
+    u = px;
+    v = pz;
 
     return vec2(u, v);
 }
@@ -107,7 +106,7 @@ void main()
     {
         definitive_texture = PlaneProjection(bbox_min, bbox_max, position_model);
     }
-    else if(texture_type == TEXTURE_OBJ_FILE)
+    else if(texture_type == TEXTURE_SPHERE)
     {
         definitive_texture = SphereProjection(bbox_min, bbox_max, position_model);
     }
@@ -119,9 +118,11 @@ void main()
     vec3 Kd = texture(texture_id, definitive_texture).rgb;
     vec3 Ks = vec3(0.8,0.8,0.8);
     float q = 32.0;
-
+    vec3 I = vec3(1.0, 1.0, 1.0);  // Light intensity (white light)
+   
     //Termo difuso utilizando a lei dos cossenos de Lambert (Diffuse light)
     vec3 lambert_diffuse_term = Kd * (max(0.1, dot(n, l)) + 0.01);
+    //vec3 lambert_diffuse_term = Kd * I * max(dot(n,l),0.05);
 
     // Termo ambiente
     //vec3 ambient_term = Ka * Ia; 
