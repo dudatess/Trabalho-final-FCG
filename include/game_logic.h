@@ -8,7 +8,7 @@ class GameLogic
 {
     private:
     //std::unordered_map<std::string, GameObject> clickable_objects;
-    int password = 5;
+    int password = 3;
     int password_input = 0;
     bool is_password_ok = false;
 

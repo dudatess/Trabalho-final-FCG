@@ -31,6 +31,10 @@ void InputHandler::keyCallback(GLFWwindow *window, int key, int scancode, int ac
     {
         input_handler->state.is_interacting = action;
     }
+    else if (key == GLFW_KEY_C)
+    {
+        input_handler->state.is_lookat = action;
+    }
     else if (key == GLFW_KEY_LEFT_SHIFT)
     {
         input_handler->state.is_running = action;

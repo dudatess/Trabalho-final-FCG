@@ -258,6 +258,7 @@ int main(int argc, char* argv[])
     texture.LoadTextureImage("../../data/bege_wall.jpg", "bege_wall");
     texture.LoadTextureImage("../../data/white_board.jpg", "white_board");
     texture.LoadTextureImage("../../data/bezier_board.jpg", "bezier_board");
+    texture.LoadTextureImage("../../data/10057_wooden_door_v1_diffuse.jpg", "door");
     TextRendering_Init();
 
     Object sphere("../../data/sphere.obj");
@@ -267,6 +268,8 @@ int main(int argc, char* argv[])
     Object cube("../../data/cube.obj");
     Object window_object("../../data/uploads_files_3158526_Small_Square_Window-Final.obj");
     Object white_board("../../data/uploads_files_3685891_whiteBoard.obj");
+    Object door_object("../../data/10057_wooden_door_v3_iterations-2.obj");
+    Object cow_object("../../data/cow.obj");
 
 
     StaticGameObject white_board_object(
@@ -278,84 +281,84 @@ int main(int argc, char* argv[])
 
     StaticGameObject chair1(
         &gpu_functions, &chair, TextureType::OBJ_FILE ,texture.GetTexture("wood"), 
-        LightType::NO, "CHAIR1");
+        LightType::PHONG, "CHAIR1");
     chair1.transform.SetPosition(2.0f, -10.0f, -10.0f);
     chair1.transform.SetScale(0.1f, 0.1f, 0.1f);
     chair1.UpdateModel();
 
     StaticGameObject chair2(
         &gpu_functions, &chair, TextureType::OBJ_FILE ,texture.GetTexture("wood"), 
-        LightType::NO, "CHAIR2");
+        LightType::GOURAUD, "CHAIR2");
     chair2.transform.SetPosition(12.0f, -10.0f, -10.0f);
     chair2.transform.SetScale(0.1f, 0.1f, 0.1f);
     chair2.UpdateModel();
    
     StaticGameObject chair3(
         &gpu_functions, &chair, TextureType::OBJ_FILE ,texture.GetTexture("wood"), 
-        LightType::NO, "CHAIR3");
+        LightType::PHONG, "CHAIR3");
     chair3.transform.SetPosition(22.0f, -10.0f, -10.0f);
     chair3.transform.SetScale(0.1f, 0.1f, 0.1f);
     chair3.UpdateModel();
 
     StaticGameObject chair4(
         &gpu_functions, &chair, TextureType::OBJ_FILE ,texture.GetTexture("wood"), 
-        LightType::NO, "CHAIR4");
+        LightType::GOURAUD, "CHAIR4");
     chair4.transform.SetPosition(-8.0f, -10.0f, -10.0f);
     chair4.transform.SetScale(0.1f, 0.1f, 0.1f);
     chair4.UpdateModel();
 
     StaticGameObject chair5(
         &gpu_functions, &chair, TextureType::OBJ_FILE ,texture.GetTexture("wood"), 
-        LightType::NO, "CHAIR5");
+        LightType::PHONG, "CHAIR5");
     chair5.transform.SetPosition(-18.0f, -10.0f, -10.0f);
     chair5.transform.SetScale(0.1f, 0.1f, 0.1f);
     chair5.UpdateModel();
 
     StaticGameObject chair6(
         &gpu_functions, &chair, TextureType::OBJ_FILE ,texture.GetTexture("wood"), 
-        LightType::NO, "CHAIR6");
+        LightType::GOURAUD, "CHAIR6");
     chair6.transform.SetPosition(-28.0f, -10.0f, -10.0f);
     chair6.transform.SetScale(0.1f, 0.1f, 0.1f);
     chair6.UpdateModel();
 
      StaticGameObject chair7(
         &gpu_functions, &chair, TextureType::OBJ_FILE ,texture.GetTexture("wood"), 
-        LightType::NO, "CHAIR7");
+        LightType::PHONG, "CHAIR7");
     chair7.transform.SetPosition(2.0f, -10.0f, -20.0f);
     chair7.transform.SetScale(0.1f, 0.1f, 0.1f);
     chair7.UpdateModel();
 
     StaticGameObject chair8(
         &gpu_functions, &chair, TextureType::OBJ_FILE ,texture.GetTexture("wood"), 
-        LightType::NO, "CHAIR8");
+        LightType::GOURAUD, "CHAIR8");
     chair8.transform.SetPosition(12.0f, -10.0f, -20.0f);
     chair8.transform.SetScale(0.1f, 0.1f, 0.1f);
     chair8.UpdateModel();
    
     StaticGameObject chair9(
         &gpu_functions, &chair, TextureType::OBJ_FILE ,texture.GetTexture("wood"), 
-        LightType::NO, "CHAIR9");
+        LightType::PHONG, "CHAIR9");
     chair9.transform.SetPosition(22.0f, -10.0f, -20.0f);
     chair9.transform.SetScale(0.1f, 0.1f, 0.1f);
     chair9.UpdateModel();
 
     StaticGameObject chair10(
         &gpu_functions, &chair, TextureType::OBJ_FILE ,texture.GetTexture("wood"), 
-        LightType::NO, "CHAIR10");
+        LightType::GOURAUD, "CHAIR10");
     chair10.transform.SetPosition(-8.0f, -10.0f, -20.0f);
     chair10.transform.SetScale(0.1f, 0.1f, 0.1f);
     chair10.UpdateModel();
 
     StaticGameObject chair11(
         &gpu_functions, &chair, TextureType::OBJ_FILE ,texture.GetTexture("wood"), 
-        LightType::NO, "CHAIR11");
+        LightType::PHONG, "CHAIR11");
     chair11.transform.SetPosition(-18.0f, -10.0f, -20.0f);
     chair11.transform.SetScale(0.1f, 0.1f, 0.1f);
     chair11.UpdateModel();
 
     StaticGameObject chair12(
         &gpu_functions, &chair, TextureType::OBJ_FILE ,texture.GetTexture("wood"), 
-        LightType::NO, "CHAIR12");
+        LightType::GOURAUD, "CHAIR12");
     chair12.transform.SetPosition(-28.0f, -10.0f, -20.0f);
     chair12.transform.SetScale(0.1f, 0.1f, 0.1f);
     chair12.UpdateModel();
@@ -433,8 +436,8 @@ int main(int argc, char* argv[])
 
     StaticGameObject sphere_object(
         &gpu_functions, &sphere, TextureType::OBJ_FILE, texture.GetTexture("wood"), 
-        LightType::NO, "SPHERE_OBJECT");
-    glm::vec4 sphere_position = glm::vec4(10.0f, -4.0f, 10.0f, 1.0f);
+        LightType::PHONG, "SPHERE_OBJECT");
+    glm::vec4 sphere_position = glm::vec4(20.0f, -4.0f, 10.0f, 1.0f);
     float sphere_radius = 5.0f;
     sphere_object.transform.SetPosition(sphere_position.x, sphere_position.y, sphere_position.z);
     sphere_object.transform.SetScale(sphere_radius, sphere_radius, sphere_radius);
@@ -466,13 +469,21 @@ int main(int argc, char* argv[])
 
     // Door
     Door door(
-        &gpu_functions, &cube, TextureType::OBJ_FILE, texture.GetTexture("wood"), 
-        LightType::NO, "DOOR");
-    door.transform.SetPosition(-3.0f, 0.0f, 35.0f);
-    door.transform.SetScale(5.0f, 10.0f, 1.0f);
+        &gpu_functions, &door_object, TextureType::OBJ_FILE, texture.GetTexture("door"), 
+        LightType::PHONG, "DOOR");
+    door.transform.SetPosition(20.0f, 7.0f, 27.0f);
+    door.transform.SetScale(0.08f, 0.08f, 0.08f);
+    door.transform.SetRotation(3.14/2, 0.0f, -3.14/2);
     door.UpdateModel();
     //door.setHitbox(glm::vec4(38.0f, 0.0f, -40.0f, 1.0f), glm::vec4(42.0f, 20.0f, 40.0f, 1.0f));
     //collisions.addHitbox(door);
+
+    StaticGameObject cow(
+        &gpu_functions, &cow_object, TextureType::PLANE, texture.GetTexture("bege_wall"), 
+        LightType::GOURAUD, "COW");
+    cow.transform.SetPosition(-20.0f, -3.0f, 0.0f);
+    cow.transform.SetScale(10.0f, 10.0f, 10.0f);
+    cow.UpdateModel();  
 
 
 
@@ -506,8 +517,8 @@ int main(int argc, char* argv[])
     scene.AddGameObject(&sphere_object);
     scene.AddGameObject(&password_cube);
     scene.AddGameObject(&check_cube);
-
     scene.AddGameObject(&door);
+    scene.AddGameObject(&cow);
 
 
     // Habilitamos o Z-buffer. Veja slides 104-116 do documento Aula_09_Projecoes.pdf.
@@ -548,9 +559,11 @@ int main(int argc, char* argv[])
         // os shaders de vértice e fragmentos).
         glUseProgram(g_GpuProgramID);
 
-
+        InputState current_state = input_handler.getInputState();
+        if (current_state.is_lookat)
+        {
         //Teste do look at camera
-            /*LookAtCamera camera;
+            LookAtCamera camera;
 
             // Define uma câmera fixa ao fundo
             camera.setStaticCamera(
@@ -560,51 +573,47 @@ int main(int argc, char* argv[])
 
             gpu_functions.updateLookAtCameraMatrices(camera);
 
-            // Alterna de volta para o comportamento dinâmico, se necessário
-            //camera.disableStaticCamera();*/
-        
-    
-        
-        current_time = (float)glfwGetTime();
-        delta_time = current_time - old_time;
-        old_time = current_time;
-
-    
-        player.updateBezier(delta_time);
-
-        // Movimento que o usuário deseja fazer
-        InputState current_state = input_handler.getInputState();
-        player.updateVelocity(current_state, delta_time);
-
-        // Verificamos se o player colidiu com algum objeto e atualizamos a velocidade
-        glm::vec4 new_player_velocity = collisions.checkPlayerCollision(player);
-        player.setVelocity(new_player_velocity);
-
-        // Atualizamos a posição do player
-        player.update(current_state, delta_time);
-
-        
-        // player.update(current_state, delta_time);
-        std::cout << "Player position: " << player.getPosition().x << " " << player.getPosition().y << " " << player.getPosition().z << std::endl;
-        
-        
-        auto clickable_objects_collision = collisions.checkClickableCollision(player);
-        game_logic.checkInteraction(clickable_objects_collision, current_state.is_interacting);
-        game_logic.updateLastInteraction(delta_time);
-
-
-        gpu_functions.updateCameraMatrices(player.getCamera());
-
-        // player.printPlayerPosition();
-
-
-        if (game_logic.isPasswordCorrect())
-        {
-            std::cout << "muda porta pf" << std::endl;
-            door.OpeningDoor(delta_time);
-            door.UpdateModel();
         }
+        else
+        {
+    
+        
+            current_time = (float)glfwGetTime();
+            delta_time = current_time - old_time;
+            old_time = current_time;
 
+        
+            player.updateBezier(delta_time);
+
+            // Movimento que o usuário deseja fazer
+            
+            player.updateVelocity(current_state, delta_time);
+
+            // Verificamos se o player colidiu com algum objeto e atualizamos a velocidade
+            glm::vec4 new_player_velocity = collisions.checkPlayerCollision(player);
+            player.setVelocity(new_player_velocity);
+
+            // Atualizamos a posição do player
+            player.update(current_state, delta_time);
+            
+            
+            auto clickable_objects_collision = collisions.checkClickableCollision(player);
+            game_logic.checkInteraction(clickable_objects_collision, current_state.is_interacting);
+            game_logic.updateLastInteraction(delta_time);
+
+
+            gpu_functions.updateFreeCameraMatrices(player.getFreeCamera());
+
+            // player.printPlayerPosition();
+
+
+            if (game_logic.isPasswordCorrect())
+            {
+                door.OpeningDoor(delta_time);
+                door.UpdateModel();
+            }
+        }
+        
 
         scene.Render();
 

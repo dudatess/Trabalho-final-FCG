@@ -22,7 +22,7 @@ private:
     float field_of_view = 3.141592 / 3.0f;
     float g_ScreenRatio = 1.0f;
     float nearplane = -0.1f;  // Posição do "near plane"
-    float farplane  = -100.0f; // Posição do "far plane"
+    float farplane  = -150.0f; // Posição do "far plane"
 
     float g_CameraPhi;   // Angle between ZX plane and Z axis
     float g_CameraTheta; // Angle with respect to the Y axis

@@ -17,6 +17,8 @@ struct InputState {
     bool right_click = false;
     double mouse_x = 0.0;
     double mouse_y = 0.0;
+
+    bool is_lookat = false;
 };
 
 

@@ -14,7 +14,6 @@ Door::Door(
 
 void Door::OpeningDoor(float deltaTime)
 {
-    std::cout << "Opening door" << std::endl;
     if (this->progression_time >= animation)
         this->is_opening = false;
 
