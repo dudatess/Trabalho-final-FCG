@@ -57,10 +57,11 @@ void LookAtCamera::updateCameraPosition(glm::vec4 position)
     this->camera_view_vector = glm::normalize(this->camera_lookat - this->camera_position);
 }
 
-void LookAtCamera::setStaticCamera(glm::vec4 position, glm::vec4 lookat) {
+void LookAtCamera::setStaticCamera(glm::vec4 position, glm::vec4 lookat, glm::vec4 up_vector) {
     this->is_static_camera = true;       // Ativa o modo estático
     this->static_position = position;   // Define a posição fixa
     this->static_lookat = lookat;       // Define o ponto fixo para onde olhar
+    this->camera_up_vector = up_vector;
 }
 
 void LookAtCamera::disableStaticCamera() {

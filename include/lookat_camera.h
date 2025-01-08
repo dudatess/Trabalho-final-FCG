@@ -35,7 +35,7 @@ private:
 public:
 
         LookAtCamera();
-        void setStaticCamera(glm::vec4 position, glm::vec4 lookat);
+        void setStaticCamera(glm::vec4 position, glm::vec4 lookat, glm::vec4 up_vector);
         void disableStaticCamera();
 
         glm::vec4 getCameraPosition() { return camera_position; }
