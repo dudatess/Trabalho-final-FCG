@@ -393,14 +393,34 @@ int main(int argc, char* argv[])
     collisions.addHitbox(right_wall);
 
     // Parede da esquerda
-    StaticGameObject left_wall(
+    StaticGameObject left_wall1(
         &gpu_functions, &cube,  TextureType::OBJ_FILE,  texture.GetTexture("bege_wall"), 
-        LightType::NO, "LEFT_WALL");
-    left_wall.transform.SetPosition(40.0f, 0.0f, 0.0f); 
-    left_wall.transform.SetScale(1.0f, 20.0f, 40.0f);
-    left_wall.UpdateModel();
-    left_wall.setHitbox(glm::vec4(38.0f, 0.0f, -40.0f, 1.0f), glm::vec4(42.0f, 20.0f, 40.0f, 1.0f));
-    collisions.addHitbox(left_wall);
+        LightType::NO, "LEFT_WALL1");
+    left_wall1.transform.SetPosition(40.0f, 0.0f, -30.0f); 
+    left_wall1.transform.SetScale(1.0f, 20.0f, 40.0f);
+    left_wall1.UpdateModel();
+    left_wall1.setHitbox(glm::vec4(38.0f, 0.0f, -40.0f, 1.0f), glm::vec4(40.0f, 20.0f, 10.0f, 1.0f));
+    collisions.addHitbox(left_wall1);
+
+    
+    // Parede da esquerda
+    StaticGameObject left_wall2(
+        &gpu_functions, &cube,  TextureType::OBJ_FILE,  texture.GetTexture("bege_wall"), 
+        LightType::NO, "LEFT_WALL2");
+    left_wall2.transform.SetPosition(40.0f, 0.0f, 56.0f); 
+    left_wall2.transform.SetScale(1.0f, 20.0f, 40.0f);
+    left_wall2.UpdateModel();
+    left_wall2.setHitbox(glm::vec4(37.0f, 0.0f, 16.0f, 1.0f), glm::vec4(44.0f, 0.0f, 44.0f, 1.0f));
+    collisions.addHitbox(left_wall2);
+
+    
+    StaticGameObject left_wall3(
+        &gpu_functions, &cube,  TextureType::OBJ_FILE,  texture.GetTexture("bege_wall"), 
+        LightType::NO, "LEFT_WALL3");
+    left_wall3.transform.SetPosition(40.0f, 16.0f, 10.0f); 
+    left_wall3.transform.SetScale(1.0f, 10.0f, 10.0f);
+    left_wall3.UpdateModel();
+
 
     // Parede da frente
     StaticGameObject front_wall(
@@ -471,7 +491,7 @@ int main(int argc, char* argv[])
     Door door(
         &gpu_functions, &door_object, TextureType::OBJ_FILE, texture.GetTexture("door"), 
         LightType::PHONG, "DOOR");
-    door.transform.SetPosition(20.0f, 7.0f, 27.0f);
+    door.transform.SetPosition(39.0f, 6.0f, 13.0f);
     door.transform.SetScale(0.08f, 0.08f, 0.08f);
     door.transform.SetRotation(3.14/2, 0.0f, -3.14/2);
     door.UpdateModel();
@@ -495,7 +515,9 @@ int main(int argc, char* argv[])
     scene.AddGameObject(&floor_object);
     scene.AddGameObject(&back_wall);
     scene.AddGameObject(&right_wall);
-    scene.AddGameObject(&left_wall);
+    scene.AddGameObject(&left_wall1);
+    scene.AddGameObject(&left_wall2);
+    scene.AddGameObject(&left_wall3);
     scene.AddGameObject(&front_wall);
     scene.AddGameObject(&ceiling_object);
 
@@ -604,7 +626,7 @@ int main(int argc, char* argv[])
 
             gpu_functions.updateFreeCameraMatrices(player.getFreeCamera());
 
-            // player.printPlayerPosition();
+            player.printPlayerPosition();
 
 
             if (game_logic.isPasswordCorrect())
