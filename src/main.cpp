@@ -259,6 +259,8 @@ int main(int argc, char* argv[])
     texture.LoadTextureImage("../../data/white_board.jpg", "white_board");
     texture.LoadTextureImage("../../data/bezier_board.jpg", "bezier_board");
     texture.LoadTextureImage("../../data/10057_wooden_door_v1_diffuse.jpg", "door");
+    texture.LoadTextureImage("../../data/wood_desk.jpg", "wood_desk");
+    texture.LoadTextureImage("../../data/paper.jpg", "paper");
     TextRendering_Init();
 
     Object sphere("../../data/sphere.obj");
@@ -270,7 +272,11 @@ int main(int argc, char* argv[])
     Object white_board("../../data/uploads_files_3685891_whiteBoard.obj");
     Object door_object("../../data/10057_wooden_door_v3_iterations-2.obj");
     Object cow_object("../../data/cow.obj");
+    Object desk("../../data/MetalDesk.obj");
+    Object lamp("../../data/wooden_lamp.obj", "lamp");
 
+
+//------------------------------------SALA 1------------------------------------------------------------------
 
     StaticGameObject white_board_object(
         &gpu_functions, &white_board, TextureType::OBJ_FILE, texture.GetTexture("white_board"), 
@@ -505,11 +511,121 @@ int main(int argc, char* argv[])
     cow.transform.SetScale(10.0f, 10.0f, 10.0f);
     cow.UpdateModel();  
 
+    StaticGameObject desk_object(
+        &gpu_functions, &desk, TextureType::OBJ_FILE, texture.GetTexture("wood_desk"), 
+        LightType::NO, "DESK");
+    desk_object.transform.SetPosition(18.0f, -8.0f, 25.0f);
+    desk_object.transform.SetScale(6.0f, 6.0f, 6.0f);
+    desk_object.UpdateModel();
+
+    StaticGameObject paper(
+        &gpu_functions, &plane, TextureType::PLANE, texture.GetTexture("paper"), 
+        LightType::NO, "PAPER"
+    );
+    paper.transform.SetPosition(18.0f, -3.0f, 25.0f);
+    paper.transform.SetScale(1.0f, 1.0f, 2.0f);
+    paper.UpdateModel();
+
+    StaticGameObject lamp_object(
+        &gpu_functions, &lamp, TextureType::OBJ_FILE, texture.GetTexture("wood"), 
+        LightType::NO, "LAMP"
+    );
+    lamp_object.transform.SetPosition(0.0f, 10.0f, 0.0f);
+    lamp_object.transform.SetScale(5.0f, 5.0f, 5.0f);
+    lamp_object.UpdateModel();
+
+//-----------------------------------------SALA 2 --------------------------------------------------------------    
+    
+     StaticGameObject right_wall2(
+        &gpu_functions, &cube,  TextureType::OBJ_FILE,  texture.GetTexture("bege_wall"), 
+        LightType::NO, "RIGHT_WALL2");
+    right_wall2.transform.SetPosition(42.0f, 0.0f, -30.0f); 
+    right_wall2.transform.SetScale(1.0f, 20.0f, 40.0f);
+    right_wall2.UpdateModel();
+    right_wall2.setHitbox(glm::vec4(42.0f, 20.0f, 10.0f, 1.0f), glm::vec4(42.0f, 0.0f, -38.0f, 1.0f));
+    collisions.addHitbox(right_wall2);
+
+    
+    StaticGameObject right_wall3(
+        &gpu_functions, &cube,  TextureType::OBJ_FILE,  texture.GetTexture("green_floor"), 
+        LightType::NO, "RIGHT_WALL3");
+    right_wall3.transform.SetPosition(42.0f, 0.0f, 56.0f); 
+    right_wall3.transform.SetScale(1.0f, 20.0f, 40.0f);
+    right_wall3.UpdateModel();
+    right_wall3.setHitbox(glm::vec4(42.0f, 0.0f, -38.0f, 1.0f), glm::vec4(42.0f, 20.0f, 10.0f, 1.0f));
+    collisions.addHitbox(right_wall3);
+
+    StaticGameObject floor_object2(
+        &gpu_functions, &plane, TextureType::PLANE, texture.GetTexture("wood"), 
+        LightType::NO, "FLOOR_OBJECT2"); 
+    floor_object2.transform.SetPosition(80.0f, -10.0f, 0.0f);
+    floor_object2.transform.SetScale(40.0, 1.0, 40.0); 
+    floor_object2.UpdateModel();
+
+     StaticGameObject back_wall2(
+        &gpu_functions, &cube, TextureType::OBJ_FILE ,texture.GetTexture("green_floor"), 
+        LightType::NO, "BACK_WALL2"); 
+    back_wall2.transform.SetPosition(80.0f, 0.0f, -40.0f); 
+    back_wall2.transform.SetScale(40.0f, 20.0f, 1.0f); 
+    back_wall2.UpdateModel();
+    back_wall2.setHitbox(glm::vec4(-40.0f, 0.0f, -42.0f, 1.0f), glm::vec4(40.0f, 20.0f, -38.0f, 1.0f));
+    collisions.addHitbox(back_wall2);
+
+     StaticGameObject front_wall2(
+        &gpu_functions, &cube,  TextureType::OBJ_FILE, texture.GetTexture("green_floor"), 
+        LightType::NO, "FRONT_WALL2");
+    front_wall2.transform.SetPosition(80.0f, 0.0f, 40.0f);
+    front_wall2.transform.SetScale(40.0f, 20.0f, 1.0f);
+    front_wall2.UpdateModel();
+    front_wall2.setHitbox(glm::vec4(-40.0f, -10.0f, 38.0f, 1.0f), glm::vec4(40.0f, 10.0f, 42.0f, 1.0f));
+    collisions.addHitbox(front_wall2);
+
+     // Parede da esquerda
+    StaticGameObject left_wall4(
+        &gpu_functions, &cube,  TextureType::OBJ_FILE,  texture.GetTexture("bege_wall"), 
+        LightType::NO, "LEFT_WALL4");
+    left_wall4.transform.SetPosition(100.0f, 0.0f, -30.0f); 
+    left_wall4.transform.SetScale(1.0f, 20.0f, 40.0f);
+    left_wall4.UpdateModel();
+    left_wall4.setHitbox(glm::vec4(38.0f, 0.0f, -40.0f, 1.0f), glm::vec4(40.0f, 20.0f, 10.0f, 1.0f));
+    collisions.addHitbox(left_wall4);
+
+    
+    // Parede da esquerda
+    StaticGameObject left_wall5(
+        &gpu_functions, &cube,  TextureType::OBJ_FILE,  texture.GetTexture("bege_wall"), 
+        LightType::NO, "LEFT_WALL5");
+    left_wall5.transform.SetPosition(100.0f, 0.0f, 56.0f); 
+    left_wall5.transform.SetScale(1.0f, 20.0f, 40.0f);
+    left_wall5.UpdateModel();
+    left_wall5.setHitbox(glm::vec4(37.0f, 0.0f, 16.0f, 1.0f), glm::vec4(44.0f, 0.0f, 44.0f, 1.0f));
+    collisions.addHitbox(left_wall5);
+
+    
+    StaticGameObject left_wall6(
+        &gpu_functions, &cube,  TextureType::OBJ_FILE,  texture.GetTexture("bege_wall"), 
+        LightType::NO, "LEFT_WALL6");
+    left_wall6.transform.SetPosition(100.0f, 16.0f, 10.0f); 
+    left_wall6.transform.SetScale(1.0f, 10.0f, 10.0f);
+    left_wall6.UpdateModel();
+
+    StaticGameObject ceiling_object2(
+        &gpu_functions, &cube, TextureType::OBJ_FILE,  texture.GetTexture("bege_wall"), 
+        LightType::NO, "CEILING_OBJECT2");
+    ceiling_object2.transform.SetPosition(80.0f, 20.0f, 0.0f); 
+    ceiling_object2.transform.SetScale(40.0f, 1.0f, 40.0f); 
+    ceiling_object2.UpdateModel();
+
+    Door door2(
+        &gpu_functions, &door_object, TextureType::OBJ_FILE, texture.GetTexture("door"), 
+        LightType::PHONG, "DOOR2");
+    door2.transform.SetPosition(100.0f, 6.0f, 13.0f);
+    door2.transform.SetScale(0.08f, 0.08f, 0.08f);
+    door2.transform.SetRotation(3.14/2, 0.0f, -3.14/2);
+    door2.UpdateModel();
 
 
-
-
-
+    //SALA 1
     //scene.AddGameObject(&sphere_object);
     //scene.AddGameObject(&bunny_object);
     scene.AddGameObject(&floor_object);
@@ -520,7 +636,6 @@ int main(int argc, char* argv[])
     scene.AddGameObject(&left_wall3);
     scene.AddGameObject(&front_wall);
     scene.AddGameObject(&ceiling_object);
-
     scene.AddGameObject(&chair1);
     scene.AddGameObject(&chair2);
     scene.AddGameObject(&chair3);
@@ -541,6 +656,23 @@ int main(int argc, char* argv[])
     scene.AddGameObject(&check_cube);
     scene.AddGameObject(&door);
     scene.AddGameObject(&cow);
+    scene.AddGameObject(&desk_object);
+    scene.AddGameObject(&paper);
+    scene.AddGameObject(&lamp_object);
+
+    //SALA 2
+    scene.AddGameObject(&right_wall2);
+    scene.AddGameObject(&right_wall3);
+    scene.AddGameObject(&floor_object2);
+    scene.AddGameObject(&back_wall2);
+    scene.AddGameObject(&front_wall2);
+    scene.AddGameObject(&left_wall4);
+    scene.AddGameObject(&left_wall5);
+    scene.AddGameObject(&left_wall6);
+    scene.AddGameObject(&ceiling_object2);
+    scene.AddGameObject(&door2);
+    
+   
 
 
     // Habilitamos o Z-buffer. Veja slides 104-116 do documento Aula_09_Projecoes.pdf.
@@ -605,7 +737,7 @@ int main(int argc, char* argv[])
             old_time = current_time;
 
         
-            player.updateBezier(delta_time);
+            //player.updateBezier(delta_time);
 
             // Movimento que o usuário deseja fazer
             
