@@ -465,7 +465,7 @@ int main(int argc, char* argv[])
     ceiling_object.transform.SetScale(40.0f, 1.0f, 40.0f); 
     ceiling_object.UpdateModel();
 
-    StaticGameObject sphere_object(
+    /* StaticGameObject sphere_object(
         &gpu_functions, &sphere, TextureType::OBJ_FILE, texture.GetTexture("wood"), 
         LightType::PHONG, "SPHERE_OBJECT");
     glm::vec4 sphere_position = glm::vec4(20.0f, -4.0f, 10.0f, 1.0f);
@@ -474,7 +474,7 @@ int main(int argc, char* argv[])
     sphere_object.transform.SetScale(sphere_radius, sphere_radius, sphere_radius);
     sphere_object.UpdateModel();
     sphere_object.setHitsphere(sphere_position, sphere_radius+2);
-    collisions.addHitsphere(sphere_object);
+    collisions.addHitsphere(sphere_object); */
 
     // Cubo que o jogador deve interagir para inserir a senha
     StaticGameObject password_cube(
@@ -718,7 +718,7 @@ int main(int argc, char* argv[])
     sphere_object9.setHitsphere(sphere_position9, sphere_radius9 + 2);
     collisions.addHitsphere(sphere_object9);
 
-    StaticGameObject sphere_object10(
+    /* StaticGameObject sphere_object10(
         &gpu_functions, &sphere, TextureType::OBJ_FILE, texture.GetTexture("black"),
         LightType::PHONG, "SPHERE_OBJECT10");
     glm::vec4 sphere_position10 = glm::vec4(90.0f, -4.0f, 10.0f, 1.0f);
@@ -727,7 +727,7 @@ int main(int argc, char* argv[])
     sphere_object10.transform.SetScale(sphere_radius10, sphere_radius10, sphere_radius10);
     sphere_object10.UpdateModel();
     sphere_object10.setHitsphere(sphere_position10, sphere_radius10 + 2);
-    collisions.addHitsphere(sphere_object10);
+    collisions.addHitsphere(sphere_object10); */
 
     StaticGameObject sphere_object11(
         &gpu_functions, &sphere, TextureType::OBJ_FILE, texture.GetTexture("black"),
@@ -751,7 +751,7 @@ int main(int argc, char* argv[])
     sphere_object12.setHitsphere(sphere_position12, sphere_radius12 + 2);
     collisions.addHitsphere(sphere_object12);
 
-    StaticGameObject sphere_object13(
+    /* StaticGameObject sphere_object13(
         &gpu_functions, &sphere, TextureType::OBJ_FILE, texture.GetTexture("black"),
         LightType::PHONG, "SPHERE_OBJECT13");
     glm::vec4 sphere_position13 = glm::vec4(65.0f, -4.0f, -30.0f, 1.0f);
@@ -760,7 +760,7 @@ int main(int argc, char* argv[])
     sphere_object13.transform.SetScale(sphere_radius13, sphere_radius13, sphere_radius13);
     sphere_object13.UpdateModel();
     sphere_object13.setHitsphere(sphere_position13, sphere_radius13 + 2);
-    collisions.addHitsphere(sphere_object13);
+    collisions.addHitsphere(sphere_object13); */
 
     StaticGameObject sphere_object14(
         &gpu_functions, &sphere, TextureType::OBJ_FILE, texture.GetTexture("black"),
@@ -850,7 +850,7 @@ int main(int argc, char* argv[])
     sphere_object21.setHitsphere(sphere_position21, sphere_radius21 + 2);
     collisions.addHitsphere(sphere_object21);
 
-    StaticGameObject sphere_object22(
+    /* StaticGameObject sphere_object22(
         &gpu_functions, &sphere, TextureType::OBJ_FILE, texture.GetTexture("black"),
         LightType::PHONG, "SPHERE_OBJECT22");
     glm::vec4 sphere_position22 = glm::vec4(95.0f, -4.0f, 5.0f, 1.0f);
@@ -859,7 +859,7 @@ int main(int argc, char* argv[])
     sphere_object22.transform.SetScale(sphere_radius22, sphere_radius22, sphere_radius22);
     sphere_object22.UpdateModel();
     sphere_object22.setHitsphere(sphere_position22, sphere_radius22 + 2);
-    collisions.addHitsphere(sphere_object22);
+    collisions.addHitsphere(sphere_object22); */
 
 
 
@@ -889,7 +889,9 @@ int main(int argc, char* argv[])
     scene.AddGameObject(&board);
     //scene.AddGameObject(&window1);
     scene.AddGameObject(&white_board_object);
+
     //scene.AddGameObject(&sphere_object);
+
     scene.AddGameObject(&password_cube);
     scene.AddGameObject(&check_cube);
     scene.AddGameObject(&door);
