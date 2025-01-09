@@ -843,7 +843,39 @@ int main(int argc, char* argv[])
     sphere_object21.UpdateModel();
     sphere_object21.setHitsphere(sphere_position21, sphere_radius21 + 2);
     collisions.addHitsphere(sphere_object21);
-*/
+
+    StaticGameObject password_cube2(
+        &gpu_functions, &cube, TextureType::OBJ_FILE, texture.GetTexture("white_board"), 
+        LightType::NO, "PASSWORD_CUBE2");
+    password_cube2.transform.SetPosition(95.0f,-3.0f,20.0f);
+    password_cube2.transform.SetScale(2.0f, 2.0f, 2.0f);
+    password_cube2.UpdateModel();
+    password_cube2.setHitbox(glm::vec4(92.0f, -100.0f, 16.0f, 1.0f), glm::vec4(98.0f, 0.0f, 23.0f, 1.0f));
+    collisions.addHitbox(password_cube2);
+    collisions.addClickableHitbox(password_cube2);
+
+    StaticGameObject check_cube2(
+        &gpu_functions, &cube, TextureType::OBJ_FILE, texture.GetTexture("wood"), 
+        LightType::NO, "CHECK_CUBE2");
+    check_cube2.transform.SetPosition(95.0f,-3.0f,5.0f);
+    check_cube2.transform.SetScale(2.0f, 2.0f, 2.0f);
+    check_cube2.UpdateModel();
+    check_cube2.setHitbox(glm::vec4(92.0f, -100.0f, 1.0f, 1.0f), glm::vec4(98.0f, 0.0f, 8.0f, 1.0f));
+    collisions.addHitbox(check_cube2);
+    collisions.addClickableHitbox(check_cube2);
+
+
+    /* StaticGameObject sphere_object22(
+        &gpu_functions, &sphere, TextureType::OBJ_FILE, texture.GetTexture("black"),
+        LightType::PHONG, "SPHERE_OBJECT22");
+    glm::vec4 sphere_position22 = glm::vec4(95.0f, -4.0f, 5.0f, 1.0f);
+    float sphere_radius22 = 5.5f;
+    sphere_object22.transform.SetPosition(sphere_position22.x, sphere_position22.y, sphere_position22.z);
+    sphere_object22.transform.SetScale(sphere_radius22, sphere_radius22, sphere_radius22);
+    sphere_object22.UpdateModel();
+    sphere_object22.setHitsphere(sphere_position22, sphere_radius22 + 2);
+    collisions.addHitsphere(sphere_object22); */
+
 
 
     //SALA 1
@@ -872,7 +904,9 @@ int main(int argc, char* argv[])
     scene.AddGameObject(&board);
     //scene.AddGameObject(&window1);
     scene.AddGameObject(&white_board_object);
+
     //scene.AddGameObject(&sphere_object);
+
     scene.AddGameObject(&password_cube);
     scene.AddGameObject(&check_cube);
     scene.AddGameObject(&door);
@@ -982,13 +1016,18 @@ int main(int argc, char* argv[])
 
             gpu_functions.updateFreeCameraMatrices(player.getFreeCamera());
 
-            player.printPlayerPosition();
+            //player.printPlayerPosition();
 
 
-            if (game_logic.isPasswordCorrect())
+            if (game_logic.isFirstPasswordCorrect())
             {
                 door.OpeningDoor(delta_time);
                 door.UpdateModel();
+            }
+            if (game_logic.isSecondPasswordCorrect())
+            {
+                door2.OpeningDoor(delta_time);
+                door2.UpdateModel();
             }
         }
         

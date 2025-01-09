@@ -18,7 +18,7 @@ void GameLogic::checkInteraction(std::unordered_map<std::string, bool> clickable
 
 void GameLogic::handleInteraction(std::string object_id)
 {
-    if (object_id == "PASSWORD_CUBE")
+    if (object_id == "PASSWORD_CUBE" || object_id == "PASSWORD_CUBE2")
     {
         //std::cout << "Interacting with password cube!!!" << std::endl;
         if (this->last_interaction > this->cooldown)
@@ -28,7 +28,7 @@ void GameLogic::handleInteraction(std::string object_id)
             std::cout << "Incrementing password input... " << password_input << std::endl;
         }
     }
-    if (object_id == "CHECK_CUBE")
+    if (object_id == "CHECK_CUBE" || object_id == "CHECK_CUBE2")
     {
         checkPassword();
     }
@@ -39,11 +39,6 @@ void GameLogic::handleInteraction(std::string object_id)
 void GameLogic::updateLastInteraction(float delta_time)
 {
     this->last_interaction += delta_time;
-}
-
-void GameLogic::setPassword(int password)
-{
-    this->password = password;
 }
 
 void GameLogic::setPasswordInput(int password_input)
@@ -59,15 +54,27 @@ void GameLogic::incPasswordInput()
 void GameLogic::checkPassword()
 {
     // std::cout << "Checking password... " << password_input << " " << password << std::endl;
-    if (this->password == this->password_input)
+    if (this->first_password == this->password_input)
     {
-        std::cout << "Password correct!" << std::endl;
-        this->is_password_ok = !is_password_ok;
+        std::cout << "First Password correct!" << std::endl;
+        this->is_first_password_ok = !is_first_password_ok;
+        this->password_input = 0;
+    }
+
+    if (this->second_password == this->password_input)
+    {
+        std::cout << "Second Password correct!" << std::endl;
+        this->is_second_password_ok = !is_second_password_ok;
         this->password_input = 0;
     }
 }
 
-bool GameLogic::isPasswordCorrect()
+bool GameLogic::isFirstPasswordCorrect()
 {
-    return is_password_ok;
+    return this->is_first_password_ok;
+}
+
+bool GameLogic::isSecondPasswordCorrect()
+{
+    return this->is_second_password_ok;
 }
