@@ -32,7 +32,7 @@ Os testes de colisão são realizados com base na posição do player e em um ve
 8. **[Iluminação Blinn-Phong]**: A iluminação Blinn-phong foi utilizada em objetos como cadeiras, portas e esferas. Esta iluminação foi combinada ao termo difuso (**lambert_diffuse_term**) para produzir a iluminação final.
 9. **[Interpolação de Phong]**: Esta interpolação foi utilizada nos mesmos objetos que utilizavam da iluminação de Blinn-Phong. Cada **StaticGameObject** (classe que representa o objeto no jogo) contém um campo em que é possível escolher o tipo de interpolação, podendo ser **PHONG**.
 10. **[Interpolação de Gouraud]**: Esta interpolação foi utilizada no obejeto **cow**. Cada **StaticGameObject** (classe que representa o objeto no jogo) contém um campo em que é possível escolher o tipo de interpolação, podendo ser **GOURAUD**. 
-![Objeto cow com interpolação de Gouraud](images/cow.jpg)
+![Objeto cow com interpolação de Gouraud](./images/cow.jpg)
 11. **[Mapeamento de texturas]**: Havia três tipos de projeção de texturas implementadas para determinar as coordenadas de texturas: esférica, planar e projeção extraída do arquivo .obj. A maoria dos objetos, utilizou a projeção descrita no seu próprio arquivo .obj, enquanto objetos como o quadro e as dicas para o puzzle 2, utilizaram da projeção planar. Nenhum objeto utilizou da projeção esférica. Cada **StaticGameObject** (classe que representa o objeto no jogo), c12. **[Curva de Bézier cúbica]**: A curva de Bézier foi utilizada na variação da posição do player, a fim de fazer uma introdução em que o player realiza um movimento par .
 ndo-o 13. **[Animações baseadas no tempo]**: Todas as movimentações e rotações no jogo são baseadas no tempo, garantindo que as animações ocorram de maneira uniforme, independentemente da velocidade da máquina que está rodando o jogo.  
 
@@ -54,6 +54,7 @@ O desenvolvimento seguiu as seguintes etapas:
 ![Descrição da Imagem 1](link-ou-caminho-da-imagem)
 
 ### Imagem 2# 
+![Objeto cow com interpolação de Gouraud](./images/cow.jpg)
 
 ## Manual de Utilização
 
