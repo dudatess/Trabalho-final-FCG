@@ -54,7 +54,7 @@ O desenvolvimento seguiu as seguintes etapas:
 ![Descrição da Imagem 1](link-ou-caminho-da-imagem)
 
 ### Imagem 2# 
-![Objeto cow com interpolação de Gouraud](./images/cow.jpg)
+![Objeto cow com interpolação de Gouraud](images/cow.jpg)
 
 ## Manual de Utilização
 
