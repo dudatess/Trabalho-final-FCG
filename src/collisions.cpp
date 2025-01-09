@@ -137,6 +137,7 @@ bool Collisions::checkPointAABBCollision(glm::vec4 point, glm::vec4 min, glm::ve
     // std::cout << "bool y: " << (point.y >= min.y) << " " << (point.y <= max.y) << std::endl;
     // std::cout << "Is collision on z: " << point.z << " " << min.z << " " << max.z << std::endl;
     // std::cout << "bool z: " << (point.z >= min.z) << " " << (point.z <= max.z) << std::endl;
+
     return point.x >= min.x && point.x <= max.x &&
            point.y >= min.y && point.y <= max.y &&
            point.z >= min.z && point.z <= max.z;
@@ -149,24 +150,30 @@ bool Collisions::checkPointSphereCollision(glm::vec4 point, glm::vec4 sphere_cen
 
  bool Collisions::checkRayToAABBCollision(glm::vec4 ray_origin, glm::vec4 ray_direction, glm::vec4 min, glm::vec4 max)
 {
-    float tMin = 0.0f;
-    float tMax = 3.0f;
+    float t_min = 0.0f;
+    float t_max = 3.0f;
 
     // std::cout << "Ray origin: " << ray_origin.x << " " << ray_origin.y << " " << ray_origin.z << std::endl;
     // std::cout << "Ray direction: " << ray_direction.x << " " << ray_direction.y << " " << ray_direction.z << std::endl;
 
-    for (int i = 0; i < 3; i++) {
-        if (fabs(ray_direction[i]) < 1e-8f) {
-            // Ray is parallel; check if origin is outside slab
-            if (ray_origin[i] < min[i] || ray_origin[i] > max[i]) return false;
-        } else {
-            float ood = 1.0f / ray_direction[i];
-            float t1 = (min[i] - ray_origin[i]) * ood;
-            float t2 = (max[i] - ray_origin[i]) * ood;
+    for (int i = 0; i < 3; i++) 
+    {
+        if (fabs(ray_direction[i]) < 1e-8f)
+        {
+            if (ray_origin[i] < min[i] || ray_origin[i] > max[i])
+            {
+                return false;
+            }
+        } 
+        else 
+        {
+            float inverse_direction = 1.0f / ray_direction[i];
+            float t1 = (min[i] - ray_origin[i]) * inverse_direction;
+            float t2 = (max[i] - ray_origin[i]) * inverse_direction;
             if (t1 > t2) std::swap(t1, t2);
-            tMin = std::max(tMin, t1);
-            tMax = std::min(tMax, t2);
-            if (tMin > tMax) return false;
+            t_min = std::max(t_min, t1);
+            t_max = std::min(t_max, t2);
+            if (t_min > t_max) return false;
         }
     }
     return true;
