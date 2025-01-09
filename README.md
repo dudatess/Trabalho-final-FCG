@@ -53,8 +53,6 @@ O desenvolvimento seguiu as seguintes etapas:
 ### Imagem 1
 ![Descrição da Imagem 1](link-ou-caminho-da-imagem)
 
-### Imagem 2# 
-![Objeto cow com interpolação de Gouraud](images/vaca.png)
 
 ## Manual de Utilização
 
