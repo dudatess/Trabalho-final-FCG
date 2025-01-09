@@ -266,6 +266,12 @@ int main(int argc, char* argv[])
     texture.LoadTextureImage("../../data/spheres_white.jpg","spheres_white");
     texture.LoadTextureImage("../../data/white.jpg", "white");
     texture.LoadTextureImage("../../data/black.jpg", "black");
+    texture.LoadTextureImage("../../data/clue1.jpg", "clue1");
+    texture.LoadTextureImage("../../data/clue2.jpg", "clue2");
+    texture.LoadTextureImage("../../data/input.jpg", "input");
+    texture.LoadTextureImage("../../data/check.jpg", "check");
+    
+
     TextRendering_Init();
 
     Object sphere("../../data/sphere.obj");
@@ -465,20 +471,10 @@ int main(int argc, char* argv[])
     ceiling_object.transform.SetScale(40.0f, 1.0f, 40.0f); 
     ceiling_object.UpdateModel();
 
-    StaticGameObject sphere_object(
-        &gpu_functions, &sphere, TextureType::OBJ_FILE, texture.GetTexture("wood"), 
-        LightType::PHONG, "SPHERE_OBJECT");
-    glm::vec4 sphere_position = glm::vec4(20.0f, -4.0f, 10.0f, 1.0f);
-    float sphere_radius = 5.0f;
-    sphere_object.transform.SetPosition(sphere_position.x, sphere_position.y, sphere_position.z);
-    sphere_object.transform.SetScale(sphere_radius, sphere_radius, sphere_radius);
-    sphere_object.UpdateModel();
-    sphere_object.setHitsphere(sphere_position, sphere_radius+2);
-    collisions.addHitsphere(sphere_object);
-
+    
     // Cubo que o jogador deve interagir para inserir a senha
     StaticGameObject password_cube(
-        &gpu_functions, &cube, TextureType::OBJ_FILE, texture.GetTexture("white_board"), 
+        &gpu_functions, &cube, TextureType::PLANE, texture.GetTexture("input"), 
         LightType::NO, "PASSWORD_CUBE");
     password_cube.transform.SetPosition(-30.0f,-5.0f,20.0f);
     password_cube.transform.SetScale(2.0f, 2.0f, 2.0f);
@@ -489,7 +485,7 @@ int main(int argc, char* argv[])
 
     // Cubo que o jogador deve interagir para checkar a senha
     StaticGameObject check_cube(
-        &gpu_functions, &cube, TextureType::OBJ_FILE, texture.GetTexture("wood"), 
+        &gpu_functions, &cube, TextureType::PLANE, texture.GetTexture("check"), 
         LightType::NO, "CHECK_CUBE");
     check_cube.transform.SetPosition(-30.0f,-5.0f,30.0f);
     check_cube.transform.SetScale(2.0f, 2.0f, 2.0f);
@@ -500,7 +496,7 @@ int main(int argc, char* argv[])
 
     // Door
     Door door(
-        &gpu_functions, &door_object, TextureType::OBJ_FILE, texture.GetTexture("door"), 
+        &gpu_functions, &door_object, TextureType::PLANE, texture.GetTexture("bege_wall"), 
         LightType::PHONG, "DOOR");
     door.transform.SetPosition(39.0f, 6.0f, 13.0f);
     door.transform.SetScale(0.08f, 0.08f, 0.08f);
@@ -589,7 +585,7 @@ int main(int argc, char* argv[])
     StaticGameObject left_wall4(
         &gpu_functions, &cube,  TextureType::OBJ_FILE,  texture.GetTexture("black"), 
         LightType::NO, "LEFT_WALL4");
-    left_wall4.transform.SetPosition(100.0f, 0.0f, -30.0f); 
+    left_wall4.transform.SetPosition(95.0f, 0.0f, -30.0f); 
     left_wall4.transform.SetScale(1.0f, 20.0f, 40.0f);
     left_wall4.UpdateModel();
     left_wall4.setHitbox(glm::vec4(38.0f, 0.0f, -40.0f, 1.0f), glm::vec4(40.0f, 20.0f, 10.0f, 1.0f));
@@ -600,7 +596,7 @@ int main(int argc, char* argv[])
     StaticGameObject left_wall5(
         &gpu_functions, &cube,  TextureType::OBJ_FILE,  texture.GetTexture("black"), 
         LightType::NO, "LEFT_WALL5");
-    left_wall5.transform.SetPosition(100.0f, 0.0f, 56.0f); 
+    left_wall5.transform.SetPosition(95.0f, 0.0f, 56.0f); 
     left_wall5.transform.SetScale(1.0f, 20.0f, 40.0f);
     left_wall5.UpdateModel();
     left_wall5.setHitbox(glm::vec4(37.0f, 0.0f, 16.0f, 1.0f), glm::vec4(44.0f, 0.0f, 44.0f, 1.0f));
@@ -610,7 +606,7 @@ int main(int argc, char* argv[])
     StaticGameObject left_wall6(
         &gpu_functions, &cube,  TextureType::OBJ_FILE,  texture.GetTexture("black"), 
         LightType::NO, "LEFT_WALL6");
-    left_wall6.transform.SetPosition(100.0f, 16.0f, 10.0f); 
+    left_wall6.transform.SetPosition(95.0f, 16.0f, 10.0f); 
     left_wall6.transform.SetScale(1.0f, 10.0f, 10.0f);
     left_wall6.UpdateModel();
 
@@ -622,17 +618,17 @@ int main(int argc, char* argv[])
     ceiling_object2.UpdateModel();
 
     Door door2(
-        &gpu_functions, &door_object, TextureType::OBJ_FILE, texture.GetTexture("door"), 
-        LightType::PHONG, "DOOR2");
-    door2.transform.SetPosition(100.0f, 6.0f, 13.0f);
+        &gpu_functions, &door_object, TextureType::OBJ_FILE, texture.GetTexture("black"), 
+        LightType::NO, "DOOR2");
+    door2.transform.SetPosition(95.0f, 6.0f, 13.0f);
     door2.transform.SetScale(0.08f, 0.08f, 0.08f);
     door2.transform.SetRotation(3.14/2, 0.0f, -3.14/2);
     door2.UpdateModel();
 
     StaticGameObject sphere_object2(
-        &gpu_functions, &sphere, TextureType::OBJ_FILE, texture.GetTexture("white"), 
+        &gpu_functions, &sphere, TextureType::OBJ_FILE, texture.GetTexture("black"), 
         LightType::PHONG, "SPHERE_OBJECT2");
-    glm::vec4 sphere_position2 = glm::vec4(70.0f, -4.0f, 3.0f, 1.0f);
+    glm::vec4 sphere_position2 = glm::vec4(48.0f, -4.0f, -9.0f, 1.0f);
     float sphere_radius2 = 5.0f;
     sphere_object2.transform.SetPosition(sphere_position2.x, sphere_position2.y, sphere_position2.z);
     sphere_object2.transform.SetScale(sphere_radius2, sphere_radius2, sphere_radius2);
@@ -641,9 +637,9 @@ int main(int argc, char* argv[])
     collisions.addHitsphere(sphere_object2);
 
      StaticGameObject sphere_object3(
-        &gpu_functions, &sphere, TextureType::OBJ_FILE, texture.GetTexture("white"), 
+        &gpu_functions, &sphere, TextureType::OBJ_FILE, texture.GetTexture("black"), 
         LightType::PHONG, "SPHERE_OBJECT3");
-    glm::vec4 sphere_position3 = glm::vec4(80.0f, -4.0f, -9.0f, 1.0f);
+    glm::vec4 sphere_position3 = glm::vec4(56.0f, -4.0f, -9.0f, 1.0f);
     float sphere_radius3 = 5.0f;
     sphere_object3.transform.SetPosition(sphere_position3.x, sphere_position3.y, sphere_position3.z);
     sphere_object3.transform.SetScale(sphere_radius3, sphere_radius3, sphere_radius3);
@@ -652,9 +648,9 @@ int main(int argc, char* argv[])
     collisions.addHitsphere(sphere_object3);
 
     StaticGameObject sphere_object4(
-        &gpu_functions, &sphere, TextureType::OBJ_FILE, texture.GetTexture("white"), 
+        &gpu_functions, &sphere, TextureType::OBJ_FILE, texture.GetTexture("black"), 
         LightType::PHONG, "SPHERE_OBJECT4");
-    glm::vec4 sphere_position4 = glm::vec4(57.0f, -4.0f, -23.0f, 1.0f);
+    glm::vec4 sphere_position4 = glm::vec4(64.0f, -4.0f, -9.0f, 1.0f);
     float sphere_radius4 = 5.0f;
     sphere_object4.transform.SetPosition(sphere_position4.x, sphere_position4.y, sphere_position4.z);
     sphere_object4.transform.SetScale(sphere_radius4, sphere_radius4, sphere_radius4);
@@ -663,9 +659,9 @@ int main(int argc, char* argv[])
     collisions.addHitsphere(sphere_object4);
 
     StaticGameObject sphere_object5(
-        &gpu_functions, &sphere, TextureType::OBJ_FILE, texture.GetTexture("black"), 
+        &gpu_functions, &sphere, TextureType::OBJ_FILE, texture.GetTexture("white"), 
         LightType::PHONG, "SPHERE_OBJECT5");
-    glm::vec4 sphere_position5 = glm::vec4(60.0f, -4.0f, 10.0f, 1.0f);
+    glm::vec4 sphere_position5 = glm::vec4(72.0f, -4.0f, -9.0f, 1.0f);
     float sphere_radius5 = 5.0f;
     sphere_object5.transform.SetPosition(sphere_position5.x, sphere_position5.y, sphere_position5.z);
     sphere_object5.transform.SetScale(sphere_radius5, sphere_radius5, sphere_radius5);
@@ -676,7 +672,7 @@ int main(int argc, char* argv[])
     StaticGameObject sphere_object6(
         &gpu_functions, &sphere, TextureType::OBJ_FILE, texture.GetTexture("black"), 
         LightType::PHONG, "SPHERE_OBJECT6");
-    glm::vec4 sphere_position6 = glm::vec4(51.0f, -4.0f, 6.2f, 1.0f);
+    glm::vec4 sphere_position6 = glm::vec4(80.0f, -4.0f, -9.0f, 1.0f);
     float sphere_radius6 = 5.0f;
     sphere_object6.transform.SetPosition(sphere_position6.x, sphere_position6.y, sphere_position6.z);
     sphere_object6.transform.SetScale(sphere_radius6, sphere_radius6, sphere_radius6);
@@ -685,29 +681,48 @@ int main(int argc, char* argv[])
     collisions.addHitsphere(sphere_object6);
 
 
-        StaticGameObject sphere_object7(
-        &gpu_functions, &sphere, TextureType::OBJ_FILE, texture.GetTexture("black"),
+     StaticGameObject sphere_object7(
+        &gpu_functions, &sphere, TextureType::OBJ_FILE, texture.GetTexture("white"),
         LightType::PHONG, "SPHERE_OBJECT7");
-    glm::vec4 sphere_position7 = glm::vec4(50.0f, -4.0f, 30.0f, 1.0f);
-    float sphere_radius7 = 4.0f;
+    glm::vec4 sphere_position7 = glm::vec4(89.0f, -4.0f, -9.0f, 1.0f);
+    float sphere_radius7 = 5.0f;
     sphere_object7.transform.SetPosition(sphere_position7.x, sphere_position7.y, sphere_position7.z);
     sphere_object7.transform.SetScale(sphere_radius7, sphere_radius7, sphere_radius7);
     sphere_object7.UpdateModel();
     sphere_object7.setHitsphere(sphere_position7, sphere_radius7 + 2);
     collisions.addHitsphere(sphere_object7);
 
-    StaticGameObject sphere_object8(
+
+    StaticGameObject clue1(
+        &gpu_functions, &plane, TextureType::PLANE, texture.GetTexture("clue1"),
+        LightType::GOURAUD, "CLUE1"
+    );
+    clue1.transform.SetPosition(74.0f, -5.0f,-23.0f);
+    clue1.transform.SetScale(4.0f, 0.0f, 6.0f);
+    clue1.UpdateModel();
+
+       StaticGameObject clue2(
+        &gpu_functions, &plane, TextureType::PLANE, texture.GetTexture("clue2"),
+        LightType::GOURAUD, "CLUE2"
+    );
+    clue2.transform.SetPosition(62.0f, -5.0f,-23.0f);
+    clue2.transform.SetScale(4.0f, 0.0f, 6.0f);
+    clue2.UpdateModel();
+
+
+
+   /*StaticGameObject sphere_object8(
         &gpu_functions, &sphere, TextureType::OBJ_FILE, texture.GetTexture("black"),
         LightType::PHONG, "SPHERE_OBJECT8");
-    glm::vec4 sphere_position8 = glm::vec4(60.0f, -4.0f, 25.0f, 1.0f);
-    float sphere_radius8 = 3.5f;
+    glm::vec4 sphere_position8 = glm::vec4(98.0f, -4.0f, -9.0f, 1.0f);
+    float sphere_radius8 = 5.0f;
     sphere_object8.transform.SetPosition(sphere_position8.x, sphere_position8.y, sphere_position8.z);
     sphere_object8.transform.SetScale(sphere_radius8, sphere_radius8, sphere_radius8);
     sphere_object8.UpdateModel();
     sphere_object8.setHitsphere(sphere_position8, sphere_radius8 + 2);
-    collisions.addHitsphere(sphere_object8);
+    collisions.addHitsphere(sphere_object8);*/
 
-    StaticGameObject sphere_object9(
+ /*   StaticGameObject sphere_object9(
         &gpu_functions, &sphere, TextureType::OBJ_FILE, texture.GetTexture("black"),
         LightType::PHONG, "SPHERE_OBJECT9");
     glm::vec4 sphere_position9 = glm::vec4(75.0f, -4.0f, 20.0f, 1.0f);
@@ -717,17 +732,6 @@ int main(int argc, char* argv[])
     sphere_object9.UpdateModel();
     sphere_object9.setHitsphere(sphere_position9, sphere_radius9 + 2);
     collisions.addHitsphere(sphere_object9);
-
-    StaticGameObject sphere_object10(
-        &gpu_functions, &sphere, TextureType::OBJ_FILE, texture.GetTexture("black"),
-        LightType::PHONG, "SPHERE_OBJECT10");
-    glm::vec4 sphere_position10 = glm::vec4(90.0f, -4.0f, 10.0f, 1.0f);
-    float sphere_radius10 = 4.5f;
-    sphere_object10.transform.SetPosition(sphere_position10.x, sphere_position10.y, sphere_position10.z);
-    sphere_object10.transform.SetScale(sphere_radius10, sphere_radius10, sphere_radius10);
-    sphere_object10.UpdateModel();
-    sphere_object10.setHitsphere(sphere_position10, sphere_radius10 + 2);
-    collisions.addHitsphere(sphere_object10);
 
     StaticGameObject sphere_object11(
         &gpu_functions, &sphere, TextureType::OBJ_FILE, texture.GetTexture("black"),
@@ -751,16 +755,6 @@ int main(int argc, char* argv[])
     sphere_object12.setHitsphere(sphere_position12, sphere_radius12 + 2);
     collisions.addHitsphere(sphere_object12);
 
-    StaticGameObject sphere_object13(
-        &gpu_functions, &sphere, TextureType::OBJ_FILE, texture.GetTexture("black"),
-        LightType::PHONG, "SPHERE_OBJECT13");
-    glm::vec4 sphere_position13 = glm::vec4(65.0f, -4.0f, -30.0f, 1.0f);
-    float sphere_radius13 = 3.5f;
-    sphere_object13.transform.SetPosition(sphere_position13.x, sphere_position13.y, sphere_position13.z);
-    sphere_object13.transform.SetScale(sphere_radius13, sphere_radius13, sphere_radius13);
-    sphere_object13.UpdateModel();
-    sphere_object13.setHitsphere(sphere_position13, sphere_radius13 + 2);
-    collisions.addHitsphere(sphere_object13);
 
     StaticGameObject sphere_object14(
         &gpu_functions, &sphere, TextureType::OBJ_FILE, texture.GetTexture("black"),
@@ -849,18 +843,7 @@ int main(int argc, char* argv[])
     sphere_object21.UpdateModel();
     sphere_object21.setHitsphere(sphere_position21, sphere_radius21 + 2);
     collisions.addHitsphere(sphere_object21);
-
-    StaticGameObject sphere_object22(
-        &gpu_functions, &sphere, TextureType::OBJ_FILE, texture.GetTexture("black"),
-        LightType::PHONG, "SPHERE_OBJECT22");
-    glm::vec4 sphere_position22 = glm::vec4(95.0f, -4.0f, 5.0f, 1.0f);
-    float sphere_radius22 = 5.5f;
-    sphere_object22.transform.SetPosition(sphere_position22.x, sphere_position22.y, sphere_position22.z);
-    sphere_object22.transform.SetScale(sphere_radius22, sphere_radius22, sphere_radius22);
-    sphere_object22.UpdateModel();
-    sphere_object22.setHitsphere(sphere_position22, sphere_radius22 + 2);
-    collisions.addHitsphere(sphere_object22);
-
+*/
 
 
     //SALA 1
@@ -915,22 +898,8 @@ int main(int argc, char* argv[])
     scene.AddGameObject(&sphere_object5);
     scene.AddGameObject(&sphere_object6);
     scene.AddGameObject(&sphere_object7);
-    scene.AddGameObject(&sphere_object8);
-    scene.AddGameObject(&sphere_object9);
-    //scene.AddGameObject(&sphere_object10);
-    scene.AddGameObject(&sphere_object11);
-    scene.AddGameObject(&sphere_object12);
-    //scene.AddGameObject(&sphere_object13);
-    scene.AddGameObject(&sphere_object14);
-    scene.AddGameObject(&sphere_object15);
-    scene.AddGameObject(&sphere_object16);
-    scene.AddGameObject(&sphere_object17);
-    scene.AddGameObject(&sphere_object18);
-    scene.AddGameObject(&sphere_object19);
-    scene.AddGameObject(&sphere_object20);
-    scene.AddGameObject(&sphere_object21);
-    //scene.AddGameObject(&sphere_object22);
-
+    scene.AddGameObject(&clue1);
+    scene.AddGameObject(&clue2);
 
 
     // Habilitamos o Z-buffer. Veja slides 104-116 do documento Aula_09_Projecoes.pdf.
@@ -975,9 +944,9 @@ int main(int argc, char* argv[])
 
             // Define uma câmera fixa ao fundo
             camera.setStaticCamera(
-                glm::vec4(75.5f, 15.0f, 40.0f, 1.0f), // Posição fixa
-                glm::vec4(74.0f, 0.0f, -10.0f, 1.0f),    // Olhando para o centro da sala
-                glm::vec4(0.0f, 0.0f, -1.0f, 0.0f)
+                glm::vec4(68.0f, 15.0f, -34.0f, 1.0f), // Posição fixa
+                glm::vec4(68.0f, 0.0f, -20.0f, 1.0f),    // Olhando para o centro da sala
+                glm::vec4(0.0f, 0.0f, 1.0f, 0.0f)
             );
 
             gpu_functions.updateLookAtCameraMatrices(camera);
