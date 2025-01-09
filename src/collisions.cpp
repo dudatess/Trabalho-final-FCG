@@ -9,12 +9,12 @@
 void Collisions::addHitbox(const GameObject& object)
 {
     HitBox hitbox = object.getHitbox();
-    hitboxes.push_back(hitbox);
+    hitboxes[object.getObjectId()] = hitbox;
 }
 
 void Collisions::removeHitbox(const GameObject& object)
 {
-
+    hitboxes.erase(object.getObjectId());
 }
 
 void Collisions::addHitsphere(const GameObject& object)
@@ -23,20 +23,10 @@ void Collisions::addHitsphere(const GameObject& object)
     hitSpheres.push_back(hitsphere);
 }
 
-void Collisions::removeHitsphere(const GameObject& object)
-{
-
-}
-
 void Collisions::addClickableHitbox(const GameObject& object)
 {
     HitBox hitbox = object.getHitbox();
     this->clickableHitboxes[object.getObjectId()] = hitbox;
-}
-
-void Collisions::removeClickableHitbox(const GameObject& object)
-{
-
 }
 
 void Collisions::clearHitboxes()
@@ -50,16 +40,41 @@ glm::vec4 Collisions::checkPlayerCollision(Player& player)
     glm::vec4 player_velocity = player.getVelocity();
 
     glm::vec4 new_player_velocity = glm::vec4(player_velocity.x, player_velocity.y, player_velocity.z, 0.0f);
-    glm::vec4 future_player_position = player_position + player_velocity;
+    glm::vec4 future_player_position = player_position + new_player_velocity;
 
+    bool hasCollidedWithSphere = false;
+
+    for (HitSphere& hitsphere : hitSpheres)
+    {
+        glm::vec4 sphere_center = hitsphere.getCenter();
+        float sphere_radius = hitsphere.getRadius();
+
+        bool isColliding = checkPointSphereCollision(future_player_position, sphere_center, sphere_radius);
+
+        if (isColliding)
+        {
+            if (hasCollidedWithSphere)
+            {
+                new_player_velocity = glm::vec4(0.0f, 0.0f, 0.0f, 0.0f);
+                return new_player_velocity;
+            }
+            glm::vec4 collision_normal = VectorOperations::normalize(future_player_position - sphere_center);
+            new_player_velocity = VectorOperations::reflect(new_player_velocity, collision_normal);
+            new_player_velocity.y = 0;
+            future_player_position = player_position + new_player_velocity;
+            hasCollidedWithSphere = true;
+        }
+    }
+
+    
     glm::vec4 future_x_position = glm::vec4(future_player_position.x, player_position.y, player_position.z, 1.0f);
     glm::vec4 future_y_position = glm::vec4(player_position.x, future_player_position.y, player_position.z, 1.0f);
     glm::vec4 future_z_position = glm::vec4(player_position.x, player_position.y, future_player_position.z, 1.0f);
 
-    for (HitBox& hitbox : hitboxes)
+    for (auto hitbox : hitboxes)
     {
-        glm::vec4 object_min = hitbox.getMinPoint();
-        glm::vec4 object_max = hitbox.getMaxPoint();
+        glm::vec4 object_min = hitbox.second.getMinPoint();
+        glm::vec4 object_max = hitbox.second.getMaxPoint();
 
         //  std::cout << "Object min: " << object_min.x << " " << object_min.y << " " << object_min.z << std::endl;
         //  std::cout << "Object max: " << object_max.x << " " << object_max.y << " " << object_max.z << std::endl;
@@ -71,8 +86,6 @@ glm::vec4 Collisions::checkPlayerCollision(Player& player)
         //  std::cout << "X colliding: " << isXColliding << std::endl;
         //  std::cout << "Y colliding: " << isYColliding << std::endl;
         //  std::cout << "Z colliding: " << isZColliding << std::endl;
-
-
 
         if (isXColliding)
         {
@@ -86,23 +99,16 @@ glm::vec4 Collisions::checkPlayerCollision(Player& player)
         {
             new_player_velocity.z = 0;
         }
-    }
 
-    for (HitSphere& hitsphere : hitSpheres)
-    {
-        glm::vec4 sphere_center = hitsphere.getCenter();
-        float sphere_radius = hitsphere.getRadius();
-
-        bool isColliding = checkPointSphereCollision(future_player_position, sphere_center, sphere_radius);
-
-        if (isColliding)
+        if (isXColliding || isYColliding || isZColliding)
         {
-            glm::vec4 collision_normal = VectorOperations::normalize(future_player_position - sphere_center);
-            new_player_velocity = VectorOperations::reflect(player_velocity, collision_normal);
-            new_player_velocity.y = 0;
+            if (hasCollidedWithSphere)
+            {
+                new_player_velocity = glm::vec4(0.0f, 0.0f, 0.0f, 0.0f);
+                return new_player_velocity;
+            }
         }
     }
-
 
     return new_player_velocity;
 }
@@ -119,13 +125,7 @@ std::unordered_map<std::string, bool> Collisions::checkClickableCollision(Player
         bool isColliding = false;
         isColliding = checkRayToAABBCollision(player_position, player_view_vector, clickableHitboxes[object.first].getMinPoint(), clickableHitboxes[object.first].getMaxPoint());
         clickable_objects_collision[object.first] = isColliding;
-        // std::cout << "Is clickacble colliding: " << isColliding << std::endl;
     }
-
-    // isColliding = checkRayToAABBCollision(player_position, player_view_vector, clickableHitboxes[0].getMinPoint(), clickableHitboxes[0].getMaxPoint());
-
-     
-
     return clickable_objects_collision;
 }
 
@@ -137,9 +137,6 @@ bool Collisions::checkPointAABBCollision(glm::vec4 point, glm::vec4 min, glm::ve
     // std::cout << "bool y: " << (point.y >= min.y) << " " << (point.y <= max.y) << std::endl;
     // std::cout << "Is collision on z: " << point.z << " " << min.z << " " << max.z << std::endl;
     // std::cout << "bool z: " << (point.z >= min.z) << " " << (point.z <= max.z) << std::endl;
-
-
-
     return point.x >= min.x && point.x <= max.x &&
            point.y >= min.y && point.y <= max.y &&
            point.z >= min.z && point.z <= max.z;

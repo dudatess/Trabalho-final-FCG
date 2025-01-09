@@ -53,3 +53,8 @@ void Door::Render()
         object->num_indices,
         object->first_index);
 }
+
+void Door::setHitbox(glm::vec4 min_point, glm::vec4 max_point)
+{
+    this->hitbox = HitBox(min_point, max_point);
+}

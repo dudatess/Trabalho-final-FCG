@@ -20,23 +20,34 @@ void GameLogic::handleInteraction(std::string object_id)
 {
     if (object_id == "PASSWORD_CUBE" || object_id == "PASSWORD_CUBE2")
     {
-        //std::cout << "Interacting with password cube!!!" << std::endl;
-        if (this->last_interaction > this->cooldown)
+        if (checkLastInteraction())
         {
             this->last_interaction = 0.0f;
             incPasswordInput();
             std::cout << "Incrementing password input... " << password_input << std::endl;
         }
     }
-    if (object_id == "CHECK_CUBE" || object_id == "CHECK_CUBE2")
+    if (object_id == "CHECK_CUBE")
     {
-        checkPassword();
+        if (checkLastInteraction())
+        {
+            checkPassword(1);
+        }
+    }
+    if (object_id == "CHECK_CUBE2")
+    {
+        if (checkLastInteraction())
+        {
+            checkPassword(2);
+        }
     }
 
     if (object_id == "TOILET")
     {
-        // std::cout << "dentro do handle de toilet";
-        toiletInteraction();
+        if (checkLastInteraction())
+        {
+            toiletInteraction();
+        }
     }
 
 
@@ -57,23 +68,35 @@ void GameLogic::incPasswordInput()
     this->password_input++;
 }
 
-void GameLogic::checkPassword()
-{
-    // std::cout << "Checking password... " << password_input << " " << password << std::endl;
-    if (this->first_password == this->password_input)
+void GameLogic::checkPassword(int puzzle_number)
+{   
+    if (puzzle_number == 1)
     {
-        std::cout << "First Password correct!" << std::endl;
-        this->is_first_password_ok = !is_first_password_ok;
+        if (this->first_password == this->password_input)
+        {
+            std::cout << "First Password correct!" << std::endl;
+            this->is_first_password_ok = !is_first_password_ok;
+        }
+        else
+        {
+            std::cout << "Incorrect Password! Try again!" << std::endl;
+        }
     }
 
-
-    if (this->second_password == this->password_input)
+    if (puzzle_number == 2)
     {
-        std::cout << "Second Password correct!" << std::endl;
-        this->is_second_password_ok = !is_second_password_ok;
-        
+        if (this->second_password == this->password_input)
+        {
+            std::cout << "Second Password correct!" << std::endl;
+            this->is_second_password_ok = !is_second_password_ok;
+        }
+        else
+        {
+            std::cout << "Incorrect Password! Try again!" << std::endl;
+        }
     }
 
+    std::cout << "Resetting password buffer..." << std::endl;
     this->password_input = 0;
 }
 
@@ -90,7 +113,6 @@ bool GameLogic::isSecondPasswordCorrect()
 void GameLogic::toiletInteraction()
 {
     this->delete_everything = true;
-    // std::cout << "interagiu com banheiro!" << std::endl;
 }
 bool GameLogic::shouldDeleteEverything()
 {
@@ -100,4 +122,14 @@ bool GameLogic::shouldDeleteEverything()
 void GameLogic::resetDeleteEverything()
 {
     this->delete_everything = false;
+}
+
+bool GameLogic::checkLastInteraction()
+{
+    bool is_ok = this->last_interaction > this->cooldown;
+    if (is_ok)
+    {
+        this->last_interaction = 0.0f;
+    }
+    return is_ok;
 }

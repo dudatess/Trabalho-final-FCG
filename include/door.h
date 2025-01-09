@@ -34,6 +34,7 @@ public:
 
     void OpeningDoor(float deltaTime);
     void ClosingDoor(float deltaTime);
+    void setHitbox(glm::vec4 min_point, glm::vec4 max_point);
 };
 
 #endif

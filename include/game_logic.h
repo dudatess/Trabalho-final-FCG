@@ -27,12 +27,13 @@ class GameLogic
 
     void setPasswordInput(int password_input);
     void incPasswordInput();
-    void checkPassword();
+    void checkPassword(int puzzle_number);
     void toiletInteraction();
 
     bool isFirstPasswordCorrect();
     bool isSecondPasswordCorrect();
     bool shouldDeleteEverything();
+    bool checkLastInteraction();
     void resetDeleteEverything();
 };
 

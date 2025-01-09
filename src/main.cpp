@@ -422,7 +422,7 @@ int main(int argc, char* argv[])
     left_wall1.transform.SetPosition(40.0f, 0.0f, -30.0f); 
     left_wall1.transform.SetScale(1.0f, 20.0f, 40.0f);
     left_wall1.UpdateModel();
-    left_wall1.setHitbox(glm::vec4(38.0f, 0.0f, -40.0f, 1.0f), glm::vec4(40.0f, 20.0f, 10.0f, 1.0f));
+    left_wall1.setHitbox(glm::vec4(38.0f, -10.0f, -40.0f, 1.0f), glm::vec4(40.0f, 10.0f, 10.0f, 1.0f));
     collisions.addHitbox(left_wall1);
 
     
@@ -433,7 +433,7 @@ int main(int argc, char* argv[])
     left_wall2.transform.SetPosition(40.0f, 0.0f, 56.0f); 
     left_wall2.transform.SetScale(1.0f, 20.0f, 40.0f);
     left_wall2.UpdateModel();
-    left_wall2.setHitbox(glm::vec4(37.0f, 0.0f, 16.0f, 1.0f), glm::vec4(44.0f, 0.0f, 44.0f, 1.0f));
+    left_wall2.setHitbox(glm::vec4(38.0f, 0.0f, 16.0f, 1.0f), glm::vec4(43.0f, 0.0f, 40.0f, 1.0f));
     collisions.addHitbox(left_wall2);
 
     
@@ -460,14 +460,6 @@ int main(int argc, char* argv[])
     board.transform.SetRotation(-3.14/2, 0.0f, 0.0f);
     board.transform.SetScale(15.0f, 10.0f, 10.0f);
     board.UpdateModel();
-
-    /*StaticGameObject board(&gpu_functions, &cube, TextureType::OBJ_FILE ,texture.GetTexture("bege_wall"), LightType::NO); 
-    board.transform.SetPosition(0.0f, 0.0f, -40.0f); 
-    board.transform.SetScale(10.0f, 7.0f, 0.3f); 
-    board.UpdateModel();
-    board.setHitbox(glm::vec4(-40.0f, 0.0f, -42.0f, 1.0f), glm::vec4(40.0f, 20.0f, -38.0f, 1.0f));
-    collisions.addHitbox(back_wall);*/
-
 
     // (Opcional) Teto
     StaticGameObject ceiling_object(
@@ -508,14 +500,16 @@ int main(int argc, char* argv[])
     door.transform.SetScale(0.08f, 0.08f, 0.08f);
     door.transform.SetRotation(3.14/2, 0.0f, -3.14/2);
     door.UpdateModel();
-    //door.setHitbox(glm::vec4(38.0f, 0.0f, -40.0f, 1.0f), glm::vec4(42.0f, 20.0f, 40.0f, 1.0f));
-    //collisions.addHitbox(door);
+    door.setHitbox(glm::vec4(38.0f, -10.0f, 10.0f, 1.0f), glm::vec4(39.0f, 10.0f, 16.0f, 1.0f));
+    collisions.addHitbox(door);
 
     StaticGameObject cow(
         &gpu_functions, &cow_object, TextureType::PLANE, texture.GetTexture("bege_wall"), 
         LightType::GOURAUD, "COW");
     cow.transform.SetPosition(-20.0f, -3.0f, 0.0f);
     cow.transform.SetScale(10.0f, 10.0f, 10.0f);
+    cow.setHitbox(glm::vec4(-31.0f, -10.0f, -5.0f, 1.0f), glm::vec4(-8.0f, 10.0f, 5.0f, 1.0f));
+    collisions.addHitbox(cow);
     cow.UpdateModel();  
 
     StaticGameObject desk_object(
@@ -549,7 +543,7 @@ int main(int argc, char* argv[])
     right_wall2.transform.SetPosition(42.0f, 0.0f, -30.0f); 
     right_wall2.transform.SetScale(1.0f, 20.0f, 40.0f);
     right_wall2.UpdateModel();
-    right_wall2.setHitbox(glm::vec4(42.0f, 20.0f, 10.0f, 1.0f), glm::vec4(42.0f, 0.0f, -38.0f, 1.0f));
+    right_wall2.setHitbox(glm::vec4(39.0f, -10.0f, -40.0f, 1.0f), glm::vec4(45.0f, 10.0f, 10.5f, 1.0f));
     collisions.addHitbox(right_wall2);
 
     
@@ -559,7 +553,7 @@ int main(int argc, char* argv[])
     right_wall3.transform.SetPosition(42.0f, 0.0f, 56.0f); 
     right_wall3.transform.SetScale(1.0f, 20.0f, 40.0f);
     right_wall3.UpdateModel();
-    right_wall3.setHitbox(glm::vec4(42.0f, 0.0f, -38.0f, 1.0f), glm::vec4(42.0f, 20.0f, 10.0f, 1.0f));
+    right_wall3.setHitbox(glm::vec4(39.0f, -10.0f, 15.5f, 1.0f), glm::vec4(45.0f, 10.0f, 37.0f, 1.0f));
     collisions.addHitbox(right_wall3);
 
     StaticGameObject floor_object2(
@@ -584,7 +578,7 @@ int main(int argc, char* argv[])
     front_wall2.transform.SetPosition(70.0f, 0.0f, 40.0f);
     front_wall2.transform.SetScale(28.0f, 20.0f, 1.0f);
     front_wall2.UpdateModel();
-    front_wall2.setHitbox(glm::vec4(-40.0f, -10.0f, 38.0f, 1.0f), glm::vec4(40.0f, 10.0f, 42.0f, 1.0f));
+    front_wall2.setHitbox(glm::vec4(44.0f, -10.0f, 37.0f, 1.0f), glm::vec4(95.0f, 10.0f, 40.0f, 1.0f));
     collisions.addHitbox(front_wall2);
 
      // Parede da esquerda
@@ -594,7 +588,7 @@ int main(int argc, char* argv[])
     left_wall4.transform.SetPosition(95.0f, 0.0f, -30.0f); 
     left_wall4.transform.SetScale(1.0f, 20.0f, 40.0f);
     left_wall4.UpdateModel();
-    left_wall4.setHitbox(glm::vec4(38.0f, 0.0f, -40.0f, 1.0f), glm::vec4(40.0f, 20.0f, 10.0f, 1.0f));
+    left_wall4.setHitbox(glm::vec4(93.0f, -10.0f, -40.0f, 1.0f), glm::vec4(98.0f, 10.0f, 10.0f, 1.0f));
     collisions.addHitbox(left_wall4);
 
     
@@ -605,7 +599,7 @@ int main(int argc, char* argv[])
     left_wall5.transform.SetPosition(95.0f, 0.0f, 56.0f); 
     left_wall5.transform.SetScale(1.0f, 20.0f, 40.0f);
     left_wall5.UpdateModel();
-    left_wall5.setHitbox(glm::vec4(37.0f, 0.0f, 16.0f, 1.0f), glm::vec4(44.0f, 0.0f, 44.0f, 1.0f));
+    left_wall5.setHitbox(glm::vec4(93.0f, -10.0f, 15.0f, 1.0f), glm::vec4(98.0f, 10.0f, 37.0f, 1.0f));
     collisions.addHitbox(left_wall5);
 
     
@@ -630,6 +624,8 @@ int main(int argc, char* argv[])
     door2.transform.SetScale(0.08f, 0.08f, 0.08f);
     door2.transform.SetRotation(3.14/2, 0.0f, -3.14/2);
     door2.UpdateModel();
+    door2.setHitbox(glm::vec4(93.0f, -10.0f, 10.0f, 1.0f), glm::vec4(95.0f, 10.0f, 15.0f, 1.0f));
+    collisions.addHitbox(door2);
 
     StaticGameObject sphere_object2(
         &gpu_functions, &sphere, TextureType::OBJ_FILE, texture.GetTexture("black"), 
@@ -745,7 +741,7 @@ int main(int argc, char* argv[])
     front_wall3.transform.SetPosition(130.0f, 0.0f, 37.0f);
     front_wall3.transform.SetScale(35.0f, 40.0f, 1.0f);
     front_wall3.UpdateModel();
-    front_wall3.setHitbox(glm::vec4(-40.0f, -10.0f, 38.0f, 1.0f), glm::vec4(40.0f, 10.0f, 42.0f, 1.0f));
+    front_wall3.setHitbox(glm::vec4(98.0f, -10.0f, 35.0f, 1.0f), glm::vec4(150.0f, 10.0f, 40.0f, 1.0f));
     collisions.addHitbox(front_wall3);
 
     StaticGameObject back_wall3(
@@ -754,8 +750,8 @@ int main(int argc, char* argv[])
     back_wall3.transform.SetPosition(124.0f, 0.0f, -37.0f); 
     back_wall3.transform.SetScale(28.0f, 40.0f, 1.0f); 
     back_wall3.UpdateModel();
-    back_wall3.setHitbox(glm::vec4(-40.0f, 0.0f, -42.0f, 1.0f), glm::vec4(40.0f, 20.0f, -38.0f, 1.0f));
-    collisions.addHitbox(back_wall2);
+    back_wall3.setHitbox(glm::vec4(98.0f, -10.0f, -40.0f, 1.0f), glm::vec4(148.0f, 10.0f, -35.0f, 1.0f));
+    collisions.addHitbox(back_wall3);
         
       // Parede da esquerda
     StaticGameObject left_wall7(
@@ -764,7 +760,7 @@ int main(int argc, char* argv[])
     left_wall7.transform.SetPosition(97.0f, 0.0f, -30.0f); 
     left_wall7.transform.SetScale(1.0f, 20.0f, 40.0f);
     left_wall7.UpdateModel();
-    left_wall7.setHitbox(glm::vec4(38.0f, 0.0f, -40.0f, 1.0f), glm::vec4(40.0f, 20.0f, 10.0f, 1.0f));
+    left_wall7.setHitbox(glm::vec4(96.0f, -10.0f, -36.0f, 1.0f), glm::vec4(99.0f, 10.0f, 10.0f, 1.0f));
     collisions.addHitbox(left_wall7);
 
     
@@ -775,8 +771,8 @@ int main(int argc, char* argv[])
     left_wall8.transform.SetPosition(97.0f, 0.0f, 56.0f); 
     left_wall8.transform.SetScale(1.0f, 20.0f, 40.0f);
     left_wall8.UpdateModel();
-    left_wall8.setHitbox(glm::vec4(37.0f, 0.0f, 16.0f, 1.0f), glm::vec4(44.0f, 0.0f, 44.0f, 1.0f));
-    collisions.addHitbox(left_wall5);
+    left_wall8.setHitbox(glm::vec4(96.0f, -10.0f, 16.0f, 1.0f), glm::vec4(99.0f, 10.0f, 40.0f, 1.0f));
+    collisions.addHitbox(left_wall8);
 
     
     StaticGameObject left_wall9(
@@ -793,7 +789,7 @@ int main(int argc, char* argv[])
     right_wall4.transform.SetPosition(150.0f, 0.0f, 0.0f); 
     right_wall4.transform.SetScale(1.0f, 40.0f, 40.0f);
     right_wall4.UpdateModel();
-    right_wall4.setHitbox(glm::vec4(-42.0f, 0.0f, -40.0f, 1.0f), glm::vec4(-38.0f, 20.0f, 40.0f, 1.0f));
+    right_wall4.setHitbox(glm::vec4(148.0f, -10.0f, -40.0f, 1.0f), glm::vec4(150.0f, 10.0f, 40.0f, 1.0f));
     collisions.addHitbox(right_wall4);
 
      StaticGameObject ceiling_object3(
@@ -943,7 +939,7 @@ int main(int argc, char* argv[])
             old_time = current_time;
 
         
-            player.updateBezier(delta_time);
+            //player.updateBezier(delta_time);
 
             // Movimento que o usuário deseja fazer
             
@@ -964,22 +960,24 @@ int main(int argc, char* argv[])
 
             gpu_functions.updateFreeCameraMatrices(player.getFreeCamera());
 
-            //player.printPlayerPosition();
+            // player.printPlayerPosition();
 
 
             if (game_logic.isFirstPasswordCorrect())
             {
+                collisions.removeHitbox(door);
                 door.OpeningDoor(delta_time);
                 door.UpdateModel();
             }
             if (game_logic.isSecondPasswordCorrect())
             {
+                collisions.removeHitbox(door2);
                 door2.OpeningDoor(delta_time);
                 door2.UpdateModel();
             }
             if(game_logic.shouldDeleteEverything())
             {
-                std::cout << "dentro do delete da main" << std::endl;
+                // std::cout << "dentro do delete da main" << std::endl;
                 scene.RemoveGameObject(&floor_object);
                 scene.RemoveGameObject(&back_wall);
                 scene.RemoveGameObject(&right_wall);

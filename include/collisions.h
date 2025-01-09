@@ -15,12 +15,9 @@ struct CollisionState {
 };
 class Collisions {
 private:
-    // std::unordered_map<GameObject, HitBox> hitboxes;
-    std::vector<HitBox> hitboxes;
-    std::vector<HitSphere> hitSpheres;
-    //std::vector<HitBox> clickableHitboxes;
-
+    std::unordered_map<std::string, HitBox> hitboxes;
     std::unordered_map<std::string, HitBox> clickableHitboxes;
+    std::vector<HitSphere> hitSpheres;
     
 public:
     void addHitbox(const GameObject& object);
