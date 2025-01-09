@@ -33,6 +33,12 @@ void GameLogic::handleInteraction(std::string object_id)
         checkPassword();
     }
 
+    if (object_id == "TOILET")
+    {
+        // std::cout << "dentro do handle de toilet";
+        toiletInteraction();
+    }
+
 
 }
 
@@ -58,15 +64,17 @@ void GameLogic::checkPassword()
     {
         std::cout << "First Password correct!" << std::endl;
         this->is_first_password_ok = !is_first_password_ok;
-        this->password_input = 0;
     }
+
 
     if (this->second_password == this->password_input)
     {
         std::cout << "Second Password correct!" << std::endl;
         this->is_second_password_ok = !is_second_password_ok;
-        this->password_input = 0;
+        
     }
+
+    this->password_input = 0;
 }
 
 bool GameLogic::isFirstPasswordCorrect()
@@ -77,4 +85,19 @@ bool GameLogic::isFirstPasswordCorrect()
 bool GameLogic::isSecondPasswordCorrect()
 {
     return this->is_second_password_ok;
+}
+
+void GameLogic::toiletInteraction()
+{
+    this->delete_everything = true;
+    // std::cout << "interagiu com banheiro!" << std::endl;
+}
+bool GameLogic::shouldDeleteEverything()
+{
+    return this->delete_everything;
+}
+
+void GameLogic::resetDeleteEverything()
+{
+    this->delete_everything = false;
 }

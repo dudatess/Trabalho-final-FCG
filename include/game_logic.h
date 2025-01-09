@@ -9,13 +9,15 @@ class GameLogic
     private:
     //std::unordered_map<std::string, GameObject> clickable_objects;
     int first_password = 3;
-    int second_password = 2;
+    int second_password = 5;
     int password_input = 0;
     bool is_first_password_ok = false;
     bool is_second_password_ok = false;
 
     float cooldown = 0.5f;
     float last_interaction = 0.0f;
+
+    bool delete_everything = false;
 
     public:
     GameLogic();
@@ -26,9 +28,12 @@ class GameLogic
     void setPasswordInput(int password_input);
     void incPasswordInput();
     void checkPassword();
+    void toiletInteraction();
 
     bool isFirstPasswordCorrect();
     bool isSecondPasswordCorrect();
+    bool shouldDeleteEverything();
+    void resetDeleteEverything();
 };
 
 #endif

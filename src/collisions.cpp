@@ -61,16 +61,16 @@ glm::vec4 Collisions::checkPlayerCollision(Player& player)
         glm::vec4 object_min = hitbox.getMinPoint();
         glm::vec4 object_max = hitbox.getMaxPoint();
 
-        // std::cout << "Object min: " << object_min.x << " " << object_min.y << " " << object_min.z << std::endl;
-        // std::cout << "Object max: " << object_max.x << " " << object_max.y << " " << object_max.z << std::endl;
+        //  std::cout << "Object min: " << object_min.x << " " << object_min.y << " " << object_min.z << std::endl;
+        //  std::cout << "Object max: " << object_max.x << " " << object_max.y << " " << object_max.z << std::endl;
 
         bool isXColliding = checkPointAABBCollision(future_x_position, object_min, object_max);
         bool isYColliding = checkPointAABBCollision(future_y_position, object_min, object_max);
         bool isZColliding = checkPointAABBCollision(future_z_position, object_min, object_max);
 
-        // std::cout << "X colliding: " << isXColliding << std::endl;
-        // std::cout << "Y colliding: " << isYColliding << std::endl;
-        // std::cout << "Z colliding: " << isZColliding << std::endl;
+        //  std::cout << "X colliding: " << isXColliding << std::endl;
+        //  std::cout << "Y colliding: " << isYColliding << std::endl;
+        //  std::cout << "Z colliding: " << isZColliding << std::endl;
 
 
 
