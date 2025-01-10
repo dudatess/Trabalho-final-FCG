@@ -2,7 +2,7 @@
 
 ## Contribuições dos Membros da Dupla
 
-- **[Eduarda Tessari Pereira]**: [instâncias de objetos,modelos de iluminação, modelos de interpolação, curva de Bézier.]
+- **[Eduarda Tessari Pereira]**: [instâncias de objetos,modelos de iluminação, modelos de interpolação, curva de Bézier, câmera lookat]
 - **[João Vítor Schimuneck de Souza]**: [transformações geométricas, colisões, câmera-livre, animações baseadas em tempo]
 
 ## Uso de Ferramentas como ChatGPT ou Similares
