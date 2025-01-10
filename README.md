@@ -94,6 +94,7 @@ Na última sala, há um vaso sanitário interativo. Ao interagir com ele, todos 
 - Adicionamos colisões nas portas, que são removidas assim que o usuário resolve o puzzle da sala correspondente.  
 - Adicionamos colisões em mais objetos, incluindo algumas paredes e a vaca (cow.obj).  
 - Corrigimos um bug relacionado à colisão **Ponto-Esfera**, no qual o usuário acabava entrando dentro de uma esfera se colidisse com duas ao mesmo tempo.  
+- **PLUS**: Adicionamos música ambiente ao jogo.
 
 
 ## Compilação
