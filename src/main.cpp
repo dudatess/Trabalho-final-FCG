@@ -29,6 +29,7 @@
 #include <stdexcept>
 #include <algorithm>
 #include <iostream>
+#include <miniaudio.h>
 
 // Headers das bibliotecas OpenGL
 #include <glad/glad.h>   // Criação de contexto OpenGL 3.3
@@ -58,6 +59,7 @@
 #include "collisions.h"
 #include "game_logic.h"
 #include "door.h"
+#include "audio.h"
 #define M_PI 3.14159265358979323846
 
 // Declaração de funções utilizadas para pilha de matrizes de modelagem.
@@ -92,12 +94,14 @@ void TextRendering_ShowEulerAngles(GLFWwindow* window);
 void TextRendering_ShowProjection(GLFWwindow* window);
 void TextRendering_ShowFramesPerSecond(GLFWwindow* window);
 
+
 // Funções callback para comunicação com o sistema operacional e interação do
 // usuário. Veja mais comentários nas definições das mesmas, abaixo.
 void FramebufferSizeCallback(GLFWwindow* window, int width, int height);
 void ErrorCallback(int error, const char* description);
 //void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode);
 //void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
+
 
 
 // Definimos uma estrutura que armazenará dados necessários para renderizar
@@ -292,6 +296,7 @@ int main(int argc, char* argv[])
     Object lamp("../../data/wooden_lamp.obj", "lamp");
     Object toilet("../../data/Toilet.obj", "toilet");
 
+    Audio::Init("../../data/AirportLounge-DiscoUltralounge-KevinMacLeod.mp3", 0.5f);
 
 //------------------------------------SALA 1------------------------------------------------------------------
 
@@ -893,7 +898,7 @@ int main(int argc, char* argv[])
     float current_time = 0;
     float delta_time = 0;
 
-    
+    Audio::PlayAmbient();
     // Ficamos em um loop infinito, renderizando, até que o usuário feche a janela
     while (!glfwWindowShouldClose(window))
     { // Aqui executamos as operações de renderização
@@ -1070,6 +1075,8 @@ int main(int argc, char* argv[])
     // Finalizamos o uso dos recursos do sistema operacional
     glfwTerminate();
 
+    Audio::StopAmbient();
+    Audio::Destroy();
     // Fim do programa
     return 0;
 }
