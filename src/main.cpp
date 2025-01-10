@@ -944,7 +944,7 @@ int main(int argc, char* argv[])
             old_time = current_time;
 
         
-            //player.updateBezier(delta_time);
+            player.updateBezier(delta_time);
 
             // Movimento que o usuário deseja fazer
             
